@@ -1,0 +1,167 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var \Theiconnz\Campaigns\Block\Campaign $block */
+
+?>
+
+<form class="form contact"
+      id="campaign-form"
+      method="post"
+      enctype="multipart/form-data"
+      data-mage-init='{"Theiconnz_Campaigns/js/campaigns":
+              {
+                "validationURL" : "<?= $block->escapeUrl($block->getFormAction()) ?>",
+                "fileuploadid": "#file-upload",
+                "formelement": "#campaign-form",
+                "successblock": "#campaign-data-form-update",
+                "formcontainer": "#campaign-data-form",
+                "formid": "campaign-form"
+              }
+          }'
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'
+    >
+    <?= $block->getBlockHtml('formkey') ?>
+    <input type="hidden" name="cid" value="<?= $block->getCampaignId()?>" />
+
+    <div id="campaign-data-form">
+        <div class="campaign-content">
+            <?=$block->getPage()->getData('content')?>
+        </div>
+
+        <fieldset class="fieldset">
+            <div class="field name required">
+                <label class="label" for="name"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
+                <div class="control">
+                    <input name="name"
+                           id="name"
+                           title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                           value=""
+                           class="input-text"
+                           type="text"
+                           data-validate="{required:true, minlength:2}"/>
+                </div>
+            </div>
+            <div class="field email required">
+                <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input name="email"
+                           id="email"
+                           title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                           value=""
+                           class="input-text"
+                           type="email"
+                           data-validate="{required:true, 'validate-email':true}"/>
+                </div>
+            </div>
+            <div class="field telephone">
+                <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
+                <div class="control">
+                    <input name="telephone"
+                           id="telephone"
+                           title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                           value=""
+                           class="input-text"
+                           type="tel" />
+                </div>
+            </div>
+            <div class="field comment required">
+                <label class="label" for="comment">
+                    <span><?= $block->escapeHtml(__('What’s on your mind?')) ?></span>
+                </label>
+                <div class="control">
+                    <textarea name="content"
+                              id="comment"
+                              title="<?= $block->escapeHtmlAttr(__('What’s on your mind?')) ?>"
+                              class="input-text"
+                              cols="5"
+                              rows="3"
+                              data-validate="{required:true }"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="field comment">
+                <label class="label" for="comment">
+                    <span><?= $block->escapeHtml(__('Your Image')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="file"
+                           name="filename"
+                           class="input-text"
+                           id="file-upload"
+                           accept="image/*"
+                    />
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="fieldset">
+            <div class="field terms">
+                <label class="label" for="comment">
+                    <span><?= $block->escapeHtml(__('Terms and Conditions')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="checkbox"
+                           name="terms"
+                           class="input-text"
+                           value="1"
+                           data-validate="{required:true}"
+                    />
+                </div>
+            </div>
+
+            <div class="field use_marketing">
+                <label class="label" for="comment">
+                    <span><?= $block->escapeHtml(__('Use data in marketing')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="checkbox"
+                           name="useinmarketing"
+                           class="input-text"
+                           value="1"
+                    />
+                </div>
+            </div>
+
+            <div class="field newsletter">
+                <label class="label" for="newsletter">
+                    <span><?= $block->escapeHtml(__('Add to newsletter')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="checkbox"
+                           name="newsletter"
+                           class="input-text"
+                           value="1"
+                    />
+                </div>
+            </div>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <input type="hidden" name="hideit" id="hideit" value="" />
+                <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                    <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="campaign-data-form-update" style="display: none;">
+        <?php
+        $blockid = $block->getPage()->getData('block_identifier');
+        if($blockid) {
+            echo $this->getLayout()
+                ->createBlock('Magento\Cms\Block\Block')
+                ->setBlockId($blockid)
+                ->toHtml();
+        }
+        ?>
+    </div>
+</form>
+
