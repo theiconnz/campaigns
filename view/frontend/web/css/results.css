@@ -90,8 +90,10 @@
 }
 
 .tile-3 .image-sub-tile-2{
+    display: flex;
     width: 100%;
     flex: 1;
+    overflow: hidden;
 }
 
 .tile-3 .image-sub-tile-2 img{

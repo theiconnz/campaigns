@@ -5,11 +5,15 @@
         "php": ">=7.0.0"
     },
     "type": "magento2-module",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
     ],
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability":"stable",
     "autoload": {
         "files": [
             "registration.php"
