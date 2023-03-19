@@ -20,7 +20,7 @@ class ResultsActions extends Column
     /**
      * Url path
      */
-    const URL_PATH_VIEW = 'campaigns/results/view';
+    const URL_PATH_VIEW = 'campaigns/results/edit';
     const URL_PATH_CAMPAIGN = 'campaigns/campaign/edit';
     const URL_PATH_DETAILS = 'campaigns/results/details';
 
@@ -78,7 +78,7 @@ class ResultsActions extends Column
                                     'camp_id' => $item['camp_id'],
                                 ]
                             ),
-                            'label' => __('View'),
+                            'label' => __('Campaign'),
                         ]
                     ];
                 }

@@ -23,6 +23,8 @@
                 default="1" comment="Is Campaign Active"/>
         <column xsi:type="smallint" name="newsletter" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Newsletter Active"/>
+        <column xsi:type="smallint" name="showphone" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Show Phone Active"/>
         <column xsi:type="varchar" name="block_identifier" nullable="false" length="255" comment="Block String Identifier"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="camp_id"/>

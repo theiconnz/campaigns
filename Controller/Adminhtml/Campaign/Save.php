@@ -58,7 +58,7 @@ class Save extends Action implements HttpPostActionInterface
      * @param PostDataProcessor $dataProcessor
      * @param DataPersistorInterface $dataPersistor
      * @param CampaignFactory|null $campaignFactory
-     * @param CampaignRepositoryInterface|null $campaignRepository
+     * @param CampaignRepositoryInterface $campaignRepository
      */
     public function __construct(
         Action\Context $context,

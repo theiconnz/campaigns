@@ -32,7 +32,7 @@ define([
             fileuploadid: "#file-upload",
             formelement: "#campaign-form",
             successblock: "#campaign-form",
-            formcontainer: "#campaign-data-form",
+            formcontainer: ".campaign-data-form",
             formid: "campaign-form",
         },
 

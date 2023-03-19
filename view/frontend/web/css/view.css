@@ -1,0 +1,288 @@
+.campaign-data-form-container{
+    max-width: 600px;
+    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+}
+
+.campaign-data-form-container fieldset{
+    margin-bottom: 0px;
+}
+
+.campaign-data-form-containe .fieldset > .field, .campaign-data-form-containe .fieldset > .fields > .field{
+    margin:0 0 20px;
+}
+
+.campaign-data-form-container input[type=text],
+.campaign-data-form-container input[type=email],
+.campaign-data-form-container input[type=tel],
+.campaign-data-form-container textarea{
+    min-height: 50px;
+    font-size: 20px;
+    line-height: 50px;
+    padding: 0 10px;
+}
+
+.campaign-data-form-container textarea{
+    font-size: 20px;
+    line-height: 22px;
+    padding: 10px 10px;
+}
+
+.campaign-data-form-container .actions-toolbar{
+    margin: 50px 0px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.field-checkbox{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.field-checkbox input[type=checkbox]{
+    display: grid;
+    width: 25px; height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    border: 0;
+    appearance: none; -webkit-appearance: none;
+    border-width: thin;
+    border-color: #000000;
+    border-style: solid;
+    margin:0px 0px;
+}
+
+.field-checkbox input[type=checkbox]::before,
+.field-checkbox input[type=checkbox]::after{
+    grid-area: 1/1;
+    border-radius: 40px;
+    mix-blend-mode: hard-light;
+    pointer-events: none;
+}
+
+.field-checkbox input[type=checkbox]::before {
+    transform: translate(10px, 10px);
+    text-indent: -20px;
+    font-size: 25px;
+    color: white;
+}
+
+.field-checkbox input[type=checkbox]::after{
+    font-size: 50px;
+    content: '';
+}
+
+.field-checkbox input[type=checkbox]:checked::after{
+    mix-blend-mode: unset;
+    color: transparent;
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 100 100" xml:space="preserve"> <polygon points="33.47,79.72 0,46.25 12.91,33.34 33.47,53.9 77.09,10.28 90,23.19 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/></svg>');
+    font-size: 35px;
+}
+
+.field-checkbox label {
+    font-size: 18px;
+    line-height: 20px;
+    margin: 0 0 0 5px !important;
+}
+
+.inputfile {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 600px;
+    height: 71px;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 30px;
+    line-height: 32px;
+}
+
+.upload-ins{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #ffffff;
+    align-items: center;
+    height: 85px;
+}
+
+.upload-ins .inst{
+    width: 80%;
+    text-align: left;
+    padding-left: 10px;
+    font-size: 20px;
+    line-height: 22px;
+    word-wrap: break-word;
+}
+.upload-ins .icons{
+    width: 20%;
+    text-align: right;
+    padding-right: 10px;
+}
+
+
+.export-icon{
+    content: url('data:image/svg+xml,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.9498 5.96781L15.5356 7.38203L13 4.84646V17.0421H11V4.84653L8.46451 7.38203L7.05029 5.96781L12 1.01807L16.9498 5.96781Z" fill="currentColor" /><path d="M5 20.9819V10.9819H9V8.98193H3V22.9819H21V8.98193H15V10.9819H19V20.9819H5Z" fill="currentColor"/></svg>');
+    width: 35px;
+    height: 35px;
+}
+
+.title-row{
+    font-size: 48px;
+    line-height: 52px;
+}
+
+.c_uploaded_image{
+    width: auto;
+    height: 80px;
+}
+
+.profile-image{
+    margin:20px 20px;
+}
+
+.profile-image img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-name{
+    font-size: 25px;
+    margin: 0px 0px 10px 0;
+}
+
+.profile-content-quote{
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.c-divider{
+    max-width: 660px;
+    margin:0 auto;
+}
+
+#terms-error{
+    position: absolute;
+}
+
+.success-container p{
+    margin-bottom: 0px;
+}
+
+@media screen and (min-width: 320px) {
+    .campaign-data-form-container{
+        padding: 20px 20px;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .campaign-data-form-container{
+        max-width: 90%;
+    }
+
+    .campaign-data-form-container.checkbox-container{
+        padding: 50px 0px;
+    }
+
+    .field-checkbox label {
+        font-size: 15px;
+        line-height: 16px;
+        margin: 0 0 0 15px !important;
+    }
+
+    .profile-name,
+    .profile-content-quote
+    {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .campaign-data-form-container{
+        padding: 40px 40px;
+    }
+
+    .campaign-data-form-container input[type=text],
+    .campaign-data-form-container input[type=email],
+    .campaign-data-form-container input[type=tel],
+    .campaign-data-form-container textarea{
+        min-height: 50px;
+        font-size: 20px;
+        line-height: 32px;
+        padding: 0 20px;
+    }
+
+    .campaign-data-form-container textarea{
+        min-height: 50px;
+        font-size: 20px;
+        line-height: 32px;
+        padding: 10px 20px;
+    }
+
+    .upload-ins{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        background-color: #ffffff;
+        align-items: center;
+        height: 85px;
+    }
+
+    .upload-ins .inst{
+        width: 80%;
+        text-align: left;
+        padding-left: 20px;
+        padding-top: 4px;
+        font-size: 20px;
+        line-height: 20px;
+        flex: 1;
+        min-width: 0;
+    }
+    .upload-ins .icons{
+        width: 20%;
+        text-align: right;
+        padding-right: 20px;
+        min-width: 0;
+    }
+
+    .campaign-extra{
+        margin: 0px 10px 25px 0;
+    }
+
+    .pagebuilder-mobile-only{
+        display:none !important;
+    }
+
+
+}
+
+@media screen and (min-width: 769px) and (max-width: 999px) {
+
+}
+
+@media screen and (max-width: 999px) {
+
+}
+
+@media screen and (min-width: 1000px) {
+
+}
+
+@media screen and (min-width: 1000px) and (max-width: 1191px) {
+
+}
+
+@media screen and (min-width: 1192px) {
+
+}

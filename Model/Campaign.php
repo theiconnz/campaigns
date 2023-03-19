@@ -186,7 +186,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return $this->getData(self::CONTENT);
     }
 
-
     /**
      * Retrieve newsletter
      *
@@ -197,6 +196,15 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return $this->getData(self::NEWSLETTER);
     }
 
+    /**
+     * Retrieve show phone
+     *
+     * @return int
+     */
+    public function getShowphone()
+    {
+        return $this->getData(self::SHOWPHONE);
+    }
 
     /**
      * Retrieve block creation time
@@ -283,7 +291,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return $this->setData(self::CONTENT, $content);
     }
 
-
     /**
      * Set newsletter
      *
@@ -293,6 +300,17 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function setNewsletter($nid)
     {
         return $this->setData(self::NEWSLETTER, $nid);
+    }
+
+    /**
+     * Set show phone
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowphone($value)
+    {
+        return $this->setData(self::SHOWPHONE, $value);
     }
 
     /**

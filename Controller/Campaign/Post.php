@@ -7,8 +7,14 @@ declare(strict_types=1);
 
 namespace Theiconnz\Campaigns\Controller\Campaign;
 
+use Magento\Contact\Model\MailInterface;
+use Magento\Customer\Model\Session;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Newsletter\Model\Subscriber;
+use Magento\Newsletter\Model\SubscriberFactory;
+use Magento\Newsletter\Model\SubscriptionManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Theiconnz\Campaigns\Api\CampaignRepositoryInterface;
 use Theiconnz\Campaigns\Helper\Campaign as CampaignHelper;
@@ -23,6 +29,7 @@ use Theiconnz\Campaigns\Model\Results;
 use Theiconnz\Campaigns\Model\ResultsFactory;
 use Theiconnz\Campaigns\Api\ResultsRepositoryInterface;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
+use Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory;
 /**
  * Custom page for storefront. Needs to be accessible by POST because of the store switching.
  */
@@ -101,6 +108,36 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
 
     private $storeManager;
 
+    /**
+     * @var MailInterface
+     */
+    private $mail;
+
+    /**
+     * Subscriber factory
+     *
+     * @var SubscriberFactory
+     */
+    protected $_subscriberFactory;
+
+    /**
+     * @var SubscriptionManagerInterface
+     */
+    private $subscriptionManager;
+
+    /**
+     * Customer session
+     *
+     * @var Session
+     */
+    protected $_customerSession;
+
+
+    /**
+     * @var \Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory
+     */
+    protected $_resultsCollectionFactory;
+
 
     /**
      * @param Context $context
@@ -118,6 +155,10 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      * @param ResultsRepositoryInterface $resultRepository
      * @param TimezoneInterface $timezone
      * @param StoreManagerInterface $storeManager
+     * @param SubscriberFactory $subscriberFactory
+     * @param SubscriptionManagerInterface $subscriptionManager
+     * @param CollectionFactory $resultsCollectionFactory
+     * @param MailInterface $mail
      */
     public function __construct(
         Context $context,
@@ -133,7 +174,12 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         ResultsFactory $resultsFactory,
         ResultsRepositoryInterface $resultRepository,
         TimezoneInterface $timezone,
-        StoreManagerInterface $storeManager
+        StoreManagerInterface $storeManager,
+        SubscriberFactory $subscriberFactory,
+        SubscriptionManagerInterface $subscriptionManager,
+        Session $customerSession,
+        CollectionFactory $resultsCollectionFactory,
+        MailInterface $mail
     ) {
         parent::__construct($context);
         $this->request = $request;
@@ -149,6 +195,11 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         $this->resultsRepository = $resultRepository;
         $this->timezone = $timezone;
         $this->storeManager = $storeManager;
+        $this->mail = $mail;
+        $this->subscriptionManager = $subscriptionManager;
+        $this->_subscriberFactory = $subscriberFactory;
+        $this->_customerSession = $customerSession;
+        $this->_resultsCollectionFactory = $resultsCollectionFactory;
     }
 
     /**
@@ -176,71 +227,82 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             }
 
             $this->validatedParams();
+            $submitder = $this->getResultsCollection($this->getRequest()->getParam('email'), $id);
 
-            try {
-                $model = $this->campaignRepository->getById( (integer)$id );
 
-                if(!$model || ($model->getId()!=$id) && !$model->isActive()) {
+            if($submitder->count()>0){
+                throw new LocalizedException(
+                    __('We already have a story under this email. Contact us with your email.')
+                );
+            }
+
+
+            $model = $this->campaignRepository->getById( (integer)$id );
+
+            if(!$model || ($model->getId()!=$id) && !$model->isActive()) {
+                throw new LocalizedException(
+                    __('Not an active campaign')
+                );
+            }
+
+            if(count($_FILES['filename'])>0 && !$_FILES['filename']['error'] ) {
+                $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'filename']);
+
+                $uploaddir = $this->dir->getPath('media') . Results::UPLOADPATH;
+                if (!file_exists($uploaddir)) {
+                    $this->io->mkdir($uploaddir);
+                }
+
+                $uploaderFactory->setAllowedExtensions(['jpg', 'gif', 'png']); // you can add more extension which need
+                $uploaderFactory->setAllowRenameFiles(true);
+                $uploaderFactory->setFilesDispersion(true);
+
+
+                $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+                $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
+
+                $ext = $uploaderFactory->getFileExtension();
+                $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
+                $newfilename = sprintf("%s.%s", $newfile, $ext);
+                $result = $uploaderFactory->save($destinationPath, $newfilename);
+
+                if (!$result) {
                     throw new LocalizedException(
-                        __('Not an active campaign')
+                        __('File cannot be saved to path: $1', $destinationPath)
                     );
                 }
-
-                if(count($_FILES['filename'])>0 && !$_FILES['filename']['error'] ) {
-                    $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'filename']);
-
-                    $uploaddir = $this->dir->getPath('media') . Results::UPLOADPATH;
-                    if (!file_exists($uploaddir)) {
-                        $this->io->mkdir($uploaddir);
-                    }
-
-                    $uploaderFactory->setAllowedExtensions(['jpg', 'gif', 'png']); // you can add more extension which need
-                    $uploaderFactory->setAllowRenameFiles(true);
-                    $uploaderFactory->setFilesDispersion(true);
-
-
-                    $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
-                    $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
-
-                    $ext = $uploaderFactory->getFileExtension();
-                    $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
-                    $newfilename = sprintf("%s.%s", $newfile, $ext);
-                    $result = $uploaderFactory->save($destinationPath, $newfilename);
-
-                    if (!$result) {
-                        throw new LocalizedException(
-                            __('File cannot be saved to path: $1', $destinationPath)
-                        );
-                    }
-                }
-
-                $resultfactory = $this->resultsFactory->create();
-                $resultfactory->setCampId($model->getId());
-                $resultfactory->setName( $this->validateInputFields($this->request->getParam('name')) );
-                $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
-                $resultfactory->setEmail( $this->request->getParam('email') );
-                if($result) {
-                    $resultfactory->setImagename($result['file'] );
-                }
-
-                $nl = $this->request->getParam('newsletter');
-                if($nl) $resultfactory->setNewsletter(1);
-                $terms = $this->request->getParam('terms');
-                if($terms) $resultfactory->setNewsletter(1);
-                $um = $this->request->getParam('useinmarketing');
-                if($um) $resultfactory->setUsedataAgreed(1);
-
-                $resultfactory->setStoreId( $this->storeManager->getStore()->getId() );
-                $this->resultsRepository->save($resultfactory);
-                $resultPage->setHttpResponseCode(200);
-
-                $response = ['success' => 200, 'message' => "Result submit success"];
-                $resultPage->setData($response);
-                $this->messageManager->addSuccessMessage("Thank you");
-
-            } catch (\Exception $e) {
-                $this->messageManager->addErrorMessage( $e->getMessage() );
             }
+
+            $resultfactory = $this->resultsFactory->create();
+            $resultfactory->setCampId($model->getId());
+            $resultfactory->setName( $this->validateInputFields($this->request->getParam('name')) );
+            $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
+            $resultfactory->setEmail( $this->request->getParam('email') );
+            if($result) {
+                $resultfactory->setImagename($result['file'] );
+            }
+
+            $nl = $this->request->getParam('newsletter');
+            if($nl && $nl==1) $resultfactory->setNewsletter(1);
+            $terms = $this->request->getParam('terms');
+            if($terms && $terms==1) $resultfactory->setTermsAgreed(1);
+            $um = $this->request->getParam('useinmarketing');
+            if($um && $um==1) $resultfactory->setUsedataAgreed(1);
+
+            $resultfactory->setStoreId( $this->storeManager->getStore()->getId() );
+            $this->resultsRepository->save($resultfactory);
+            $resultPage->setHttpResponseCode(200);
+
+            $response = ['success' => 200, 'message' => "Result submit success"];
+            $resultPage->setData($response);
+
+            if($nl && $nl==1) {
+                $this->addtoSubscription($this->request->getParam('email'));
+            }
+
+            //$this->sendEmail($this->validatedParams());
+            $this->messageManager->addSuccessMessage("Thank you");
+
 
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage( $e->getMessage() );
@@ -302,6 +364,79 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         }
 
         return $request->getParams();
+    }
+
+
+    /**
+     * @param array $post Post data from campaign form
+     * @return void
+     */
+    private function sendEmail($post)
+    {
+        $this->mail->send(
+            $post['email'],
+            ['data' => new DataObject($post)]
+        );
+    }
+
+    /**
+     * @param array $post Post data from campaign form
+     * @return void
+     */
+    private function addtoSubscription($email)
+    {
+        $websiteId = (int)$this->storeManager->getStore()->getWebsiteId();
+        $subscriber = $this->_subscriberFactory->create()->loadBySubscriberEmail($email, $websiteId);
+        if ($subscriber->getId()
+            && (int)$subscriber->getSubscriberStatus() === Subscriber::STATUS_SUBSCRIBED) {
+            return true;
+        }
+
+        $storeId = (int)$this->storeManager->getStore()->getId();
+        $currentCustomerId = $this->getSessionCustomerId($email);
+        $subscriber = $currentCustomerId
+            ? $this->subscriptionManager->subscribeCustomer($currentCustomerId, $storeId)
+            : $this->subscriptionManager->subscribe($email, $storeId);
+    }
+
+
+    /**
+     * Get customer id from session if he is owner of the email
+     *
+     * @param string $email
+     * @return int|null
+     */
+    private function getSessionCustomerId(string $email): ?int
+    {
+        if (!$this->_customerSession->isLoggedIn()) {
+            return null;
+        }
+
+        $customer = $this->_customerSession->getCustomerDataObject();
+        if ($customer->getEmail() !== $email) {
+            return null;
+        }
+
+        return (int)$this->_customerSession->getId();
+    }
+
+
+    /**
+     * Returns results collection
+     *
+     * @return string
+     */
+    public function getResultsCollection($email, $cid)
+    {
+        $collection = $this->_resultsCollectionFactory->create()
+            ->addFieldToSelect('email')
+            ->addFieldToFilter('email',
+                ['eq' => $email]
+            )
+            ->addFieldToFilter('camp_id',
+                ['eq' => $cid]
+            );
+        return $collection;
     }
 
 }

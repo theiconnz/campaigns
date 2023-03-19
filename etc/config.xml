@@ -10,8 +10,10 @@
         <campaigns_settings>
             <general>
                 <isenable>1</isenable>
-                <title>Campaign</title>
             </general>
+            <email>
+                <email_template>campaigns_email_email_template</email_template>
+            </email>
         </campaigns_settings>
     </default>
 </config>

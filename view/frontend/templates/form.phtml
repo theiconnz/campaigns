@@ -21,7 +21,7 @@
                 "fileuploadid": "#file-upload",
                 "formelement": "#campaign-form",
                 "successblock": "#campaign-data-form-update",
-                "formcontainer": "#campaign-data-form",
+                "formcontainer": ".campaign-data-form",
                 "formid": "campaign-form"
               }
           }'
@@ -31,14 +31,16 @@
     <?= $block->getBlockHtml('formkey') ?>
     <input type="hidden" name="cid" value="<?= $block->getCampaignId()?>" />
 
-    <div id="campaign-data-form">
-        <div class="campaign-content">
-            <?=$block->getPage()->getData('content')?>
-        </div>
 
+        <?php
+        $content = $this->getPage()->getContent();
+        $html = $block->getCmsFilterContent($content);
+        echo $html
+        ?>
+
+    <div id="campaign-data-form" class="campaign-data-form campaign-data-form-container c_bg_color_primary_light">
         <fieldset class="fieldset">
             <div class="field name required">
-                <label class="label" for="name"><span><?= $block->escapeHtml(__('Name')) ?></span></label>
                 <div class="control">
                     <input name="name"
                            id="name"
@@ -46,11 +48,11 @@
                            value=""
                            class="input-text"
                            type="text"
+                           placeholder="<?= $block->escapeHtml(__('Name*')) ?>"
                            data-validate="{required:true, minlength:2}"/>
                 </div>
             </div>
             <div class="field email required">
-                <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
                 <div class="control">
                     <input name="email"
                            id="email"
@@ -58,24 +60,26 @@
                            value=""
                            class="input-text"
                            type="email"
+                           placeholder="<?= $block->escapeHtml(__('Email*')) ?>"
                            data-validate="{required:true, 'validate-email':true}"/>
                 </div>
             </div>
+
+            <?php if( $this->getPage()->getShowphone() ){?>
             <div class="field telephone">
-                <label class="label" for="telephone"><span><?= $block->escapeHtml(__('Phone Number')) ?></span></label>
                 <div class="control">
                     <input name="telephone"
                            id="telephone"
                            title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
                            value=""
+                           placeholder="<?= $block->escapeHtml(__('Phone Number*')) ?>"
                            class="input-text"
                            type="tel" />
                 </div>
             </div>
-            <div class="field comment required">
-                <label class="label" for="comment">
-                    <span><?= $block->escapeHtml(__('What’s on your mind?')) ?></span>
-                </label>
+            <?php } ?>
+
+            <div class="field content required">
                 <div class="control">
                     <textarea name="content"
                               id="comment"
@@ -83,29 +87,40 @@
                               class="input-text"
                               cols="5"
                               rows="3"
-                              data-validate="{required:true }"
+                              placeholder="<?= $block->escapeHtml(__('Tell us your story here, in 25 words or less...')) ?>"
+                              data-validate="{required:true, maxlength:200 }"
                     ></textarea>
                 </div>
             </div>
 
-            <div class="field comment">
-                <label class="label" for="comment">
-                    <span><?= $block->escapeHtml(__('Your Image')) ?></span>
-                </label>
+            <div class="field fileupload">
                 <div class="control">
-                    <input type="file"
-                           name="filename"
-                           class="input-text"
-                           id="file-upload"
-                           accept="image/*"
-                    />
+                    <div class="upload-ins">
+                        <input type="file"
+                               name="filename"
+                               class="inputfile"
+                               id="file-upload"
+                               placeholder="<?= $block->escapeHtml(__('Upload supporting image')) ?>"
+                               accept="image/jpeg,image/png"
+                               data-mage-init='{"Theiconnz_Campaigns/js/upload":
+                                  {
+                                    "fileuploadcontent": "upload-content-data"
+                                  }
+                              }'
+                        />
+                        <div class="inst" id="upload-content-data">Upload Supporting Image</div>
+                        <div class="icons"><i class="export-icon"></i></div>
+                    </div>
                 </div>
             </div>
         </fieldset>
+    </div>
+
+    <div class="campaign-data-form campaign-data-form-container checkbox-container">
         <fieldset class="fieldset">
-            <div class="field terms">
+            <div class="field terms field-checkbox">
                 <label class="label" for="comment">
-                    <span><?= $block->escapeHtml(__('Terms and Conditions')) ?></span>
+                    <span><?= $block->escapeHtml(__('I have read and agreed to the Terms & Conditions*')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -117,9 +132,9 @@
                 </div>
             </div>
 
-            <div class="field use_marketing">
+            <div class="field use_marketing field-checkbox">
                 <label class="label" for="comment">
-                    <span><?= $block->escapeHtml(__('Use data in marketing')) ?></span>
+                    <span><?= $block->escapeHtml(__('I agree to my ecostory and image used for marketing purposes')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -130,9 +145,10 @@
                 </div>
             </div>
 
-            <div class="field newsletter">
+            <?php if( $this->getPage()->getNewsletter() ){?>
+            <div class="field newsletter field-checkbox">
                 <label class="label" for="newsletter">
-                    <span><?= $block->escapeHtml(__('Add to newsletter')) ?></span>
+                    <span><?= $block->escapeHtml(__('Sign me up for emails about promotions & discounts')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -142,17 +158,21 @@
                     />
                 </div>
             </div>
+            <?php } ?>
         </fieldset>
+
+
         <div class="actions-toolbar">
             <div class="primary">
                 <input type="hidden" name="hideit" id="hideit" value="" />
-                <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
-                    <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                <button type="submit" title="<?= $block->escapeHtmlAttr(__('ENTER')) ?>" class="action submit c_btn_primary">
+                    <span><?= $block->escapeHtml(__('ENTER')) ?></span>
                 </button>
             </div>
         </div>
     </div>
-    <div id="campaign-data-form-update" style="display: none;">
+
+    <div id="campaign-data-form-update" class="campaign-data-form-container" style="display: none;">
         <?php
         $blockid = $block->getPage()->getData('block_identifier');
         if($blockid) {

@@ -1,5 +1,5 @@
 {
-    "name": "Theiconnz/Campaigns",
+    "name": "theiconnz/campaigns",
     "description": "Campaign modules",
     "require": {
         "php": ">=7.0.0"

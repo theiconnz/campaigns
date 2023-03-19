@@ -20,6 +20,7 @@ interface CampaignInterface
     const TITLE         = 'title';
     const CONTENT       = 'content';
     const NEWSLETTER    = 'newsletter';
+    const SHOWPHONE     = 'showphone';
     const CREATION_TIME = 'creation_time';
     const UPDATE_TIME   = 'update_time';
     const IS_ACTIVE     = 'is_active';
@@ -55,13 +56,19 @@ interface CampaignInterface
      */
     public function getContent();
 
-
     /**
      * Get newsletter
      *
      * @return int
      */
     public function getNewsletter();
+
+    /**
+     * Get show phone
+     *
+     * @return int
+     */
+    public function getShowphone();
 
 
     /**
@@ -134,6 +141,13 @@ interface CampaignInterface
      */
     public function setNewsletter($newsletter);
 
+    /**
+     * Set Show phone
+     *
+     * @param int $phone
+     * @return ResultsInterface
+     */
+    public function setShowphone($phone);
 
     /**
      * Set creation time

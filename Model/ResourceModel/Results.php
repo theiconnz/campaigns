@@ -5,6 +5,9 @@
  */
 namespace Theiconnz\Campaigns\Model\ResourceModel;
 
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\UrlInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Theiconnz\Campaigns\Api\Data\ResultsInterface;
 use Magento\Framework\DB\Select;
 use Magento\Framework\EntityManager\EntityManager;
@@ -13,7 +16,7 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
-use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Filesystem;
 
 /**
  * CMS block model
@@ -38,11 +41,18 @@ class Results extends AbstractDb
      */
     protected $metadataPool;
 
+
+    /**
+     * @var Filesystem
+     */
+    private $filesystem;
+
     /**
      * @param Context $context
      * @param StoreManagerInterface $storeManager
      * @param EntityManager $entityManager
      * @param MetadataPool $metadataPool
+     * @param Filesystem $filesystem
      * @param string $connectionName
      */
     public function __construct(
@@ -50,11 +60,13 @@ class Results extends AbstractDb
         StoreManagerInterface $storeManager,
         EntityManager $entityManager,
         MetadataPool $metadataPool,
+        Filesystem $filesystem,
         $connectionName = null
     ) {
         $this->_storeManager = $storeManager;
         $this->entityManager = $entityManager;
         $this->metadataPool = $metadataPool;
+        $this->filesystem = $filesystem;
         parent::__construct($context, $connectionName);
     }
 
@@ -161,7 +173,25 @@ class Results extends AbstractDb
      */
     public function delete(AbstractModel $object)
     {
+        $this->deleteProfileImage($object);
         $this->entityManager->delete($object);
         return $this;
+    }
+
+    /**
+     *
+     */
+    public function deleteProfileImage(AbstractModel $object)
+    {
+        if( $object->getImagename()!=null ) {
+            $filename = $object->getImagename();
+            $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+            $destinationPath = $mediaDirectory->getAbsolutePath(\Theiconnz\Campaigns\Model\Results::UPLOADPATH);
+            $file = $destinationPath . $filename;
+            die($file);
+            if( file_exists($file) ) {
+                unlink($file);
+            }
+        }
     }
 }

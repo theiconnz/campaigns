@@ -23,7 +23,7 @@ interface ResultsInterface
     const IMAGENAME     = 'imagename';
     const NEWSLETTER    = 'newsletter';
     const TERMSAGREED   = 'terms_agreed';
-    const USEDATAAGREED= 'usedata_agreed';
+    const USEDATAAGREED = 'usedata_agreed';
     const CREATION_TIME = 'creation_time';
     const UPDATE_TIME   = 'update_time';
     const IS_ACTIVE     = 'is_active';

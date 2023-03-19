@@ -7,6 +7,7 @@ namespace Theiconnz\Campaigns\Block;
 
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\View\Element\Template;
+use Magento\Cms\Model\Template\FilterProvider;
 
 /**
  * Campaigns page content block
@@ -41,6 +42,11 @@ class Campaign extends Template
     protected $pageConfig;
 
     /**
+     * @var \Magento\Cms\Model\Template\FilterProvider
+     */
+    protected $_filterProvider;
+
+    /**
      * Construct
      *
      * @param \Magento\Framework\View\Element\Context $context
@@ -49,6 +55,7 @@ class Campaign extends Template
      * @param \Theiconnz\Campaigns\Model\CampaignFactory $pageFactory
      * @param \Magento\Framework\View\Page\Config $pageConfig
      * @param Template\Context $context
+     * @param FilterProvider $filterProvider
      * @param array $data
      */
     public function __construct(
@@ -57,14 +64,15 @@ class Campaign extends Template
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Theiconnz\Campaigns\Model\CampaignFactory $pageFactory,
         \Magento\Framework\View\Page\Config $pageConfig,
+        FilterProvider $filterProvider,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        // used singleton (instead factory) because there exist dependencies on \Theiconnz\Campaigns\Helper\Campaigns
         $this->_campaign = $page;
         $this->_storeManager = $storeManager;
         $this->_campaignFactory = $pageFactory;
         $this->pageConfig = $pageConfig;
+        $this->_filterProvider = $filterProvider;
     }
 
     /**
@@ -149,5 +157,11 @@ class Campaign extends Template
     public function getCampaignId()
     {
         return $this->getPage()->getId();
+    }
+
+    public function getCmsFilterContent($value='')
+    {
+        $html = $this->_filterProvider->getPageFilter()->filter($value);
+        return $html;
     }
 }

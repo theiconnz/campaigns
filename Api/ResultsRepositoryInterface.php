@@ -30,6 +30,16 @@ interface ResultsRepositoryInterface
      */
     public function getById($campaignId);
 
+
+    /**
+     * Retrieve Result by email.
+     *
+     * @param string $email
+     * @return \Theiconnz\Campaigns\Api\Data\ResultsInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function getByEmail($email);
+
     /**
      * Retrieve Resultss matching the specified criteria.
      *

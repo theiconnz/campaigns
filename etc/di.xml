@@ -149,4 +149,12 @@
             <argument name="hydrator" xsi:type="object">Magento\Framework\EntityManager\AbstractModelHydrator</argument>
         </arguments>
     </type>
+
+    <type name="Theiconnz\Campaigns\Ui\Component\Listing\Columns\Thumbnail">
+        <arguments>
+            <argument name="defaultPlaceholder" xsi:type="array">
+                <item name="image" xsi:type="string">Theiconnz_Campaigns::images/category/placeholder/image.jpg</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

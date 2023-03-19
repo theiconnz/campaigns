@@ -5,7 +5,12 @@
  * See COPYING.txt for license details.
  */
 -->
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Theiconnz_Campaigns::css/global.css" />
+        <css src="Theiconnz_Campaigns::css/results.css" />
+    </head>
     <body>
         <referenceContainer name="content">
             <block class="Theiconnz\Campaigns\Block\Results" name="campaign_results_page"

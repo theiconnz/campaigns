@@ -42,7 +42,6 @@ class Results extends Template
      */
     protected $pageConfig;
 
-
     /**
      * @var \Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory
      */

@@ -130,7 +130,7 @@ class ResultsRepository implements ResultsRepositoryInterface
     }
 
     /**
-     * Load Block data by given Block Identity
+     * Load result by given id
      *
      * @param string $campid
      * @return Block
@@ -142,6 +142,23 @@ class ResultsRepository implements ResultsRepositoryInterface
         $this->resource->load($results, $campid);
         if (!$results->getId()) {
             throw new NoSuchEntityException(__('The Result with the "%1" ID doesn\'t exist.', $campid));
+        }
+        return $results;
+    }
+
+    /**
+     * Load Result data by given Email
+     *
+     * @param string $email
+     * @return Block
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
+    public function getByEmail($email)
+    {
+        $results = $this->resultsFactory->create();
+        $this->resource->load($results, $email, 'email');
+        if (!$results->getId()) {
+            return false;
         }
         return $results;
     }
