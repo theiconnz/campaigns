@@ -20,13 +20,13 @@ View Results
 
 ## Create url rewrite in front end
 
-For campaign page url is ** campaigns/campaign/view/id/x **
+For campaign page url is **campaigns/campaign/view/id/x**
 
 You can create url rewrite for above url in Url Rewrite section
 
-For results page url is ** campaigns/campaign/results/id/x **
+For results page url is **campaigns/campaign/results/id/x**
 
-> for results page **x is *campaign id* **
+> for results page **x is campaign id**
 
 
 
