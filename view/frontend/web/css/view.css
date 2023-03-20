@@ -43,6 +43,7 @@
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: center;
+    margin:0 0 20px;
 }
 
 .field-checkbox input[type=checkbox]{
@@ -84,6 +85,14 @@
     color: transparent;
     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 100 100" xml:space="preserve"> <polygon points="33.47,79.72 0,46.25 12.91,33.34 33.47,53.9 77.09,10.28 90,23.19 " style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/></svg>');
     font-size: 35px;
+}
+
+.field-checkbox input[type=checkbox].mage-error{
+    border-color: #ff0000;
+}
+
+.field-checkbox input[type=checkbox].mage-error{
+
 }
 
 .field-checkbox label {
@@ -173,6 +182,7 @@
 
 #terms-error{
     position: absolute;
+    margin-top:0px;
 }
 
 .success-container p{

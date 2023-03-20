@@ -6,12 +6,80 @@
 
 /** @var $block \Theiconnz\Campaigns\Block\Adminhtml\Results */
 /** @var \Magento\Framework\Escaper $escaper */
-$results = $block->getResult();
-if($results) {
+$result = $block->getResult();
+if($result) {
 ?>
 
-<h2>Result for <?=$results->getName();?></h2>
+    <div id="container" class="main-col"><div class="form-inline">
+        <h2>Result for <?=$result->getName();?></h2>
 
+        <fieldset class="admin__fieldset fieldset" data-container-for="entity-type-selector">
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Name</span>
+                </label>
+                <div class="admin__field-control control">
+                    <input name="name" class=" input-text admin__control-text " value="<?=$result->getName();?>">
+                </div>
+            </div>
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Email</span>
+                </label>
+                <div class="admin__field-control control">
+                    <input name="email" class=" input-text admin__control-text" value="<?=$result->getEmail();?>">
+                </div>
+            </div>
 
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Content</span>
+                </label>
+                <div class="admin__field-control control">
+                    <textarea class=" textarea admin__control-textarea" rows="5"><?=$result->getContent();?></textarea>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Newsletter Subscribed</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php echo $result->getNewsletter() ? 'Yes': 'No';?>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Terms and Conditions Agreed</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php echo $result->getTermsAgreed() ? 'Yes': 'No';?>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Agreed to use Image on Marketing</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php echo $result->getUsedataAgreed() ? 'Yes': 'No';?>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Profile Image</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php
+                    $profileimage = $result->getImagename();
+                    if( $profileimage ){?>
+                            <img src="<?=$block->getImageUrl($profileimage)?>" />
+                    <?php }?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
 <?php
 }

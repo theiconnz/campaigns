@@ -119,7 +119,7 @@
     <div class="campaign-data-form campaign-data-form-container checkbox-container">
         <fieldset class="fieldset">
             <div class="field terms field-checkbox">
-                <label class="label" for="comment">
+                <label class="label" for="terms-error">
                     <span><?= $block->escapeHtml(__('I have read and agreed to the Terms & Conditions*')) ?></span>
                 </label>
                 <div class="control">
@@ -128,12 +128,13 @@
                            class="input-text"
                            value="1"
                            data-validate="{required:true}"
+                           aria-describedby="terms-error"
                     />
                 </div>
             </div>
 
             <div class="field use_marketing field-checkbox">
-                <label class="label" for="comment">
+                <label class="label" for="useinmarketing-error">
                     <span><?= $block->escapeHtml(__('I agree to my ecostory and image used for marketing purposes')) ?></span>
                 </label>
                 <div class="control">
@@ -141,13 +142,14 @@
                            name="useinmarketing"
                            class="input-text"
                            value="1"
+                           aria-describedby="useinmarketing-error"
                     />
                 </div>
             </div>
 
             <?php if( $this->getPage()->getNewsletter() ){?>
             <div class="field newsletter field-checkbox">
-                <label class="label" for="newsletter">
+                <label class="label" for="newsletter-error">
                     <span><?= $block->escapeHtml(__('Sign me up for emails about promotions & discounts')) ?></span>
                 </label>
                 <div class="control">
@@ -155,6 +157,7 @@
                            name="newsletter"
                            class="input-text"
                            value="1"
+                           aria-describedby="useinmarketing-error"
                     />
                 </div>
             </div>
@@ -184,4 +187,13 @@
         ?>
     </div>
 </form>
+
+
+
+
+    <?php
+    $content = $this->getPage()->getContentbottom();
+    $html = $block->getCmsFilterContent($content);
+    echo $html
+    ?>
 

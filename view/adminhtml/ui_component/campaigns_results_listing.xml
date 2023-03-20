@@ -102,7 +102,7 @@
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">ID</label>
-                <sorting>asc</sorting>
+                <sorting>desc</sorting>
             </settings>
         </column>
         <column name="imagename"  component="Magento_Ui/js/grid/columns/thumbnail"
@@ -147,23 +147,37 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
-        <column name="creation_time" class="Magento\Ui\Component\Listing\Columns\Date"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="newsletter" component="\Magento_Ui/js/grid/columns/select"  sortOrder="60">
             <settings>
-                <filter>dateRange</filter>
-                <dataType>date</dataType>
-                <label translate="true">Created</label>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Newsletter Subscribed</label>
             </settings>
         </column>
-        <column name="update_time" class="Magento\Ui\Component\Listing\Columns\Date"
-                component="Magento_Ui/js/grid/columns/date">
+        <column name="usedata_agreed" component="Magento_Ui/js/grid/columns/select"  sortOrder="70">
             <settings>
-                <filter>dateRange</filter>
-                <dataType>date</dataType>
-                <label translate="true">Modified</label>
+                <options class="\Magento\Config\Model\Config\Source\Yesno"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Use Data for Marketing</label>
             </settings>
         </column>
-        <actionsColumn name="actions" class="Theiconnz\Campaigns\Ui\Component\Listing\Column\ResultsActions">
+        <column name="content"
+                class="Theiconnz\Campaigns\Ui\Component\Listing\Columns\Content" sortOrder="75">
+            <settings>
+                <sortable>false</sortable>
+                <label translate="true">Content</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="Theiconnz\Campaigns\Ui\Component\Listing\Column\ResultsActions"
+                       sortOrder="80">
             <settings>
                 <indexField>r_id</indexField>
             </settings>
