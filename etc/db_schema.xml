@@ -13,6 +13,7 @@
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Campaign Title"/>
         <column xsi:type="varchar" name="identifier" nullable="false" length="255" comment="Campaign String Identifier"/>
         <column xsi:type="mediumtext" name="content" nullable="true" comment="Campaign Content"/>
+        <column xsi:type="mediumtext" name="contentbottom" nullable="true" comment="Campaign Content Bottom"/>
         <column xsi:type="text" name="meta_keywords" nullable="true" comment="Campaign Meta Keywords"/>
         <column xsi:type="text" name="meta_description" nullable="true" comment="Page Meta Description"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"

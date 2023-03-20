@@ -19,6 +19,7 @@ interface CampaignInterface
     const IDENTIFIER    = 'identifier';
     const TITLE         = 'title';
     const CONTENT       = 'content';
+    const CONTENTBOTTOM = 'contentbottom';
     const NEWSLETTER    = 'newsletter';
     const SHOWPHONE     = 'showphone';
     const CREATION_TIME = 'creation_time';
@@ -55,6 +56,13 @@ interface CampaignInterface
      * @return string|null
      */
     public function getContent();
+
+    /**
+     * Get content bottom
+     *
+     * @return string
+     */
+    public function getContentbottom();
 
     /**
      * Get newsletter
@@ -132,6 +140,14 @@ interface CampaignInterface
      * @return CampaignInterface
      */
     public function setContent($content);
+
+    /**
+     * Set content bottom
+     *
+     * @param string $content
+     * @return CampaignInterface
+     */
+    public function setContentbottom($content);
 
     /**
      * Set Newsletter

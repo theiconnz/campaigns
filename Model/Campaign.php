@@ -187,6 +187,16 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Retrieve block content bootom
+     *
+     * @return string
+     */
+    public function getContentbottom()
+    {
+        return $this->getData(self::CONTENTBOTTOM);
+    }
+
+    /**
      * Retrieve newsletter
      *
      * @return int
@@ -289,6 +299,18 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function setContent($content)
     {
         return $this->setData(self::CONTENT, $content);
+    }
+
+
+    /**
+     * Set content bottom
+     *
+     * @param string $content
+     * @return CamaignInterface
+     */
+    public function setContentbottom($content)
+    {
+        return $this->setData(self::CONTENTBOTTOM, $content);
     }
 
     /**

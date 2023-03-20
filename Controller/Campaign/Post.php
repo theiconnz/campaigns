@@ -356,7 +356,12 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         }
 
         if (trim($request->getParam('email')) === '') {
-            throw new LocalizedException(__('CEmail is missing'));
+            throw new LocalizedException(__('Email is missing'));
+        }
+
+        if ($request->getParam('terms') == '' ||
+            $request->getParam('terms') == 0 ) {
+            throw new LocalizedException(__('Incorrect terms and conditions agreement'));
         }
 
         if (false === \strpos($request->getParam('email'), '@')) {
