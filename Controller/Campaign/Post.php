@@ -275,7 +275,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
 
             $resultfactory = $this->resultsFactory->create();
             $resultfactory->setCampId($model->getId());
-            $resultfactory->setName( $this->validateInputFields($this->request->getParam('name')) );
+            $resultfactory->setFirstname( $this->validateInputFields($this->request->getParam('firstname')) );
             $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
             $resultfactory->setEmail( $this->request->getParam('email') );
             if($result) {
@@ -347,7 +347,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
     private function validatedParams()
     {
         $request = $this->getRequest();
-        if (trim($request->getParam('name')) === '') {
+        if (trim($request->getParam('firstname')) === '') {
             throw new LocalizedException(__('First Name is missing'));
         }
 

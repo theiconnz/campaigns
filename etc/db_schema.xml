@@ -57,7 +57,8 @@
         <column xsi:type="smallint" name="r_id" unsigned="false" nullable="false" identity="true"/>
         <column xsi:type="smallint" name="camp_id" unsigned="false" nullable="false" identity="false"
                 comment="Campaign ID"/>
-        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Result Name"/>
+        <column xsi:type="varchar" name="firstname" nullable="false" length="255" comment="Result First Name"/>
+        <column xsi:type="varchar" name="lastname" nullable="true" length="255" comment="Result Last Name"/>
         <column xsi:type="varchar" name="email" nullable="false" length="100" comment="Email"/>
         <column xsi:type="varchar" name="phone" nullable="true" length="30" comment="Phone"/>
         <column xsi:type="varchar" name="imagename" nullable="true" length="255" comment="Image Name"/>

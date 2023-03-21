@@ -172,10 +172,22 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
      *
      * @return string
      */
-    public function getName()
+    public function getFirstname()
     {
-        return $this->getData(self::NAME);
+        return $this->getData(self::FIRSTNAME);
     }
+
+
+    /**
+     * Retrieve name
+     *
+     * @return string
+     */
+    public function getLastname()
+    {
+        return $this->getData(self::LASTNAME);
+    }
+
 
     /**
      * Retrieve email
@@ -298,9 +310,21 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
      * @param string $name
      * @return ResultsInterface
      */
-    public function setName($name)
+    public function setFirstname($name)
     {
-        return $this->setData(self::NAME, $name);
+        return $this->setData(self::FIRSTNAME, $name);
+    }
+
+
+    /**
+     * Set last name
+     *
+     * @param string $name
+     * @return ResultsInterface
+     */
+    public function setLastname($name)
+    {
+        return $this->setData(self::LASTNAME, $name);
     }
 
 

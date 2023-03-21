@@ -60,7 +60,7 @@ class ResultsActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['r_id'])) {
-                    $title = $this->getEscaper()->escapeHtmlAttr($item['name']);
+                    $title = $this->getEscaper()->escapeHtmlAttr($item['firstname']);
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
