@@ -22,6 +22,12 @@
     height: 100% !important;
 }
 
+.c-anniversary-logo{
+    max-width: 100px;
+    padding-bottom:30px;
+    margin:0 auto;
+}
+
 
 .content-tile-2{
     display: flex;
@@ -130,7 +136,7 @@
 
     .content-tile-2 .image-sub-tile-1 img{
         width: 100%;
-        height: auto;
+        height: 100% !important;
     }
 }
 
@@ -171,6 +177,10 @@
     }
     .content-tile-3 .data-content div{
         padding: 0 30px;
+    }
+    .c-anniversary-logo{
+        max-width: 130px;
+        padding-bottom: 50px;
     }
 }
 

@@ -902,7 +902,7 @@ class Image extends AbstractHelper implements ArgumentInterface
     {
         $label = $this->_product->getData($this->getType() . '_' . 'label');
         if (empty($label)) {
-            $label = $this->_product->getName();
+            $label = $this->_product->getFirstname();
         }
         return $label;
     }

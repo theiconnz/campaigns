@@ -17,7 +17,8 @@ interface ResultsInterface
      */
     const R_ID          = 'r_id';
     const CAMP_ID       = 'camp_id';
-    const NAME          = 'name';
+    const FIRSTNAME     = 'firstname';
+    const LASTNAME      = 'lastname';
     const EMAIL         = 'email';
     const CONTENT       = 'content';
     const IMAGENAME     = 'imagename';
@@ -44,12 +45,18 @@ interface ResultsInterface
     public function getCampId();
 
     /**
-     * Get name
+     * Get first name
      *
      * @return string|null
      */
-    public function getName();
+    public function getFirstname();
 
+    /**
+     * Get last name
+     *
+     * @return string|null
+     */
+    public function getLastname();
 
     /**
      * Get email
@@ -134,13 +141,20 @@ interface ResultsInterface
     public function setCampId($campid);
 
     /**
-     * Set title
+     * Set first name
      *
-     * @param string $title
+     * @param string $name
      * @return ResultsInterface
      */
-    public function setName($title);
+    public function setFirstname($name);
 
+    /**
+     * Set last name
+     *
+     * @param string $name
+     * @return ResultsInterface
+     */
+    public function setLastname($name);
 
     /**
      * Set email
