@@ -87,6 +87,22 @@ class Campaign extends AbstractHelper
     private $identityMap;
 
     /**
+     * Default captcha type
+     */
+    const DEFAULT_CAPTCHA_TYPE = 'Zend';
+
+    /**
+     * List uses Models of Captcha
+     * @var array
+     */
+    protected $_captcha = [];
+
+    /**
+     * @var \Magento\Captcha\Model\CaptchaFactory
+     */
+    protected $_factory;
+
+    /**
      * Constructor
      *
      * @param \Magento\Framework\App\Helper\Context $context
@@ -99,6 +115,7 @@ class Campaign extends AbstractHelper
      * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param IdentityMap|null $identityMap
+     * @param CaptchaFactory $factory
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -111,7 +128,8 @@ class Campaign extends AbstractHelper
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Framework\Escaper $escaper,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        IdentityMap $identityMap
+        IdentityMap $identityMap,
+        \Magento\Captcha\Model\CaptchaFactory $factory
     ) {
         $this->messageManager = $messageManager;
         $this->_campaign = $campaign;
@@ -122,6 +140,7 @@ class Campaign extends AbstractHelper
         $this->_escaper = $escaper;
         $this->resultPageFactory = $resultPageFactory;
         $this->identityMap = $identityMap;
+        $this->_factory = $factory;
         parent::__construct($context);
     }
 
@@ -213,5 +232,42 @@ class Campaign extends AbstractHelper
             $resultPage->getConfig()->setPageLayout($handle);
         }
         return $resultPage;
+    }
+
+    /**
+     * Returns config value
+     *
+     * @param string $key The last part of XML_PATH_$area_CAPTCHA_ constant (case insensitive)
+     * @param \Magento\Store\Model\Store $store
+     * @return \Magento\Framework\App\Config\Element
+     */
+    public function getConfig($key, $store = null)
+    {
+        return $this->scopeConfig->getValue(
+            $key,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE,
+            $store
+        );
+    }
+
+    /**
+     * Get Captcha
+     *
+     * @param string $formId
+     * @return \Magento\Captcha\Model\CaptchaInterface
+     */
+    public function getCaptcha($formId)
+    {
+        if (!array_key_exists($formId, $this->_captcha)) {
+            $captchaType = ucfirst($this->getConfig('customer/captcha/type'));
+            if (!$captchaType) {
+                $captchaType = self::DEFAULT_CAPTCHA_TYPE;
+            } elseif ($captchaType == 'Default') {
+                $captchaType = $captchaType . 'Model';
+            }
+
+            $this->_captcha[$formId] = $this->_factory->create($captchaType, $formId);
+        }
+        return $this->_captcha[$formId];
     }
 }

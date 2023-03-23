@@ -30,10 +30,10 @@ define([
         options: {
             validationURL: '',
             fileuploadid: "#file-upload",
-            formelement: "#campaign-form",
-            successblock: "#campaign-form",
+            formelement: "#campaign_form",
+            successblock: "#campaign_form",
             formcontainer: ".campaign-data-form",
-            formid: "campaign-form",
+            formid: "campaign_form",
         },
 
         /** @inheritdoc */

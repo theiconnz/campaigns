@@ -12,17 +12,17 @@
 ?>
 
 <form class="form contact"
-      id="campaign-form"
+      id="campaign_form"
       method="post"
       enctype="multipart/form-data"
       data-mage-init='{"Theiconnz_Campaigns/js/campaigns":
               {
                 "validationURL" : "<?= $block->escapeUrl($block->getFormAction()) ?>",
                 "fileuploadid": "#file-upload",
-                "formelement": "#campaign-form",
+                "formelement": "#campaign_form",
                 "successblock": "#campaign-data-form-update",
                 "formcontainer": ".campaign-data-form",
-                "formid": "campaign-form"
+                "formid": "campaign_form"
               }
           }'
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
@@ -162,6 +162,8 @@
                 </div>
             </div>
             <?php } ?>
+
+            <?= $block->getChildHtml('form.additional.info') ?>
         </fieldset>
 
 
