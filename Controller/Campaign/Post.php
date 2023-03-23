@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Theiconnz\Campaigns\Controller\Campaign;
 
+use Magento\Captcha\Observer\CaptchaStringResolver;
 use Magento\Contact\Model\MailInterface;
 use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
@@ -30,6 +31,7 @@ use Theiconnz\Campaigns\Model\ResultsFactory;
 use Theiconnz\Campaigns\Api\ResultsRepositoryInterface;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory;
+use Theiconnz\Campaigns\Helper\Campaign as Helper;
 /**
  * Custom page for storefront. Needs to be accessible by POST because of the store switching.
  */
@@ -138,6 +140,16 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      */
     protected $_resultsCollectionFactory;
 
+    /**
+     * @var \Theiconnz\Campaigns\Helper\Campaign
+     */
+    protected $_helper;
+
+
+    /**
+     * @var CaptchaStringResolver
+     */
+    protected $captchaStringResolver;
 
     /**
      * @param Context $context
@@ -159,6 +171,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      * @param SubscriptionManagerInterface $subscriptionManager
      * @param CollectionFactory $resultsCollectionFactory
      * @param MailInterface $mail
+     * @param CaptchaStringResolver $captchaStringResolver
      */
     public function __construct(
         Context $context,
@@ -179,7 +192,9 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         SubscriptionManagerInterface $subscriptionManager,
         Session $customerSession,
         CollectionFactory $resultsCollectionFactory,
-        MailInterface $mail
+        MailInterface $mail,
+        \Theiconnz\Campaigns\Helper\Campaign $helper,
+        CaptchaStringResolver $captchaStringResolver
     ) {
         parent::__construct($context);
         $this->request = $request;
@@ -200,6 +215,8 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         $this->_subscriberFactory = $subscriberFactory;
         $this->_customerSession = $customerSession;
         $this->_resultsCollectionFactory = $resultsCollectionFactory;
+        $this->_helper = $helper;
+        $this->captchaStringResolver = $captchaStringResolver;
     }
 
     /**
@@ -217,6 +234,8 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         $resultPage->setData([]);
 
         try{
+            $this->checkCaptcha();
+
             $result = false;
             if (
                 ( null == $id ) || empty($id) || !is_numeric($id) || !$terms
@@ -442,6 +461,19 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 ['eq' => $cid]
             );
         return $collection;
+    }
+
+
+    private function checkCaptcha()
+    {
+        $formId = 'campaign_form';
+        $enabled = $this->_helper->getConfig('campaigns/recaptcha/enabled');
+        if ($enabled) {
+            $captcha = $this->_helper->getCaptcha($formId);
+            if (!$captcha->isCorrect($this->captchaStringResolver->resolve($this->getRequest(), $formId))) {
+                throw new LocalizedException(__('Incorrect captcha'));
+            }
+        }
     }
 
 }

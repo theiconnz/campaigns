@@ -13,26 +13,27 @@
     </head>
     <body>
         <referenceContainer name="content">
-            <block class="Theiconnz\Campaigns\Block\Campaign" name="campaign_page" template="Theiconnz_Campaigns::form.phtml"/>
-        </referenceContainer>
-
-        <referenceContainer name="footer">
-            <block class="Magento\ReCaptchaUi\Block\ReCaptcha"
-                   name="recaptcha-newsletter"
-                   after="-"
-                   template="Theiconnz_Campaign::recaptcha_newsletter.phtml"
-                   ifconfig="recaptcha_frontend/type_for/newsletter">
-                <arguments>
-                    <argument name="recaptcha_for" xsi:type="string">newsletter</argument>
-                    <argument name="jsLayout" xsi:type="array">
-                        <item name="components" xsi:type="array">
-                            <item name="recaptcha" xsi:type="array">
-                                <item name="component" xsi:type="string">Magento_ReCaptchaFrontendUi/js/reCaptcha</item>
-                            </item>
-                        </item>
-                    </argument>
-                </arguments>
+            <block class="Theiconnz\Campaigns\Block\Campaign" name="campaign_page" template="Theiconnz_Campaigns::form.phtml">
+                <container name="form.additional.info">
+                    <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
+                        <action method="setFormId">
+                            <argument name="formId" xsi:type="string">campaign_form</argument>
+                        </action>
+                        <action method="setImgWidth">
+                            <argument name="width" xsi:type="string">230</argument>
+                        </action>
+                        <action method="setImgHeight">
+                            <argument name="width" xsi:type="string">50</argument>
+                        </action>
+                    </block>
+                </container>
             </block>
         </referenceContainer>
+
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components"
+                   ifconfig="campaigns/recaptcha/enabled"
+                   template="Magento_Captcha::js/components.phtml"/>
+        </referenceBlock>
     </body>
 </page>
