@@ -30,6 +30,11 @@
             </block>
         </referenceContainer>
 
+        <referenceContainer name="columns.top">
+            <block class="Theiconnz\Campaigns\Block\Campaign" name="category.hero"
+                   template="Theiconnz_Campaigns::hero_banner.phtml" after="-"/>
+        </referenceContainer>
+
         <referenceBlock name="head.components">
             <block class="Magento\Framework\View\Element\Js\Components" name="captcha_page_head_components"
                    template="Magento_Captcha::js/components.phtml"/>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <campaigns>
+            <general>
+                <isenable>1</isenable>
+            </general>
+            <email>
+                <email_template>campaigns_email_email_template</email_template>
+            </email>
+
+        </campaigns>
+        <customer>
+            <captcha>
+                <shown_to_logged_in_user>
+                    <campaign_form>1</campaign_form>
+                </shown_to_logged_in_user>
+                <always_for>
+                    <campaign_form>1</campaign_form>
+                </always_for>
+            </captcha>
+        </customer>
+        <captcha translate="label">
+            <frontend>
+                <areas>
+                    <campaign_form>
+                        <label>Campaign Form</label>
+                    </campaign_form>
+                </areas>
+            </frontend>
+        </captcha>
+    </default>
+</config>
