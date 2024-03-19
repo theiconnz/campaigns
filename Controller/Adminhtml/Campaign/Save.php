@@ -107,11 +107,6 @@ class Save extends Action implements HttpPostActionInterface
             $model->setData($data);
 
             try {
-                $this->_eventManager->dispatch(
-                    'campaigns_campaign_prepare_save',
-                    ['campaign' => $model, 'request' => $this->getRequest()]
-                );
-
                 $this->campaignRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the campaign.'));
                 return $this->processResultRedirect($model, $resultRedirect, $data);
@@ -138,22 +133,6 @@ class Save extends Action implements HttpPostActionInterface
      */
     private function processResultRedirect($model, $resultRedirect, $data)
     {
-        if ($this->getRequest()->getParam('back', false) === 'duplicate') {
-            $newPage = $this->campaignFactory->create(['data' => $data]);
-            $newPage->setId(null);
-            $identifier = $model->getIdentifier() . '-' . uniqid();
-            $newPage->setIdentifier($identifier);
-            $newPage->setIsActive(false);
-            $this->campaignRepository->save($newPage);
-            $this->messageManager->addSuccessMessage(__('You duplicated the campaign.'));
-            return $resultRedirect->setPath(
-                '*/*/edit',
-                [
-                    'camp_id' => $newPage->getId(),
-                    '_current' => true,
-                ]
-            );
-        }
         $this->dataPersistor->clear('campaign');
         if ($this->getRequest()->getParam('back')) {
             return $resultRedirect->setPath('*/*/edit', ['camp_id' => $model->getId(), '_current' => true]);

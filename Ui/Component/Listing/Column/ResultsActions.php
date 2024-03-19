@@ -60,7 +60,6 @@ class ResultsActions extends Column
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
                 if (isset($item['r_id'])) {
-                    $title = $this->getEscaper()->escapeHtmlAttr($item['firstname']);
                     $item[$this->getData('name')] = [
                         'view' => [
                             'href' => $this->urlBuilder->getUrl(
@@ -70,15 +69,6 @@ class ResultsActions extends Column
                                 ]
                             ),
                             'label' => __('View'),
-                        ],
-                        'cmpview' => [
-                            'href' => $this->urlBuilder->getUrl(
-                                static::URL_PATH_CAMPAIGN,
-                                [
-                                    'camp_id' => $item['camp_id'],
-                                ]
-                            ),
-                            'label' => __('Campaign'),
                         ]
                     ];
                 }

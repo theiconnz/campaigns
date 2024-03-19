@@ -42,9 +42,8 @@ class Content extends \Magento\Ui\Component\Listing\Columns\Column
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            $fieldName = $this->getData('content');
             foreach ($dataSource['data']['items'] as & $item) {
-                $item[$fieldName] = substr($item[self::NAME], 0, 50) . "...";
+                $item['content'] = substr($item['content'], 0, 50) . "...";
             }
         }
 

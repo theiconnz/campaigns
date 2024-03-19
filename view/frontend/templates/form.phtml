@@ -4,12 +4,10 @@
  * See COPYING.txt for license details.
  */
 
-// phpcs:disable Magento2.Templates.ThisInTemplate
-// phpcs:disable Generic.Files.LineLength.TooLong
-
 /** @var \Theiconnz\Campaigns\Block\Campaign $block */
 
 ?>
+
 
 <form class="form contact"
       id="campaign_form"
@@ -30,13 +28,6 @@
     >
     <?= $block->getBlockHtml('formkey') ?>
     <input type="hidden" name="cid" value="<?= $block->getCampaignId()?>" />
-
-
-        <?php
-        $content = $this->getPage()->getContent();
-        $html = $block->getCmsFilterContent($content);
-        echo $html
-        ?>
 
     <div id="campaign-data-form" class="campaign-data-form campaign-data-form-container c_bg_color_primary_light">
         <fieldset class="fieldset">
@@ -88,7 +79,7 @@
                               cols="5"
                               rows="3"
                               placeholder="<?= $block->escapeHtml(__('Tell us your story here, in 25 words or less...')) ?>"
-                              data-validate="{required:true, maxlength:200 }"
+                              data-validate="{maxlength:1000}"
                     ></textarea>
                 </div>
             </div>
@@ -174,6 +165,9 @@
                     <span><?= $block->escapeHtml(__('ENTER')) ?></span>
                 </button>
             </div>
+            <span class="mandatory-text">
+            *Mandatory fields.
+            </span>
         </div>
     </div>
 
@@ -191,11 +185,20 @@
 </form>
 
 
-
-
     <?php
     $content = $this->getPage()->getContentbottom();
     $html = $block->getCmsFilterContent($content);
     echo $html
     ?>
+
+
+<script type="text/javascript">
+    require(['jquery', 'jquery/ui', 'accordion'], function($){
+        $(document).ready( function() {
+            $("#campaign-view-accordiaon").accordion();
+
+            $("#accordion").accordion();
+        });
+    });
+</script>
 

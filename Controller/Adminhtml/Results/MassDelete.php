@@ -70,10 +70,8 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
         foreach ($collection as $item) {
             try {
                 $this->resultsRepository->delete($item);
-                $productDeleted++;
             } catch (LocalizedException $exception) {
                 $this->logger->error($exception->getLogMessage());
-                $productDeletedError++;
             }
         }
 

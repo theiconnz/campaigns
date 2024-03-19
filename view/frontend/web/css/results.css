@@ -1,3 +1,15 @@
+.page-main{
+    padding-top: 0px;
+}
+
+.page-header{
+    min-height: auto !important;
+}
+
+.category-hero-image{
+    height:200px;
+}
+
 .show_results{
     display: flex;
     flex-direction: row;
@@ -11,7 +23,7 @@
 .content-tile-1{
     display: flex;
     flex-direction: column;
-    justify-content: space-around !important;
+    justify-content: flex-start !important;
     color: white;
     text-align: start;
     padding: 10px;
@@ -31,7 +43,7 @@
 .content-tile-2{
     display: flex;
     flex-direction: column;
-    justify-content: space-around !important;
+    justify-content: flex-start !important;
     color: white;
     text-align: start;
     padding: 0px;
@@ -40,10 +52,11 @@
 
 .content-tile-2 .data-content{
     width: 50%;
+    min-height: 200px;
 }
 
 .content-tile-2 .data-content div{
-    padding: 10px;
+    padding: 20px;
 }
 
 .content-tile-2 .image-tile-2{
@@ -60,9 +73,8 @@
 .content-tile-2{
     display: flex;
     flex-direction: row !important;
-    justify-content: space-around !important;
+    justify-content: flex-start !important;
     text-align: start;
-    background-color: #6b3878;
     padding: 0px;
 }
 
@@ -74,7 +86,7 @@
 .content-tile-2 .data-content{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: start;
 }
 
@@ -114,6 +126,58 @@
     margin: 0 auto;
 }
 
+.profile-image{
+    margin:20px 20px;
+}
+
+.profile-image img{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-name{
+    font-size: 25px;
+    line-height: 28px;
+    margin: 0px 0px 10px 0;
+}
+
+.profile-content-quote{
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.results-data-container{
+    max-width: 800px;
+    margin:0 auto;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+}
+
+
+.content-tile-3{
+    border-color: #5c2d67;
+    border-width: 10px;
+    border-style: solid;
+    padding: 40px 55px;
+}
+
+.content-tile-3 .c_btn_primary{
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.content-tile-3 div{
+    width: 100%;
+}
+
+@media screen and (min-width: 320px) {
+    .results-data-container{
+        padding: 20px 20px;
+    }
+
+}
 
 @media screen and (max-width: 420px) {
     .show_results .campaign-item{
@@ -123,6 +187,7 @@
 
     .content-tile-1{
         padding: 20px;
+        min-height: 300px;
     }
 
     .content-tile-2{
@@ -169,7 +234,7 @@
         width: 50% !important;
     }
     .content-tile-2 .data-content div{
-        padding: 20px;
+        padding: 30px;
     }
     .content-tile-3 .data-content{
         flex-grow: 1;
@@ -182,11 +247,32 @@
     }
 }
 
+@media screen and (max-width: 320px) {
+    .content-tile-3{
+        padding: 40px 10px;
+    }
+}
+
 
 @media screen and (max-width: 769px) {
-    .content-tile-3 .data-content div{
-        padding-top: 10px;
-        padding-bottom: 20px;
+    .results-data-container{
+        max-width: 100%;
+        text-align: justify;
+    }
+
+    .content-tile-1{
+        min-height: 200px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .results-data-container {
+        padding: 20px 60px;
+        margin: 0 auto;
+    }
+
+    .content-tile-3{
+        padding: 10px 55px;
     }
 }
 

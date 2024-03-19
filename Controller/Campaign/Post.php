@@ -246,15 +246,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             }
 
             $this->validatedParams();
-            $submitder = $this->getResultsCollection($this->getRequest()->getParam('email'), $id);
-
-
-            if($submitder->count()>0){
-                throw new LocalizedException(
-                    __('We already have a story under this email. Contact us with your email.')
-                );
-            }
-
 
             $model = $this->campaignRepository->getById( (integer)$id );
 
@@ -319,7 +310,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 $this->addtoSubscription($this->request->getParam('email'));
             }
 
-            //$this->sendEmail($this->validatedParams());
             $this->messageManager->addSuccessMessage("Thank you");
 
 
@@ -368,10 +358,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         $request = $this->getRequest();
         if (trim($request->getParam('firstname')) === '') {
             throw new LocalizedException(__('First Name is missing'));
-        }
-
-        if (trim($request->getParam('content')) === '') {
-            throw new LocalizedException(__('Content is missing'));
         }
 
         if (trim($request->getParam('email')) === '') {

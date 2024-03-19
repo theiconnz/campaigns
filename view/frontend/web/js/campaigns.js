@@ -34,6 +34,7 @@ define([
             successblock: "#campaign_form",
             formcontainer: ".campaign-data-form",
             formid: "campaign_form",
+            hideonsuccess: ".success_hide",
         },
 
         /** @inheritdoc */
@@ -94,7 +95,6 @@ define([
                 }
             })
             .done(function (response) {
-                console.log(response);
                 if (response.success) {
                     this.onSuccess();
                 } else {
@@ -111,6 +111,7 @@ define([
          */
         onSuccess: function () {
             $(this.options.formcontainer).hide();
+            $(this.options.hideonsuccess).hide();
             $(this.options.successblock).show();
             document.getElementById(this.options.formid).reset();
         },

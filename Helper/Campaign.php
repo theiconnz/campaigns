@@ -115,7 +115,7 @@ class Campaign extends AbstractHelper
      * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param IdentityMap|null $identityMap
-     * @param CaptchaFactory $factory
+     * @param CaptchaFactory $factory
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -123,7 +123,7 @@ class Campaign extends AbstractHelper
         \Magento\Framework\Message\ManagerInterface $messageManager,
         \Theiconnz\Campaigns\Model\Campaign $campaign,
         \Magento\Framework\View\DesignInterface $design,
-        \Magento\Cms\Model\PageFactory $pageFactory,
+        \Theiconnz\Campaigns\Model\CampaignFactory $pageFactory,
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\Stdlib\DateTime\TimezoneInterface $localeDate,
         \Magento\Framework\Escaper $escaper,
@@ -160,6 +160,8 @@ class Campaign extends AbstractHelper
             }
 
             $this->_campaign->setStoreId($this->_storeManager->getStore()->getId());
+            $model = $this->_campaign->load($pageId);
+
             if (!$this->_campaign->load($pageId)) {
                 return false;
             }
@@ -168,6 +170,7 @@ class Campaign extends AbstractHelper
         if (!$this->_campaign->getId()) {
             return false;
         }
+
         $this->identityMap->add($this->_campaign);
 
         /** @var ResultPage $resultPage */
@@ -209,29 +212,6 @@ class Campaign extends AbstractHelper
         }
 
         return $this->_urlBuilder->getUrl(null, ['_direct' => $page->getIdentifier()]);
-    }
-
-    /**
-     * Set layout type
-     *
-     * @param bool $inRange
-     * @param ResultPage $resultPage
-     * @return ResultPage
-     */
-    protected function setLayoutType($inRange, $resultPage)
-    {
-        if ($this->_campaign->getPageLayout()) {
-            if ($this->_campaign->getCustomPageLayout()
-                && $this->_campaign->getCustomPageLayout() != 'empty'
-                && $inRange
-            ) {
-                $handle = $this->_campaign->getCustomPageLayout();
-            } else {
-                $handle = $this->_campaign->getPageLayout();
-            }
-            $resultPage->getConfig()->setPageLayout($handle);
-        }
-        return $resultPage;
     }
 
     /**
