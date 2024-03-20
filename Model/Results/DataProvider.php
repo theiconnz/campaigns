@@ -81,13 +81,13 @@ class DataProvider extends ModifierPoolDataProvider
         $requestFieldName,
         CollectionFactory $campaignCollectionRepository,
         DataPersistorInterface $dataPersistor,
-        array $meta = [],
-        array $data = [],
         PoolInterface $pool,
         RequestInterface $request,
         ResultsRepositoryInterface $resultsRepository,
         ResultsFactory $resultsFactory,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        array $meta = [],
+        array $data = []
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
         $this->collection = $campaignCollectionRepository->create();
