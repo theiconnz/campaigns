@@ -12,11 +12,9 @@ abstract class Results extends \Magento\Backend\App\Action
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::results';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::results';
 
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;

@@ -23,17 +23,17 @@ class Results extends AbstractHelper
     /**
      * CMS no-route config path
      */
-    const XML_PATH_NO_ROUTE_PAGE = 'web/default/cms_no_route';
+    public const XML_PATH_NO_ROUTE_PAGE = 'web/default/cms_no_route';
 
     /**
      * CMS no cookies config path
      */
-    const XML_PATH_NO_COOKIES_PAGE = 'web/default/cms_no_cookies';
+    public const XML_PATH_NO_COOKIES_PAGE = 'web/default/cms_no_cookies';
 
     /**
      * CMS home page config path
      */
-    const XML_PATH_HOME_PAGE = 'web/default/cms_home_campaign';
+    public const XML_PATH_HOME_PAGE = 'web/default/cms_home_campaign';
 
     /**
      * Design package instance
@@ -58,8 +58,6 @@ class Results extends AbstractHelper
     protected $_localeDate;
 
     /**
-     * Store manager
-     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
@@ -91,7 +89,7 @@ class Results extends AbstractHelper
      *
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
-     * @param \Theiconnz\Campaigns\Model\Campaign $page
+     * @param \Theiconnz\Campaigns\Model\Campaign $campaign
      * @param \Magento\Framework\View\DesignInterface $design
      * @param \Magento\Cms\Model\PageFactory $pageFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
@@ -99,7 +97,6 @@ class Results extends AbstractHelper
      * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param IdentityMap|null $identityMap
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
@@ -131,6 +128,7 @@ class Results extends AbstractHelper
      * @param ActionInterface $action
      * @param int $pageId
      * @return ResultPage|bool
+     * @throws NoSuchEntityException
      */
     public function prepareResultPage(ActionInterface $action, $pageId = null)
     {
@@ -175,6 +173,7 @@ class Results extends AbstractHelper
      *
      * @param string $pageId
      * @return string
+     * @throws NoSuchEntityException
      */
     public function getPageUrl($pageId = null)
     {

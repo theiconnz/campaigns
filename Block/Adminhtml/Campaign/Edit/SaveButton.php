@@ -9,12 +9,15 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 use Magento\Ui\Component\Control\Container;
 
 /**
- * Class SaveButton
- * @package Theiconnz\Campaigns\Block\Adminhtml\Edit
+ * Class contains Save button code
+ *
+ * @return Theiconnz\Campaigns\Block\Adminhtml\Edit
  */
 class SaveButton extends GenericButton implements ButtonProviderInterface
 {
     /**
+     * Get button data method
+     *
      * @return array
      */
     public function getButtonData()

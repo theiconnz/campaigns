@@ -6,7 +6,7 @@
 namespace Theiconnz\Campaigns\Api\Data;
 
 /**
- * Results interface.
+ * Interface for containing Results logic.
  * @api
  * @since 0.0.1
  */
@@ -15,19 +15,19 @@ interface ResultsInterface
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const R_ID          = 'r_id';
-    const CAMP_ID       = 'camp_id';
-    const FIRSTNAME     = 'firstname';
-    const LASTNAME      = 'lastname';
-    const EMAIL         = 'email';
-    const CONTENT       = 'content';
-    const IMAGENAME     = 'imagename';
-    const NEWSLETTER    = 'newsletter';
-    const TERMSAGREED   = 'terms_agreed';
-    const USEDATAAGREED = 'usedata_agreed';
-    const CREATION_TIME = 'creation_time';
-    const UPDATE_TIME   = 'update_time';
-    const IS_ACTIVE     = 'is_active';
+    public const R_ID          = 'r_id';
+    public const CAMP_ID       = 'camp_id';
+    public const FIRSTNAME     = 'firstname';
+    public const LASTNAME      = 'lastname';
+    public const EMAIL         = 'email';
+    public const CONTENT       = 'content';
+    public const IMAGENAME     = 'imagename';
+    public const NEWSLETTER    = 'newsletter';
+    public const TERMSAGREED   = 'terms_agreed';
+    public const USEDATAAGREED = 'usedata_agreed';
+    public const CREATION_TIME = 'creation_time';
+    public const UPDATE_TIME   = 'update_time';
+    public const IS_ACTIVE     = 'is_active';
     /**#@-*/
 
     /**
@@ -79,7 +79,6 @@ interface ResultsInterface
      */
     public function getNewsletter();
 
-
     /**
      * Get terms and conditions agreed
      *
@@ -87,14 +86,12 @@ interface ResultsInterface
      */
     public function getTermsAgreed();
 
-
     /**
      * Get use data
      *
      * @return int
      */
     public function getUsedataAgreed();
-
 
     /**
      * Get imagename
@@ -188,7 +185,6 @@ interface ResultsInterface
      */
     public function setTermsAgreed($termsagreed);
 
-
     /**
      * Set use data for marketing
      *
@@ -197,7 +193,6 @@ interface ResultsInterface
      */
     public function setUsedataAgreed($termsagreed);
 
-
     /**
      * Set Imagename
      *
@@ -205,7 +200,6 @@ interface ResultsInterface
      * @return ResultsInterface
      */
     public function setImagename($imagename);
-
 
     /**
      * Set creation time

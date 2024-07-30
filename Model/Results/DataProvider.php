@@ -48,7 +48,6 @@ class DataProvider extends ModifierPoolDataProvider
      */
     private $request;
 
-
     /**
      * @var ResultsFactory
      */
@@ -65,14 +64,13 @@ class DataProvider extends ModifierPoolDataProvider
      * @param string $requestFieldName
      * @param CollectionFactory $campaignCollectionRepository
      * @param DataPersistorInterface $dataPersistor
-     * @param array $meta
-     * @param array $data
      * @param PoolInterface|null $pool
-     * @param AuthorizationInterface|null $auth
      * @param RequestInterface|null $request
      * @param ResultsRepositoryInterface $resultsRepository
      * @param ResultsFactory $resultsFactory
      * @param LoggerInterface|null $logger
+     * @param array $meta
+     * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -161,11 +159,10 @@ class DataProvider extends ModifierPoolDataProvider
      */
     private function getPageId(): int
     {
-        if($this->request) {
+        if ($this->request) {
             return (int)$this->request->getParam($this->getRequestFieldName());
         } else {
             return false;
         }
     }
-
 }

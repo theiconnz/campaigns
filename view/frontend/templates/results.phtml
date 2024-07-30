@@ -8,32 +8,30 @@
 // phpcs:disable Generic.Files.LineLength.TooLong
 
 /** @var \Theiconnz\Campaigns\Block\Results $block */
+/** @var \Magento\Framework\Escaper $escaper */
 
 ?>
 <div class="campaign_results">
-    <h1>Results <?=$block->getCampaignId()?></h1>
+    <h1>Results <?=$escaper->escapeHtml($block->getCampaignId())?></h1>
 </div>
 
 <div class="show_results">
     <?php
     $collection = $block->getResultsCollection();
-    if($collection && $collection->count()>0)  {
-        foreach($collection as $item):
-        ?>
-        <div class="campaign-item">
-            <div class="profile_image">
-                <?php $imagename = $item->getImagename();
-                if($imagename) {
-                ?>
-                <img src="<?php echo $block->getImageUrl(). $imagename?>" alt="<?=$item->getFirstname();?>" />
-                <?php } ?>
-                </div>
-            <div class="name"><?=$item->getFirstname();?></div>
-            <div class="content"><?=$item->getContent();?></div>
-        </div>
-        <?php
-        endforeach;
-        } else { ?>
+    if ($collection && $collection->count()>0) {
+        foreach ($collection as $item): ?>
+            <div class="campaign-item">
+                <div class="profile_image">
+                    <?php $imagename = $item->getImagename();
+                    if ($imagename) { ?>
+                        <img src="<?=$escaper->escapeHtml($block->getImageUrl()).$escaper->escapeHtml($imagename)?>" alt="<?=$escaper->escapeHtml($item->getFirstname());?>" />
+                    <?php } ?>
+                    </div>
+                <div class="name"><?=$escaper->escapeHtml($item->getFirstname());?></div>
+                <div class="content"><?=$escaper->escapeHtml($item->getContent());?></div>
+            </div>
+        <?php endforeach;
+    } else { ?>
             <div class="campaign-not-visible">This Campaign is not visible.</div>
     <?php } ?>
 </div>

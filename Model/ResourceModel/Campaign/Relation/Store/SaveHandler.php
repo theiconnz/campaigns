@@ -11,7 +11,7 @@ use Theiconnz\Campaigns\Model\ResourceModel\Campaign;
 use Magento\Framework\EntityManager\MetadataPool;
 
 /**
- * Class SaveHandler
+ * Save Handler Class for campagin save
  */
 class SaveHandler implements ExtensionInterface
 {
@@ -38,6 +38,8 @@ class SaveHandler implements ExtensionInterface
     }
 
     /**
+     * Save Hander execution
+     *
      * @param object $entity
      * @param array $arguments
      * @return object

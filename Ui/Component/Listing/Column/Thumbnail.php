@@ -23,8 +23,6 @@ class Thumbnail extends Column
     private $campaignRepository;
 
     /**
-     * Store manager
-     *
      * @var StoreManager
      */
     protected $storeManager;
@@ -32,9 +30,9 @@ class Thumbnail extends Column
     /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
+     * @param CampaignRepositoryInterface $campaignRepository
      * @param array $components
      * @param array $data
-     * @param CampaignRepositoryInterface $campaignRepository
      */
     public function __construct(
         ContextInterface $context,
@@ -61,20 +59,20 @@ class Thumbnail extends Column
         return $dataSource;
     }
 
-
+    /**
+     * @inheritDoc
+     */
     protected function prepareItem($item)
     {
-        $profilepath = $this->getStoreManager()->getStore()->getBaseUrl(  UrlInterface::URL_TYPE_MEDIA ) .
+        $profilepath = $this->getStoreManager()->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
         \Theiconnz\Campaigns\Model\Results::UPLOADPATH;
-        return ($item!=null) ? sprintf("%s%s",$profilepath,$item) : '';
+        return ($item != null) ? sprintf("%s%s", $profilepath, $item) : '';
     }
 
     /**
      * Get StoreManager dependency
      *
      * @return StoreManager
-     *
-     * @deprecated 100.1.0
      */
     private function getStoreManager()
     {
@@ -84,5 +82,4 @@ class Thumbnail extends Column
         }
         return $this->storeManager;
     }
-
 }

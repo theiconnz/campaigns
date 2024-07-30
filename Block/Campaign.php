@@ -23,15 +23,11 @@ class Campaign extends Template
     protected $_campaign;
 
     /**
-     * Store manager
-     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * Campaigns factory
-     *
      * @var \Theiconnz\Campaigns\Model\CampaignFactory
      */
     protected $_campaignFactory;
@@ -47,14 +43,13 @@ class Campaign extends Template
     protected $_filterProvider;
 
     /**
-     * Construct
+     * Class Construct
      *
-     * @param \Magento\Framework\View\Element\Context $context
+     * @param Template\Context $context
      * @param \Theiconnz\Campaigns\Model\Campaign $page
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Theiconnz\Campaigns\Model\CampaignFactory $pageFactory
      * @param \Magento\Framework\View\Page\Config $pageConfig
-     * @param Template\Context $context
      * @param FilterProvider $filterProvider
      * @param array $data
      */
@@ -128,7 +123,6 @@ class Campaign extends Template
         return [\Theiconnz\Campaigns\Model\Campaign::CACHE_TAG . '_' . $this->getPage()->getId()];
     }
 
-
     /**
      * Returns action url for contact form
      *
@@ -140,7 +134,7 @@ class Campaign extends Template
     }
 
     /**
-     * get Campain success message block
+     * Get Campain success message block
      *
      * @return string
      */
@@ -159,7 +153,13 @@ class Campaign extends Template
         return $this->getPage()->getId();
     }
 
-    public function getCmsFilterContent($value='')
+    /**
+     * Get cms filter content by value
+     *
+     * @param String $value
+     * @return string
+     */
+    public function getCmsFilterContent(string $value = '')
     {
         $html = $this->_filterProvider->getPageFilter()->filter($value);
         return $html;

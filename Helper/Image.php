@@ -23,7 +23,7 @@ class Image extends AbstractHelper implements ArgumentInterface
     /**
      * Media config node
      */
-    const MEDIA_TYPE_CONFIG_NODE = 'images';
+    public const MEDIA_TYPE_CONFIG_NODE = 'images';
 
     /**
      * Current model
@@ -40,43 +40,31 @@ class Image extends AbstractHelper implements ArgumentInterface
     protected $_scheduleResize = true;
 
     /**
-     * Scheduled for rotate image
-     *
      * @var bool
      */
     protected $_scheduleRotate = false;
 
     /**
-     * Angle
-     *
      * @var int
      */
     protected $_angle;
 
     /**
-     * Watermark file name
-     *
      * @var string
      */
     protected $_watermark;
 
     /**
-     * Watermark Position
-     *
      * @var string
      */
     protected $_watermarkPosition;
 
     /**
-     * Watermark Size
-     *
      * @var string
      */
     protected $_watermarkSize;
 
     /**
-     * Watermark Image opacity
-     *
      * @var int
      */
     protected $_watermarkImageOpacity;
@@ -89,8 +77,6 @@ class Image extends AbstractHelper implements ArgumentInterface
     protected $_product;
 
     /**
-     * Image File
-     *
      * @var string
      */
     protected $_imageFile;
@@ -108,8 +94,6 @@ class Image extends AbstractHelper implements ArgumentInterface
     protected $_assetRepo;
 
     /**
-     * Product image factory
-     *
      * @var \Magento\Catalog\Model\Product\ImageFactory
      */
     protected $_productImageFactory;
@@ -307,7 +291,6 @@ class Image extends AbstractHelper implements ArgumentInterface
      *
      * @param int $quality
      * @return $this
-     * @deprecated 103.0.1
      */
     public function setQuality($quality)
     {
@@ -457,9 +440,6 @@ class Image extends AbstractHelper implements ArgumentInterface
      *
      * @param null|string $placeholder
      * @return string
-     *
-     * @deprecated 102.0.0 Returns only default placeholder.
-     * Does not take into account custom placeholders set in Configuration.
      */
     public function getPlaceholder($placeholder = null)
     {

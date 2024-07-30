@@ -5,7 +5,7 @@
  */
 
 /** @var \Theiconnz\Campaigns\Block\Campaign $block */
-
+/** @var \Magento\Framework\Escaper $escaper */
 ?>
 
 
@@ -15,7 +15,7 @@
       enctype="multipart/form-data"
       data-mage-init='{"Theiconnz_Campaigns/js/campaigns":
               {
-                "validationURL" : "<?= $block->escapeUrl($block->getFormAction()) ?>",
+                "validationURL" : "<?=$escaper->escapeUrl($block->getFormAction())?>",
                 "fileuploadid": "#file-upload",
                 "formelement": "#campaign_form",
                 "successblock": "#campaign-data-form-update",
@@ -23,11 +23,11 @@
                 "formid": "campaign_form"
               }
           }'
-      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-hasrequired="<?=$escaper->escapeHtmlAttr(__('* Required Fields'))?>"
       data-mage-init='{"validation":{}}'
     >
     <?= $block->getBlockHtml('formkey') ?>
-    <input type="hidden" name="cid" value="<?= $block->getCampaignId()?>" />
+    <input type="hidden" name="cid" value="<?=$escaper->escapeHtml($block->getCampaignId())?>" />
 
     <div id="campaign-data-form" class="campaign-data-form campaign-data-form-container c_bg_color_primary_light">
         <fieldset class="fieldset">
@@ -35,11 +35,11 @@
                 <div class="control">
                     <input name="firstname"
                            id="firstname"
-                           title="<?= $block->escapeHtmlAttr(__('Name')) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Name')) ?>"
                            value=""
                            class="input-text"
                            type="text"
-                           placeholder="<?= $block->escapeHtml(__('Name*')) ?>"
+                           placeholder="<?= $escaper->escapeHtml(__('Name*')) ?>"
                            data-validate="{required:true, minlength:2}"/>
                 </div>
             </div>
@@ -47,23 +47,23 @@
                 <div class="control">
                     <input name="email"
                            id="email"
-                           title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
                            value=""
                            class="input-text"
                            type="email"
-                           placeholder="<?= $block->escapeHtml(__('Email*')) ?>"
+                           placeholder="<?= $escaper->escapeHtml(__('Email*')) ?>"
                            data-validate="{required:true, 'validate-email':true}"/>
                 </div>
             </div>
 
-            <?php if( $this->getPage()->getShowphone() ){?>
+            <?php if ($block->getPage()->getShowphone()) {?>
             <div class="field telephone">
                 <div class="control">
                     <input name="telephone"
                            id="telephone"
-                           title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Phone Number')) ?>"
                            value=""
-                           placeholder="<?= $block->escapeHtml(__('Phone Number*')) ?>"
+                           placeholder="<?= $escaper->escapeHtml(__('Phone Number*')) ?>"
                            class="input-text"
                            type="tel" />
                 </div>
@@ -74,11 +74,13 @@
                 <div class="control">
                     <textarea name="content"
                               id="comment"
-                              title="<?= $block->escapeHtmlAttr(__('What’s on your mind?')) ?>"
+                              title="<?= $escaper->escapeHtmlAttr(__('What’s on your mind?')) ?>"
                               class="input-text"
                               cols="5"
                               rows="3"
-                              placeholder="<?= $block->escapeHtml(__('Tell us your story here, in 25 words or less...')) ?>"
+                              placeholder="<?=$escaper->escapeHtml(
+                                  __('Tell us your story here, in 25 words or less...')
+                              )?>"
                               data-validate="{maxlength:1000}"
                     ></textarea>
                 </div>
@@ -91,7 +93,7 @@
                                name="filename"
                                class="inputfile"
                                id="file-upload"
-                               placeholder="<?= $block->escapeHtml(__('Upload supporting image')) ?>"
+                               placeholder="<?= $escaper->escapeHtml(__('Upload supporting image')) ?>"
                                accept="image/jpeg,image/png"
                                data-mage-init='{"Theiconnz_Campaigns/js/upload":
                                   {
@@ -111,7 +113,10 @@
         <fieldset class="fieldset">
             <div class="field terms field-checkbox">
                 <label class="label" for="terms-error">
-                    <span><?= $block->escapeHtml(__('I have read and agreed to the Terms & Conditions*')) ?></span>
+                    <span>
+                        <?= $escaper->escapeHtml(
+                            __('I have read and agreed to the Terms & Conditions*')
+                        ) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -126,7 +131,11 @@
 
             <div class="field use_marketing field-checkbox">
                 <label class="label" for="useinmarketing-error">
-                    <span><?= $block->escapeHtml(__('I agree to my ecostory and image used for marketing purposes')) ?></span>
+                    <span>
+                        <?=$escaper->escapeHtml(
+                            __('I agree to my ecostory and image used for marketing purposes')
+                        )?>
+                    </span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -138,10 +147,14 @@
                 </div>
             </div>
 
-            <?php if( $this->getPage()->getNewsletter() ){?>
+            <?php if ($block->getPage()->getNewsletter()) {?>
             <div class="field newsletter field-checkbox">
                 <label class="label" for="newsletter-error">
-                    <span><?= $block->escapeHtml(__('Sign me up for emails about promotions & discounts')) ?></span>
+                    <span>
+                        <?=$escaper->escapeHtml(
+                            __('Sign me up for emails about promotions & discounts')
+                        )?>
+                    </span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -161,8 +174,9 @@
         <div class="actions-toolbar">
             <div class="primary">
                 <input type="hidden" name="hideit" id="hideit" value="" />
-                <button type="submit" title="<?= $block->escapeHtmlAttr(__('ENTER')) ?>" class="action submit c_btn_primary">
-                    <span><?= $block->escapeHtml(__('ENTER')) ?></span>
+                <button type="submit" title="<?=$escaper->escapeHtmlAttr(__('ENTER'))?>"
+                        class="action submit c_btn_primary">
+                    <span><?= $escaper->escapeHtml(__('ENTER')) ?></span>
                 </button>
             </div>
             <span class="mandatory-text">
@@ -174,9 +188,9 @@
     <div id="campaign-data-form-update" class="campaign-data-form-container" style="display: none;">
         <?php
         $blockid = $block->getPage()->getData('block_identifier');
-        if($blockid) {
-            echo $this->getLayout()
-                ->createBlock('Magento\Cms\Block\Block')
+        if ($blockid) {
+            echo $block->getLayout()
+                ->createBlock(\Magento\Cms\Block\Block::class)
                 ->setBlockId($blockid)
                 ->toHtml();
         }
@@ -186,13 +200,13 @@
 
 
     <?php
-    $content = $this->getPage()->getContentbottom();
+    $content = $block->getPage()->getContentbottom();
     $html = $block->getCmsFilterContent($content);
-    echo $html
+    echo $escaper->escapeHtml($html);
     ?>
 
 
-<script type="text/javascript">
+<script>
     require(['jquery', 'jquery/ui', 'accordion'], function($){
         $(document).ready( function() {
             $("#campaign-view-accordiaon").accordion();

@@ -31,7 +31,7 @@ class Save extends Action implements HttpPostActionInterface
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
 
     /**
      * @var PostDataProcessor
@@ -55,7 +55,6 @@ class Save extends Action implements HttpPostActionInterface
 
     /**
      * @param Action\Context $context
-     * @param PostDataProcessor $dataProcessor
      * @param DataPersistorInterface $dataPersistor
      * @param CampaignFactory|null $campaignFactory
      * @param CampaignRepositoryInterface $campaignRepository

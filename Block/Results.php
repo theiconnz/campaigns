@@ -24,15 +24,11 @@ class Results extends Template
     protected $_campaign;
 
     /**
-     * Store manager
-     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * Results factory
-     *
      * @var \Theiconnz\Campaigns\Model\CampaignFactory
      */
     protected $_campaignFactory;
@@ -50,13 +46,12 @@ class Results extends Template
     /**
      * Construct
      *
-     * @param \Magento\Framework\View\Element\Context $context
+     * @param Template\Context $context
      * @param \Theiconnz\Campaigns\Model\Campaign $page
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param \Theiconnz\Campaigns\Model\CampaignFactory $pageFactory
+     * @param \Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory $resultsCollectionFactory
      * @param \Magento\Framework\View\Page\Config $pageConfig
-     * @param \Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory $resultsCollectionFactory,
-     * @param Template\Context $context
      * @param array $data
      */
     public function __construct(
@@ -138,7 +133,7 @@ class Results extends Template
      */
     public function getImageUrl()
     {
-        return $this->_storeManager->getStore()->getBaseUrl(  UrlInterface::URL_TYPE_MEDIA ) .
+        return $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA) .
             \Theiconnz\Campaigns\Model\Results::UPLOADPATH;
     }
 
@@ -154,9 +149,7 @@ class Results extends Template
             ->addFieldToSelect('name')
             ->addFieldToSelect('content')
             ->addFieldToSelect('imagename')
-            ->addFieldToFilter('is_active',
-                ['eq' => 1]
-            )
+            ->addFieldToFilter('is_active', ['eq' => 1])
             ->setOrder(
                 'creation_time',
                 'desc'

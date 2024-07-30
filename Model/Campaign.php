@@ -20,7 +20,7 @@ use Theiconnz\Campaigns\Api\Data\CampaignInterface;
 use Theiconnz\Campaigns\Api\Data\ResultsInterface;
 
 /**
- * CMS block model
+ * Campaign model class
  *
  * @method Campaign setStoreId(int $storeId)
  * @method int getStoreId()
@@ -30,22 +30,20 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     /**
      * CMS block cache tag
      */
-    const CACHE_TAG = 'campaign_b';
+    public const CACHE_TAG = 'campaign_b';
 
-    /**#@+
+    /**
      * Block's statuses
      */
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
+    public const STATUS_ENABLED = 1;
+    public const STATUS_DISABLED = 0;
 
-    /**#@-*/
-
-    /**#@-*/
+    /**
+     * @var string
+     */
     protected $_cacheTag = self::CACHE_TAG;
 
     /**
-     * Prefix of model events names
-     *
      * @var string
      */
     protected $_eventPrefix = 'campaign_';
@@ -256,7 +254,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return (bool)$this->getData(self::BLOCK_ID);
     }
 
-
     /**
      * Set ID
      *
@@ -300,7 +297,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return $this->setData(self::CONTENT, $content);
     }
-
 
     /**
      * Set content bottom
@@ -367,7 +363,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return $this->setData(self::IS_ACTIVE, $isActive);
     }
-
 
     /**
      * Set block id

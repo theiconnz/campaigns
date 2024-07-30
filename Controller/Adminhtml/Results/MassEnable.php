@@ -12,7 +12,7 @@ use Magento\Ui\Component\MassAction\Filter;
 use Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory;
 
 /**
- * Class MassEnable
+ * Class contains method for mass enabling
  */
 class MassEnable extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
@@ -21,7 +21,7 @@ class MassEnable extends \Magento\Backend\App\Action implements HttpPostActionIn
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
 
     /**
      * @var Filter

@@ -23,7 +23,7 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
 
     /**
      * @var Filter
@@ -44,13 +44,14 @@ class MassDelete extends \Magento\Backend\App\Action implements HttpPostActionIn
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
+     * @param ResultsRepositoryInterface $resultsRepository
      */
     public function __construct(
-        Context $context, Filter $filter,
+        Context $context,
+        Filter $filter,
         CollectionFactory $collectionFactory,
         ResultsRepositoryInterface $resultsRepository
-    )
-    {
+    ) {
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
         $this->resultsRepository = $resultsRepository;

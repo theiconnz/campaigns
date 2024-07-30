@@ -13,11 +13,14 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\File\Uploader;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;
 use Magento\Newsletter\Model\SubscriptionManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Theiconnz\Campaigns\Api\CampaignRepositoryInterface;
+use Theiconnz\Campaigns\Helper\Campaign;
 use Theiconnz\Campaigns\Helper\Campaign as CampaignHelper;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -31,7 +34,7 @@ use Theiconnz\Campaigns\Model\ResultsFactory;
 use Theiconnz\Campaigns\Api\ResultsRepositoryInterface;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory;
-use Theiconnz\Campaigns\Helper\Campaign as Helper;
+
 /**
  * Custom page for storefront. Needs to be accessible by POST because of the store switching.
  */
@@ -67,24 +70,20 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      */
     private $filesystem;
 
-
     /**
      * @var JsonFactory
      */
     private $resultJsonFactory;
-
 
     /**
      * @var File
      */
     private $io;
 
-
     /**
      * @var DirectoryList
      */
     private $dir;
-
 
     /**
      * @var CampaignRepositoryInterface
@@ -96,18 +95,19 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      */
     private $resultsFactory;
 
-
     /**
      * @var ResultsRepositoryInterface
      */
     private $resultsRepository;
-
 
     /**
      * @var TimezoneInterface
      */
     private $timezone;
 
+    /**
+     * @var StoreManagerInterface
+     */
     private $storeManager;
 
     /**
@@ -116,8 +116,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
     private $mail;
 
     /**
-     * Subscriber factory
-     *
      * @var SubscriberFactory
      */
     protected $_subscriberFactory;
@@ -128,12 +126,9 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
     private $subscriptionManager;
 
     /**
-     * Customer session
-     *
      * @var Session
      */
     protected $_customerSession;
-
 
     /**
      * @var \Theiconnz\Campaigns\Model\ResourceModel\Results\CollectionFactory
@@ -145,7 +140,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      */
     protected $_helper;
 
-
     /**
      * @var CaptchaStringResolver
      */
@@ -155,7 +149,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      * @param Context $context
      * @param RequestInterface $request
      * @param CampaignHelper $campaignHelper
-     * @param ForwardFactory $resultForwardFactory
      * @param \Magento\MediaStorage\Model\File\UploaderFactory $uploaderFactory
      * @param \Magento\Framework\Image\AdapterFactory $adapterFactory
      * @param \Magento\Framework\Filesystem $filesystem
@@ -169,8 +162,10 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      * @param StoreManagerInterface $storeManager
      * @param SubscriberFactory $subscriberFactory
      * @param SubscriptionManagerInterface $subscriptionManager
+     * @param Session $customerSession
      * @param CollectionFactory $resultsCollectionFactory
      * @param MailInterface $mail
+     * @param Campaign $helper
      * @param CaptchaStringResolver $captchaStringResolver
      */
     public function __construct(
@@ -193,7 +188,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         Session $customerSession,
         CollectionFactory $resultsCollectionFactory,
         MailInterface $mail,
-        \Theiconnz\Campaigns\Helper\Campaign $helper,
+        Campaign $helper,
         CaptchaStringResolver $captchaStringResolver
     ) {
         parent::__construct($context);
@@ -220,7 +215,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
     }
 
     /**
-     * Campaigns Id must be active
+     * Campaigns id must be active
      *
      * @return ResultsInterface
      */
@@ -233,40 +228,37 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         $resultPage->setHttpResponseCode(500);
         $resultPage->setData([]);
 
-        try{
+        try {
             $this->checkCaptcha();
-
             $result = false;
-            if (
-                ( null == $id ) || empty($id) || !is_numeric($id) || !$terms
-             ) {
-                throw new LocalizedException(
-                    __('Incorrect data values')
-                );
+            if (empty($id) || !is_numeric($id) || !$terms) {
+                throw new LocalizedException(__('Incorrect data values'));
             }
 
             $this->validatedParams();
 
-            $model = $this->campaignRepository->getById( (integer)$id );
+            $model = $this->campaignRepository->getById((integer)$id);
 
-            if(!$model || ($model->getId()!=$id) && !$model->isActive()) {
+            if (!$model || ($model->getId()!=$id) && !$model->isActive()) {
                 throw new LocalizedException(
                     __('Not an active campaign')
                 );
             }
 
-            if(count($_FILES['filename'])>0 && !$_FILES['filename']['error'] ) {
+            $file = $this->getRequest()->getFiles('filename');
+            $fileName = ($file && array_key_exists('name', $file)) ? $file['name'] : null;
+
+            if ($file && $fileName) {
                 $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'filename']);
 
                 $uploaddir = $this->dir->getPath('media') . Results::UPLOADPATH;
-                if (!file_exists($uploaddir)) {
+                if (!$this->io->fileExists($uploaddir)) {
                     $this->io->mkdir($uploaddir);
                 }
 
                 $uploaderFactory->setAllowedExtensions(['jpg', 'gif', 'png']); // you can add more extension which need
                 $uploaderFactory->setAllowRenameFiles(true);
                 $uploaderFactory->setFilesDispersion(true);
-
 
                 $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
                 $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
@@ -283,38 +275,42 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 }
             }
 
-            $resultfactory = $this->resultsFactory->create();
-            $resultfactory->setCampId($model->getId());
-            $resultfactory->setFirstname( $this->validateInputFields($this->request->getParam('firstname')) );
-            $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
-            $resultfactory->setEmail( $this->request->getParam('email') );
-            if($result) {
-                $resultfactory->setImagename($result['file'] );
+            $resultFactory = $this->resultsFactory->create();
+            $resultFactory->setCampId($model->getId());
+            $resultFactory->setFirstname($this->validateInputFields($this->request->getParam('firstname')));
+            $resultFactory->setContent($this->validateInputFields($this->request->getParam('content')));
+            $resultFactory->setEmail($this->request->getParam('email'));
+            if ($result) {
+                $resultFactory->setImagename($result['file']);
             }
 
             $nl = $this->request->getParam('newsletter');
-            if($nl && $nl==1) $resultfactory->setNewsletter(1);
+            if ($nl==1) {
+                $resultFactory->setNewsletter(1);
+            }
             $terms = $this->request->getParam('terms');
-            if($terms && $terms==1) $resultfactory->setTermsAgreed(1);
+            if ($terms==1) {
+                $resultFactory->setTermsAgreed(1);
+            }
             $um = $this->request->getParam('useinmarketing');
-            if($um && $um==1) $resultfactory->setUsedataAgreed(1);
+            if ($um==1) {
+                $resultFactory->setUsedataAgreed(1);
+            }
 
-            $resultfactory->setStoreId( $this->storeManager->getStore()->getId() );
-            $this->resultsRepository->save($resultfactory);
+            $resultFactory->setStoreId($this->storeManager->getStore()->getId());
+            $this->resultsRepository->save($resultFactory);
             $resultPage->setHttpResponseCode(200);
 
             $response = ['success' => 200, 'message' => "Result submit success"];
             $resultPage->setData($response);
 
-            if($nl && $nl==1) {
+            if ($nl && $nl==1) {
                 $this->addtoSubscription($this->request->getParam('email'));
             }
 
             $this->messageManager->addSuccessMessage("Thank you");
-
-
         } catch (\Exception $e) {
-            $this->messageManager->addErrorMessage( $e->getMessage() );
+            $this->messageManager->addErrorMessage($e->getMessage());
             $resultPage->setHttpResponseCode(500);
             $resultPage->setJsonData(
                 json_encode([
@@ -329,29 +325,31 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
 
     /**
      * New file name. prefix, noempty spage, lowercase
-     * @param String $context
      *
+     * @param String $email
      * @return string
      */
-    public function renameFile($email){
-        return sprintf("%s_%s",  $email,  $this->timezone->scopeTimeStamp() );
+    public function renameFile(string $email) : string
+    {
+        return sprintf("%s_%s", $email, $this->timezone->scopeTimeStamp());
     }
 
     /**
      * Validate and strip html tags
-     * @param String $context
      *
+     * @param String $field
      * @return string
      */
-    public function validateInputFields($field){
+    public function validateInputFields(string $field): string
+    {
         return trim(strip_tags($field));
     }
 
     /**
      * Validate and strip html tags
-     * @param String $context
      *
-     * @return string
+     * @return array
+     * @throws LocalizedException
      */
     private function validatedParams()
     {
@@ -365,19 +363,20 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         }
 
         if ($request->getParam('terms') == '' ||
-            $request->getParam('terms') == 0 ) {
+            $request->getParam('terms') == 0) {
             throw new LocalizedException(__('Incorrect terms and conditions agreement'));
         }
 
-        if (false === \strpos($request->getParam('email'), '@')) {
+        if (!str_contains($request->getParam('email'), '@')) {
             throw new LocalizedException(__('Invalid email address'));
         }
 
         return $request->getParams();
     }
 
-
     /**
+     * Send email method
+     *
      * @param array $post Post data from campaign form
      * @return void
      */
@@ -390,8 +389,11 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
     }
 
     /**
-     * @param array $post Post data from campaign form
+     * Add to subscription by email
+     *
+     * @param string $email
      * @return void
+     * @throws NoSuchEntityException
      */
     private function addtoSubscription($email)
     {
@@ -408,7 +410,6 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             ? $this->subscriptionManager->subscribeCustomer($currentCustomerId, $storeId)
             : $this->subscriptionManager->subscribe($email, $storeId);
     }
-
 
     /**
      * Get customer id from session if he is owner of the email
@@ -430,26 +431,28 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         return (int)$this->_customerSession->getId();
     }
 
-
     /**
      * Returns results collection
      *
-     * @return string
+     * @param String $email
+     * @param String $cid
+     * @return object
      */
-    public function getResultsCollection($email, $cid)
+    public function getResultsCollection(string $email, string $cid) : object
     {
         $collection = $this->_resultsCollectionFactory->create()
             ->addFieldToSelect('email')
-            ->addFieldToFilter('email',
-                ['eq' => $email]
-            )
-            ->addFieldToFilter('camp_id',
-                ['eq' => $cid]
-            );
+            ->addFieldToFilter('email', ['eq' => $email])
+            ->addFieldToFilter('camp_id', ['eq' => $cid]);
         return $collection;
     }
 
-
+    /**
+     * Check captcha method
+     *
+     * @return void
+     * @throws LocalizedException
+     */
     private function checkCaptcha()
     {
         $formId = 'campaign_form';
@@ -461,5 +464,4 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             }
         }
     }
-
 }

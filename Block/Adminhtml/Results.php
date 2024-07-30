@@ -7,16 +7,14 @@ namespace Theiconnz\Campaigns\Block\Adminhtml;
 
 use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface as StoreManager;
-use \Theiconnz\Campaigns\Model\ResultsFactory;
-/**
- * Adminhtml cms blocks content block
- */
+use Magento\Translation\Model\ResourceModel\StringUtilsFactory;
 
+/**
+ * Adminhtml Results blocks content block
+ */
 class Results extends \Magento\Backend\Block\Widget\Container
 {
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
@@ -26,17 +24,12 @@ class Results extends \Magento\Backend\Block\Widget\Container
      */
     private $resultsRepository;
 
-
     /**
-     * Store manager
-     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
 
     /**
-     * Adminhtml data
-     *
      * @var \Magento\Backend\Helper\Data
      */
     protected $_adminhtmlData = null;
@@ -46,6 +39,7 @@ class Results extends \Magento\Backend\Block\Widget\Container
      * @param \Theiconnz\Campaigns\Api\ResultsRepositoryInterface $resultsRepository
      * @param \Magento\Backend\Helper\Data $adminhtmlData
      * @param StoreManager $storeManager
+     * @param array $data
      */
     public function __construct(
         \Magento\Backend\Block\Widget\Context $context,
@@ -53,14 +47,19 @@ class Results extends \Magento\Backend\Block\Widget\Container
         \Magento\Backend\Helper\Data $adminhtmlData,
         StoreManager $storeManager,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $data);
         $this->resultsRepository = $resultsRepository;
         $this->_storeManager = $storeManager;
         $this->_adminhtmlData = $adminhtmlData;
     }
 
+    /**
+     * Get results model
+     *
+     * @return false|\Theiconnz\Campaigns\Api\Data\ResultsInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function getResult()
     {
         $id = $this->getRequest()->getParam('r_id');
@@ -71,12 +70,19 @@ class Results extends \Magento\Backend\Block\Widget\Container
         return $model;
     }
 
-
+    /**
+     * Return Image url
+     *
+     * @param String $item
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     */
     public function getImageUrl($item)
     {
-        $profilepath = $this->_storeManager->getStore()->getBaseUrl(  UrlInterface::URL_TYPE_MEDIA ) .
+        $profilepath = $this->_storeManager->getStore()->getBaseUrl(UrlInterface::URL_TYPE_MEDIA).
             \Theiconnz\Campaigns\Model\Results::UPLOADPATH;
-        return ($item!=null || $item!='') ? sprintf("%s%s",$profilepath,$item) : '';
+        return ($item!=null || $item!='')?sprintf("%s%s", $profilepath, $item):'';
     }
 
     /**
@@ -90,7 +96,6 @@ class Results extends \Magento\Backend\Block\Widget\Container
 
         return parent::_prepareLayout();
     }
-
 
     /**
      * Add back button
@@ -109,5 +114,4 @@ class Results extends \Magento\Backend\Block\Widget\Container
             ]
         );
     }
-
 }

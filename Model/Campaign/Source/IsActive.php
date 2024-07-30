@@ -8,7 +8,7 @@ namespace Theiconnz\Campaigns\Model\Campaign\Source;
 use Magento\Framework\Data\OptionSourceInterface;
 
 /**
- * Class IsActive
+ * Is Active Class to return is active data source
  */
 class IsActive implements OptionSourceInterface
 {

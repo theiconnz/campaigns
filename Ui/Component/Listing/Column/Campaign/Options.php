@@ -15,7 +15,7 @@ class Options extends StoreOptions
     /**
      * All Store Views value
      */
-    const ALL_STORE_VIEWS = '0';
+    public const ALL_STORE_VIEWS = '0';
 
     /**
      * Get options

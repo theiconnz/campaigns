@@ -19,15 +19,11 @@ class Collection extends AbstractCollection
     protected $_idFieldName = 'camp_id';
 
     /**
-     * Event prefix
-     *
      * @var string
      */
     protected $_eventPrefix = 'campaign_collection';
 
     /**
-     * Event object
-     *
      * @var string
      */
     protected $_eventObject = 'campagin_collection';
@@ -53,7 +49,10 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(\Theiconnz\Campaigns\Model\Campaign::class, \Theiconnz\Campaigns\Model\ResourceModel\Campaign::class);
+        $this->_init(
+            \Theiconnz\Campaigns\Model\Campaign::class,
+            \Theiconnz\Campaigns\Model\ResourceModel\Campaign::class
+        );
         $this->_map['fields']['store_id'] = 'store_table.store_id';
     }
 

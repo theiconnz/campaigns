@@ -20,9 +20,9 @@ class Campaign extends Column
     /**
      * Url path
      */
-    const URL_PATH_EDIT = 'campaigns/campaign/edit';
-    const URL_PATH_DELETE = 'campaigns/campaign/delete';
-    const URL_PATH_DETAILS = 'campaigns/campaign/details';
+    public const URL_PATH_EDIT = 'campaigns/campaign/edit';
+    public const URL_PATH_DELETE = 'campaigns/campaign/delete';
+    public const URL_PATH_DETAILS = 'campaigns/campaign/details';
 
     /**
      * @var UrlInterface
@@ -53,12 +53,15 @@ class Campaign extends Column
     }
 
     /**
-     * @inheritDoc
+     * Prepare data sources
+     *
+     * @param array $dataSource
+     * @return array
      */
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as & $item) {
+            foreach ($dataSource['data']['items'] as &$item) {
                 if (isset($item['camp_id'])) {
                     $title = $this->getEscaper()->escapeHtmlAttr($item['title']);
                     $item[$this->getData('name')] = [
@@ -89,7 +92,6 @@ class Campaign extends Column
                 }
             }
         }
-
         return $dataSource;
     }
 
@@ -97,7 +99,6 @@ class Campaign extends Column
      * Get instance of escaper
      *
      * @return Escaper
-     * @deprecated 101.0.7
      */
     private function getEscaper()
     {

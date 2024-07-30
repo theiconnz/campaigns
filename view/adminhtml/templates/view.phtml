@@ -7,11 +7,9 @@
 /** @var $block \Theiconnz\Campaigns\Block\Adminhtml\Results */
 /** @var \Magento\Framework\Escaper $escaper */
 $result = $block->getResult();
-if($result) {
-?>
-
+if ($result) {?>
     <div id="container" class="main-col"><div class="form-inline">
-        <h2>Result for <?=$result->getFirstname();?></h2>
+        <h2>Result for <?=$escaper->escapeHtml($result->getFirstname());?></h2>
 
         <fieldset class="admin__fieldset fieldset" data-container-for="entity-type-selector">
             <div class="admin__field field field-entity-type-selector">
@@ -19,7 +17,8 @@ if($result) {
                     <span>Name</span>
                 </label>
                 <div class="admin__field-control control">
-                    <input name="name" class=" input-text admin__control-text " value="<?=$result->getFirstname();?>">
+                    <input name="name" class=" input-text admin__control-text "
+                           value="<?=$escaper->escapeHtml($result->getFirstname());?>">
                 </div>
             </div>
             <div class="admin__field field field-entity-type-selector">
@@ -27,7 +26,8 @@ if($result) {
                     <span>Email</span>
                 </label>
                 <div class="admin__field-control control">
-                    <input name="email" class=" input-text admin__control-text" value="<?=$result->getEmail();?>">
+                    <input name="email" class=" input-text admin__control-text"
+                           value="<?=$escaper->escapeHtml($result->getEmail());?>">
                 </div>
             </div>
 
@@ -36,7 +36,8 @@ if($result) {
                     <span>Content</span>
                 </label>
                 <div class="admin__field-control control">
-                    <textarea class=" textarea admin__control-textarea" rows="5"><?=$result->getContent();?></textarea>
+                    <textarea class=" textarea admin__control-textarea" rows="5">
+                        <?=$escaper->escapeHtml($result->getContent());?></textarea>
                 </div>
             </div>
 
@@ -45,7 +46,7 @@ if($result) {
                     <span>Newsletter Subscribed</span>
                 </label>
                 <div class="admin__field-control">
-                    <?php echo $result->getNewsletter() ? 'Yes': 'No';?>
+                    <?=$escaper->escapeHtml($result->getNewsletter() ? 'Yes': 'No');?>
                 </div>
             </div>
 
@@ -54,7 +55,7 @@ if($result) {
                     <span>Terms and Conditions Agreed</span>
                 </label>
                 <div class="admin__field-control">
-                    <?php echo $result->getTermsAgreed() ? 'Yes': 'No';?>
+                    <?=$escaper->escapeHtml($result->getTermsAgreed() ? 'Yes': 'No');?>
                 </div>
             </div>
 
@@ -63,7 +64,7 @@ if($result) {
                     <span>Agreed to use Image on Marketing</span>
                 </label>
                 <div class="admin__field-control">
-                    <?php echo $result->getUsedataAgreed() ? 'Yes': 'No';?>
+                    <?=$escaper->escapeHtml($result->getUsedataAgreed() ? 'Yes': 'No');?>
                 </div>
             </div>
 
@@ -73,13 +74,12 @@ if($result) {
                 </label>
                 <div class="admin__field-control">
                     <?php
-                    $profileimage = $result->getImagename();
-                    if( $profileimage ){?>
-                            <img src="<?=$block->getImageUrl($profileimage)?>" />
+                    $profileimage = $escaper->escapeHtml($result->getImagename());
+                    if ($profileimage) {?>
+                            <img src="<?=$escaper->escapeHtml($block->getImageUrl($profileimage))?>" />
                     <?php }?>
                 </div>
             </div>
         </fieldset>
-    </div>
-<?php
+    </div><?php
 }

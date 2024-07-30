@@ -68,6 +68,8 @@ class Collection extends CampaignCollection implements SearchResultInterface
     }
 
     /**
+     * Get aggregations method
+     *
      * @return AggregationInterface
      */
     public function getAggregations()
@@ -76,6 +78,8 @@ class Collection extends CampaignCollection implements SearchResultInterface
     }
 
     /**
+     * Set aggregations method
+     *
      * @param AggregationInterface $aggregations
      * @return $this
      */

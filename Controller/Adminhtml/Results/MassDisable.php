@@ -21,7 +21,7 @@ class MassDisable extends \Magento\Backend\App\Action implements HttpPostActionI
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
 
     /**
      * @var Filter

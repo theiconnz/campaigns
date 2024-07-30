@@ -8,15 +8,11 @@ namespace Theiconnz\Campaigns\Controller\Adminhtml;
 abstract class Campaign extends \Magento\Backend\App\Action
 {
     /**
-     * Authorization level of a basic admin session
-     *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::campaign';
+    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::campaign';
 
     /**
-     * Core registry
-     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;

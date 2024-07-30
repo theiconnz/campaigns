@@ -86,7 +86,7 @@ class CampaignRepository implements CampaignRepositoryInterface
     /**
      * @param ResourceCampaign $resource
      * @param CampaignFactory $campaignFactory
-     * @param Data\CampaignInterfaceFactory $data->campaignFactory
+     * @param Data\CampaignInterfaceFactory $dataCampaignFactory
      * @param CampaignCollectionFactory $campaignCollectionFactory
      * @param Data\CampaignSearchResultsInterfaceFactory $searchResultsFactory
      * @param DataObjectHelper $dataObjectHelper
@@ -95,7 +95,6 @@ class CampaignRepository implements CampaignRepositoryInterface
      * @param CollectionProcessorInterface $collectionProcessor
      * @param HydratorInterface|null $hydrator
      * @param Config|null $routeConfig
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         ResourceCampaign $resource,
@@ -136,7 +135,10 @@ class CampaignRepository implements CampaignRepositoryInterface
         }
 
         if ($campaign->getId() && $campaign instanceof Campaign && !$campaign->getOrigData()) {
-            $campaign = $this->hydrator->hydrate($this->getById($campaign->getId()), $this->hydrator->extract($campaign));
+            $campaign = $this->hydrator->hydrate(
+                $this->getById($campaign->getId()),
+                $this->hydrator->extract($campaign)
+            );
         }
 
         try {
@@ -218,7 +220,6 @@ class CampaignRepository implements CampaignRepositoryInterface
         return $this->delete($this->getById($campid));
     }
 
-
     /**
      * Checks that page identifier doesn't duplicate existed routes
      *
@@ -234,5 +235,4 @@ class CampaignRepository implements CampaignRepositoryInterface
             );
         }
     }
-
 }

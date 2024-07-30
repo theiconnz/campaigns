@@ -15,18 +15,18 @@ interface CampaignInterface
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const CAMP_ID       = 'camp_id';
-    const IDENTIFIER    = 'identifier';
-    const TITLE         = 'title';
-    const CONTENT       = 'content';
-    const CONTENTBOTTOM = 'contentbottom';
-    const NEWSLETTER    = 'newsletter';
-    const SHOWPHONE     = 'showphone';
-    const CREATION_TIME = 'creation_time';
-    const UPDATE_TIME   = 'update_time';
-    const IS_ACTIVE     = 'is_active';
+    public const CAMP_ID       = 'camp_id';
+    public const IDENTIFIER    = 'identifier';
+    public const TITLE         = 'title';
+    public const CONTENT       = 'content';
+    public const CONTENTBOTTOM = 'contentbottom';
+    public const NEWSLETTER    = 'newsletter';
+    public const SHOWPHONE     = 'showphone';
+    public const CREATION_TIME = 'creation_time';
+    public const UPDATE_TIME   = 'update_time';
+    public const IS_ACTIVE     = 'is_active';
 
-    const BLOCK_ID     = 'block_identifier';
+    public const BLOCK_ID     = 'block_identifier';
     /**#@-*/
 
     /**
@@ -78,7 +78,6 @@ interface CampaignInterface
      */
     public function getShowphone();
 
-
     /**
      * Get creation time
      *
@@ -100,14 +99,12 @@ interface CampaignInterface
      */
     public function getIsActive();
 
-
     /**
-     * get block id
+     * Get block id
      *
      * @return int
      */
     public function getBlockId();
-
 
     /**
      * Set ID
