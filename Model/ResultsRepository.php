@@ -215,4 +215,5 @@ class ResultsRepository implements ResultsRepositoryInterface
     {
         return $this->delete($this->getById($campid));
     }
+
 }

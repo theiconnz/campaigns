@@ -11,8 +11,6 @@ namespace Theiconnz\Campaigns\Block\Adminhtml;
 class Campaign extends \Magento\Backend\Block\Widget\Grid\Container
 {
     /**
-     * Campaign widget construct
-     *
      * @return void
      */
     protected function _construct()

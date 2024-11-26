@@ -15,18 +15,35 @@ interface CampaignInterface
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    public const CAMP_ID       = 'camp_id';
-    public const IDENTIFIER    = 'identifier';
-    public const TITLE         = 'title';
-    public const CONTENT       = 'content';
-    public const CONTENTBOTTOM = 'contentbottom';
-    public const NEWSLETTER    = 'newsletter';
-    public const SHOWPHONE     = 'showphone';
-    public const CREATION_TIME = 'creation_time';
-    public const UPDATE_TIME   = 'update_time';
-    public const IS_ACTIVE     = 'is_active';
+    const CAMP_ID       = 'camp_id';
+    const IDENTIFIER    = 'identifier';
+    const TITLE         = 'title';
+    const CONTENT       = 'content';
+    const CONTENTBOTTOM = 'contentbottom';
+    const NEWSLETTER    = 'newsletter';
+    const SHOWPHONE     = 'showphone';
 
-    public const BLOCK_ID     = 'block_identifier';
+    const SHOWNAME     = 'disablename';
+    const SHOWEMAIL     = 'disableemail';
+    const SHOWUPLOAD     = 'disableupload';
+
+    const SHOWCONTENT   = 'disablecontent';
+
+    const SHOWMARKETING   = 'disablemarketing';
+
+    const ONEENTRY   = 'oneentry';
+
+    const TEXTNEWSLETTER   = 'newslettersubtext';
+    const TEXTMARKETING   = 'marketingtext';
+    const TEXTTERMS   = 'termstext';
+    const TEXTCONTENT   = 'contenttext';
+
+    const CREATION_TIME = 'creation_time';
+    const UPDATE_TIME   = 'update_time';
+    const IS_ACTIVE     = 'is_active';
+    const FORMENABLE     = 'form_enable';
+
+    const BLOCK_ID     = 'block_identifier';
     /**#@-*/
 
     /**
@@ -79,6 +96,79 @@ interface CampaignInterface
     public function getShowphone();
 
     /**
+     * Get show name
+     *
+     * @return int
+     */
+    public function getShowname();
+
+
+    /**
+     * Get show email
+     *
+     * @return int
+     */
+    public function getShowemail();
+
+
+    /**
+     * Get show upload
+     *
+     * @return int
+     */
+    public function getShowupload();
+
+    /**
+     * Get show CONTENT
+     *
+     * @return int
+     */
+    public function getShowcontent();
+
+    /**
+     * Get show MARKETING
+     *
+     * @return int
+     */
+    public function getShowmarketing();
+
+    /**
+     * Get show oen entry
+     *
+     * @return int
+     */
+    public function getOneEntry();
+
+    /**
+     * Get newsletter text
+     *
+     * @return string|null
+     */
+    public function getNewsletterText();
+
+
+    /**
+     * Get content text
+     *
+     * @return string|null
+     */
+    public function getContentText();
+
+    /**
+     * Get terms text
+     *
+     * @return string|null
+     */
+    public function getTermsText();
+
+    /**
+     * Get marketing text
+     *
+     * @return string|null
+     */
+    public function getMarketingText();
+
+    /**
      * Get creation time
      *
      * @return string|null
@@ -100,11 +190,20 @@ interface CampaignInterface
     public function getIsActive();
 
     /**
-     * Get block id
+     * Is form enable
+     *
+     * @return bool|null
+     */
+    public function getFormEnable();
+
+
+    /**
+     * get block id
      *
      * @return int
      */
     public function getBlockId();
+
 
     /**
      * Set ID
@@ -163,6 +262,87 @@ interface CampaignInterface
     public function setShowphone($phone);
 
     /**
+     * Set Show name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowname($value);
+    /**
+     * Set Show email
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowemail($value);
+
+    /**
+     * Set Show upload
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload($value);
+
+    /**
+     * Set Show content
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowcontent($value);
+
+
+    /**
+     * Set Show marketing
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowmarketing($value);
+
+    /**
+     * Set Show one entry
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setOneEntry($value);
+
+    /**
+     * Set newsletter text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setNewsletterText($value);
+
+
+    /**
+     * Set content text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setContentText($value);
+
+    /**
+     * Set terms text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setTermsText($value);
+
+    /**
+     * Set marketing text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setMarketingText($value);
+
+    /**
      * Set creation time
      *
      * @param string $creationTime
@@ -185,6 +365,14 @@ interface CampaignInterface
      * @return CampaignInterface
      */
     public function setIsActive($isActive);
+
+    /**
+     * Set is form enable
+     *
+     * @param bool|int $isActive
+     * @return CampaignInterface
+     */
+    public function setFormEnable($isActive);
 
     /**
      * Set block id

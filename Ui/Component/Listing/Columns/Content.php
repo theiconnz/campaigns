@@ -9,14 +9,29 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 /**
- * Content display class
+ * Class Content
  *
  * @api
  * @since 100.0.2
  */
 class Content extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    public const NAME = 'content';
+    const NAME = 'content';
+
+    /**
+     * @param ContextInterface $context
+     * @param UiComponentFactory $uiComponentFactory
+     * @param array $components
+     * @param array $data
+     */
+    public function __construct(
+        ContextInterface $context,
+        UiComponentFactory $uiComponentFactory,
+        array $components = [],
+        array $data = []
+    ) {
+        parent::__construct($context, $uiComponentFactory, $components, $data);
+    }
 
     /**
      * Prepare Data Source
@@ -31,6 +46,7 @@ class Content extends \Magento\Ui\Component\Listing\Columns\Column
                 $item['content'] = substr($item['content'], 0, 50) . "...";
             }
         }
+
         return $dataSource;
     }
 }

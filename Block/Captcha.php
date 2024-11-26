@@ -23,6 +23,8 @@ class Captcha extends \Magento\Framework\View\Element\Template
     protected $_template = 'Magento_Captcha::default.phtml';
 
     /**
+     * Captcha data
+     *
      * @var \Magento\Captcha\Helper\Data
      */
     protected $_captchaData = null;

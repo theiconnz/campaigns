@@ -5,7 +5,6 @@
  */
 namespace Theiconnz\Campaigns\Model\ResourceModel;
 
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\Store;
 
 /**
@@ -14,6 +13,8 @@ use Magento\Store\Model\Store;
 abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
     /**
+     * Store manager
+     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
@@ -54,7 +55,6 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      * @param string $tableName
      * @param string|null $linkField
      * @return void
-     * @throws NoSuchEntityException
      */
     protected function performAfterLoad($tableName, $linkField)
     {
@@ -104,6 +104,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
         if ($field === 'store_id') {
             return $this->addStoreFilter($condition, false);
         }
+
         return parent::addFieldToFilter($field, $condition);
     }
 
@@ -178,6 +179,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
 
     /**
      * Returns pairs identifier - title for unique identifiers
+     * and pairs identifier|entity_id - title for non-unique after first
      *
      * @return array
      */
@@ -199,6 +201,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
 
             $res[] = $data;
         }
+
         return $res;
     }
 }

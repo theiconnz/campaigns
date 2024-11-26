@@ -17,7 +17,7 @@ class Campaigns implements OptionSourceInterface
     /**
      * @var CollectionFactory
      */
-    private $collectionFactory;
+    private $_collectionFactory;
 
     /**
      * Constructor

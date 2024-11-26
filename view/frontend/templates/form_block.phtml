@@ -4,9 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-/** @var \Theiconnz\Campaigns\Block\Campaign $block */
-
-if($this->getPage()->getFormEnable()){
+/* @var $block \Theiconnz\Campaigns\Block\Page\Campaign */
 ?>
 
 <form class="form contact"
@@ -62,8 +60,8 @@ if($this->getPage()->getFormEnable()){
             <?php if( $this->getPage()->getShowphone() ){?>
             <div class="field telephone">
                 <div class="control">
-                    <input name="phone"
-                           id="phone"
+                    <input name="telephone"
+                           id="telephone"
                            title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
                            value=""
                            placeholder="<?= $block->escapeHtml(__('Phone Number*')) ?>"
@@ -72,19 +70,16 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getShowcontent() ){
-                $contenttext = $this->getPage()->getContentText();
-                $text=(!empty(($contenttext)))?$block->escapeHtmlAttr(__($contenttext)):$block->escapeHtmlAttr(__('Tell us your story here, in 25 words or less...'));
-                ?>
+            <?php if( $this->getPage()->getShowcontent() ){?>
             <div class="field content required">
                 <div class="control">
                     <textarea name="content"
                               id="comment"
-                              title="<?= $text?>"
+                              title="<?= $block->escapeHtmlAttr(__('What’s on your mind?')) ?>"
                               class="input-text"
                               cols="5"
                               rows="3"
-                              placeholder="<?= $text?>"
+                              placeholder="<?= $block->escapeHtml(__('Tell us your story here, in 25 words or less...')) ?>"
                               data-validate="{maxlength:1000}"
                     ></textarea>
                 </div>
@@ -119,11 +114,7 @@ if($this->getPage()->getFormEnable()){
         <fieldset class="fieldset">
             <div class="field terms field-checkbox">
                 <label class="label" for="terms-error">
-                    <?php
-                    $termstext = $this->getPage()->getTermsText();
-                    $ttext=(!empty(($termstext)))?$block->escapeHtmlAttr(__($termstext)):$block->escapeHtmlAttr(__('I have read and agreed to the Terms & Conditions*'));
-                    ?>
-                    <span><?= $ttext ?></span>
+                    <span><?= $block->escapeHtml(__('I have read and agreed to the Terms & Conditions*')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -136,14 +127,10 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
 
-            <?php if( $this->getPage()->getShowmarketing() ){?>
+            <?php if( $this->getPage()->getShowupload() ){?>
             <div class="field use_marketing field-checkbox">
                 <label class="label" for="useinmarketing-error">
-                    <?php
-                    $mtext = $this->getPage()->getMarketingText();
-                    $tartext=(!empty(($mtext)))?$block->escapeHtmlAttr(__($mtext)):$block->escapeHtmlAttr(__('I agree to my ecostory and image used for marketing purposes'));
-                    ?>
-                    <span><?=$tartext?></span>
+                    <span><?= $block->escapeHtml(__('I agree to my ecostory and image used for marketing purposes')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -155,13 +142,10 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getNewsletter() ){
-                $ntext= $this->getPage()->getNewsletterText();
-                $newtext=(!empty(($ntext)))?$block->escapeHtmlAttr(__($ntext)):$block->escapeHtmlAttr(__('Sign me up for emails about promotions & discounts'));
-                ?>
+            <?php if( $this->getPage()->getNewsletter() ){?>
             <div class="field newsletter field-checkbox">
                 <label class="label" for="newsletter-error">
-                    <span><?=$newtext?></span>
+                    <span><?= $block->escapeHtml(__('Sign me up for emails about promotions & discounts')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -205,13 +189,6 @@ if($this->getPage()->getFormEnable()){
 </form>
 
 
-    <?php
-    $content = $this->getPage()->getContentbottom();
-    $html = $block->getCmsFilterContent($content);
-    echo $html
-    ?>
-
-
 <script type="text/javascript">
     require(['jquery', 'jquery/ui', 'accordion'], function($){
         $(document).ready( function() {
@@ -221,4 +198,4 @@ if($this->getPage()->getFormEnable()){
         });
     });
 </script>
-<?php } ?>
+

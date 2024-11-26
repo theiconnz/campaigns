@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="theicon_campaign" class="Theiconnz\Campaigns\Block\Widget\Campaign">
+        <label>Campaign Widget </label>
+        <description>Widget for Campaign</description>
+        <parameters>
+            <parameter name="camp_id" xsi:type="select" required="true"
+                       source_model="Theiconnz\Campaigns\Model\Campaign\Source\Campaigns"
+                       visible="true" sort_order="70" >
+                <label translate="true">Campaign Id</label>
+                <description translate="true">Select Campaign Id</description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

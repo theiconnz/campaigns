@@ -20,9 +20,9 @@ class ResultsActions extends Column
     /**
      * Url path
      */
-    public const URL_PATH_VIEW = 'campaigns/results/edit';
-    public const URL_PATH_CAMPAIGN = 'campaigns/campaign/edit';
-    public const URL_PATH_DETAILS = 'campaigns/results/details';
+    const URL_PATH_VIEW = 'campaigns/results/edit';
+    const URL_PATH_CAMPAIGN = 'campaigns/campaign/edit';
+    const URL_PATH_DETAILS = 'campaigns/results/details';
 
     /**
      * @var UrlInterface
@@ -82,6 +82,7 @@ class ResultsActions extends Column
      * Get instance of escaper
      *
      * @return Escaper
+     * @deprecated 101.0.7
      */
     private function getEscaper()
     {

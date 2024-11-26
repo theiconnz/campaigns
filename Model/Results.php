@@ -27,23 +27,26 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     /**
      * CMS block cache tag
      */
-    public const CACHE_TAG = 'c_results';
+    const CACHE_TAG = 'c_results';
 
-    public const RESULTS_FOLDER = '';
+    const RESULTS_FOLDER = '';
 
     /**
      * New file name  prefix
      */
-    public const PREFIX = 'result_';
+    const PREFIX = 'result_';
 
-    public const UPLOADPATH = '/campaign/u';
+    const UPLOADPATH = '/campaign/u';
 
-    /**
-     * @var string
-     */
+
+    /**#@-*/
+
+    /**#@-*/
     protected $_cacheTag = self::CACHE_TAG;
 
     /**
+     * Prefix of model events names
+     *
      * @var string
      */
     protected $_eventPrefix = 'c_results_';
@@ -174,6 +177,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->getData(self::FIRSTNAME);
     }
 
+
     /**
      * Retrieve name
      *
@@ -183,6 +187,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     {
         return $this->getData(self::LASTNAME);
     }
+
 
     /**
      * Retrieve email
@@ -204,6 +209,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->getData(self::CONTENT);
     }
 
+
     /**
      * Retrieve newsletter
      *
@@ -214,6 +220,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->getData(self::NEWSLETTER);
     }
 
+
     /**
      * Retrieve terms and conditions agreed
      *
@@ -223,6 +230,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     {
         return $this->getData(self::TERMSAGREED);
     }
+
 
     /**
      * Retrieve use data for marketing agreed
@@ -307,6 +315,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->setData(self::FIRSTNAME, $name);
     }
 
+
     /**
      * Set last name
      *
@@ -318,6 +327,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->setData(self::LASTNAME, $name);
     }
 
+
     /**
      * Set email
      *
@@ -328,6 +338,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     {
         return $this->setData(self::EMAIL, $value);
     }
+
 
     /**
      * Set content
@@ -384,6 +395,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->setData(self::IMAGENAME, $imgname);
     }
 
+
     /**
      * Set creation time
      *
@@ -416,4 +428,5 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     {
         return $this->setData(self::IS_ACTIVE, $isActive);
     }
+
 }

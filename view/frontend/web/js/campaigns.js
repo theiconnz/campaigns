@@ -64,14 +64,16 @@ define([
                 'form_key': $.mage.cookies.get('form_key'),
             });
 
-            var fileuploadid = $(this.options.fileuploadid);
-            var files = fileuploadid[0].files;
-            var file = files[0];
-
             var form = $(this.options.formelement);
             var formdata = new FormData(form[0]);
-            if( file!=undefined ) {
-                formdata.append('filename', file, file.name);
+            var fileuploadid = $(this.options.fileuploadid);
+            if(fileuploadid[0]!=undefined) {
+                var files = fileuploadid[0].files;
+                var file = files[0];
+
+                if (file != undefined) {
+                    formdata.append('filename', file, file.name);
+                }
             }
 
             $.ajax({
