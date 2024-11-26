@@ -18,9 +18,11 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      *
      * @see _isAllowed()
      */
-    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
+    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::resultssave';
 
     /**
+     * Core registry
+     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
@@ -29,6 +31,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      * @var \Magento\Framework\View\Result\PageFactory
      */
     protected $resultPageFactory;
+
 
     /**
      * @var Theiconnz\Campaigns\Api\ResultsRepositoryInterface $resultsRepository
@@ -39,6 +42,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      * @var Theiconnz\Campaigns\Model\ResultsFactory $resultsFactory
      */
     private $resultsFactory;
+
 
     /**
      * @param Action\Context $context
@@ -87,7 +91,11 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     {
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('r_id');
-        $model = ($id) ? $this->resultsRepository->getById($id) : $this->resultsFactory->create();
+        if($id) {
+            $model = $this->resultsRepository->getById($id);
+        } else {
+            $model = $this->resultsFactory->create();
+        }
 
         // 2. Initial checking
         if ($id) {
@@ -110,6 +118,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
             $id ? __('Edit Result') : __('New Result'),
             $id ? __('Edit Result') : __('New Result')
         );
+
 
         return $resultPage;
     }

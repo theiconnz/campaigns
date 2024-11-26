@@ -9,7 +9,7 @@ use Theiconnz\Campaigns\Model\ResourceModel\Campaign;
 use Magento\Framework\EntityManager\Operation\ExtensionInterface;
 
 /**
- * Read hander Class to return reading data
+ * Class ReadHandler
  */
 class ReadHandler implements ExtensionInterface
 {
@@ -28,8 +28,6 @@ class ReadHandler implements ExtensionInterface
     }
 
     /**
-     * Class execution method
-     *
      * @param object $entity
      * @param array $arguments
      * @return object

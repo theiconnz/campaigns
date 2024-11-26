@@ -18,9 +18,11 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      *
      * @see _isAllowed()
      */
-    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
+    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
 
     /**
+     * Core registry
+     *
      * @var \Magento\Framework\Registry
      */
     protected $_coreRegistry;
@@ -29,6 +31,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      * @var \Magento\Framework\View\Result\PageFactory
      */
     protected $resultPageFactory;
+
 
     /**
      * @var Theiconnz\Campaigns\Api\CampaignRepositoryInterface $campaignRepository
@@ -39,6 +42,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
      * @var Theiconnz\Campaigns\Model\CampaignFactory $campaignFactory
      */
     private $campaignFactory;
+
 
     /**
      * @param Action\Context $context
@@ -87,7 +91,11 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     {
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('camp_id');
-        $model = ($id) ? $this->campaignRepository->getById($id):$this->campaignFactory->create();
+        if($id) {
+            $model = $this->campaignRepository->getById($id);
+        } else {
+            $model = $this->campaignFactory->create();
+        }
 
         // 2. Initial checking
         if ($id) {

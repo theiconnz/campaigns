@@ -19,14 +19,19 @@ class Collection extends AbstractCollection
     protected $_idFieldName = 'r_id';
 
     /**
+     * Event prefix
+     *
      * @var string
      */
     protected $_eventPrefix = 'results_collection';
 
     /**
+     * Event object
+     *
      * @var string
      */
     protected $_eventObject = 'results_collection';
+
 
     /**
      * Define resource model
@@ -35,10 +40,7 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(
-            \Theiconnz\Campaigns\Model\Results::class,
-            \Theiconnz\Campaigns\Model\ResourceModel\Results::class
-        );
+        $this->_init(\Theiconnz\Campaigns\Model\Results::class, \Theiconnz\Campaigns\Model\ResourceModel\Results::class);
         $this->_map['fields']['store_id'] = 'store_table.store_id';
     }
 
@@ -70,7 +72,6 @@ class Collection extends AbstractCollection
      * Join store relation table if there is store filter
      *
      * @return void
-     * @throws \Exception
      */
     protected function _renderFiltersBefore()
     {

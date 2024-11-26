@@ -23,6 +23,8 @@ use Magento\Store\Model\StoreManagerInterface;
 class Campaign extends AbstractDb
 {
     /**
+     * Store manager
+     *
      * @var StoreManagerInterface
      */
     protected $_storeManager;

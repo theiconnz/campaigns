@@ -30,6 +30,7 @@ interface ResultsRepositoryInterface
      */
     public function getById($campaignId);
 
+
     /**
      * Retrieve Result by email.
      *

@@ -6,6 +6,7 @@
 namespace Theiconnz\Campaigns\Model\ResourceModel;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\UrlInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Theiconnz\Campaigns\Api\Data\ResultsInterface;
 use Magento\Framework\DB\Select;
@@ -16,15 +17,16 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Filesystem;
-use Magento\Framework\Filesystem\Io\File;
 
 /**
- * Results database model
+ * CMS block model
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Results extends AbstractDb
 {
     /**
+     * Store manager
+     *
      * @var StoreManagerInterface
      */
     protected $_storeManager;
@@ -39,15 +41,11 @@ class Results extends AbstractDb
      */
     protected $metadataPool;
 
+
     /**
      * @var Filesystem
      */
     private $filesystem;
-
-    /**
-     * @var File
-     */
-    private $io;
 
     /**
      * @param Context $context
@@ -55,7 +53,6 @@ class Results extends AbstractDb
      * @param EntityManager $entityManager
      * @param MetadataPool $metadataPool
      * @param Filesystem $filesystem
-     * @param File $file
      * @param string $connectionName
      */
     public function __construct(
@@ -64,14 +61,12 @@ class Results extends AbstractDb
         EntityManager $entityManager,
         MetadataPool $metadataPool,
         Filesystem $filesystem,
-        File $file,
         $connectionName = null
     ) {
         $this->_storeManager = $storeManager;
         $this->entityManager = $entityManager;
         $this->metadataPool = $metadataPool;
         $this->filesystem = $filesystem;
-        $this->io = $file;
         parent::__construct($context, $connectionName);
     }
 
@@ -92,6 +87,7 @@ class Results extends AbstractDb
     {
         return $this->metadataPool->getMetadata(ResultsInterface::class)->getEntityConnection();
     }
+
 
     /**
      * Get camp id.
@@ -130,7 +126,6 @@ class Results extends AbstractDb
      * @param mixed $value
      * @param string $field field to load by (defaults to model id)
      * @return $this
-     * @throws LocalizedException
      */
     public function load(AbstractModel $object, $value, $field = null)
     {
@@ -140,6 +135,25 @@ class Results extends AbstractDb
         }
         return $this;
     }
+
+    /**
+     * Retrieve select object for load object data
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param \Theiconnz\Campaigns\Model\Results|AbstractModel $object
+     * @return Select
+     */
+    protected function _getLoadSelect($field, $value, $object)
+    {
+        $entityMetadata = $this->metadataPool->getMetadata(ResultsInterface::class);
+        $linkField = $entityMetadata->getLinkField();
+
+        $select = parent::_getLoadSelect($field, $value, $object);
+
+        return $select;
+    }
+
 
     /**
      * Save an object.
@@ -165,18 +179,18 @@ class Results extends AbstractDb
     }
 
     /**
-     * @inheritDoc
+     *
      */
     public function deleteProfileImage(AbstractModel $object)
     {
-        if ($object->getImagename() != nul) {
+        if( $object->getImagename()!=null ) {
             $filename = $object->getImagename();
             $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
             $destinationPath = $mediaDirectory->getAbsolutePath(\Theiconnz\Campaigns\Model\Results::UPLOADPATH);
             $file = $destinationPath . $filename;
-
-            if ($this->io->fileExists($file)) {
-                $this->io->rm($filename);
+            die($file);
+            if( file_exists($file) ) {
+                unlink($file);
             }
         }
     }

@@ -8,13 +8,11 @@ namespace Theiconnz\Campaigns\Block\Adminhtml\Campaign\Edit;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
- * Class contains Back Button
+ * Class BackButton
  */
 class BackButton extends GenericButton implements ButtonProviderInterface
 {
     /**
-     * Get button data method
-     *
      * @return array
      */
     public function getButtonData()

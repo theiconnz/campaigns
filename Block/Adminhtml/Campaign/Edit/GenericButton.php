@@ -10,13 +10,11 @@ use Magento\Cms\Api\PageRepositoryInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Class contains Genenic Button code
+ * Class GenericButton
  */
 class GenericButton
 {
     /**
-     * Get button data method
-     *
      * @var Context
      */
     protected $context;
@@ -50,7 +48,6 @@ class GenericButton
                 $this->context->getRequest()->getParam('camp_id')
             )->getId();
         } catch (NoSuchEntityException $e) {
-            throw new NoSuchEntityException(__($e->getMessage()));
         }
         return null;
     }

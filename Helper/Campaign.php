@@ -23,17 +23,17 @@ class Campaign extends AbstractHelper
     /**
      * CMS no-route config path
      */
-    public const XML_PATH_NO_ROUTE_PAGE = 'web/default/cms_no_route';
+    const XML_PATH_NO_ROUTE_PAGE = 'web/default/cms_no_route';
 
     /**
      * CMS no cookies config path
      */
-    public const XML_PATH_NO_COOKIES_PAGE = 'web/default/cms_no_cookies';
+    const XML_PATH_NO_COOKIES_PAGE = 'web/default/cms_no_cookies';
 
     /**
      * CMS home page config path
      */
-    public const XML_PATH_HOME_PAGE = 'web/default/cms_home_campaign';
+    const XML_PATH_HOME_PAGE = 'web/default/cms_home_campaign';
 
     /**
      * Design package instance
@@ -58,6 +58,8 @@ class Campaign extends AbstractHelper
     protected $_localeDate;
 
     /**
+     * Store manager
+     *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $_storeManager;
@@ -87,7 +89,7 @@ class Campaign extends AbstractHelper
     /**
      * Default captcha type
      */
-    public const DEFAULT_CAPTCHA_TYPE = 'Zend';
+    const DEFAULT_CAPTCHA_TYPE = 'Zend';
 
     /**
      * List uses Models of Captcha
@@ -105,7 +107,7 @@ class Campaign extends AbstractHelper
      *
      * @param \Magento\Framework\App\Helper\Context $context
      * @param \Magento\Framework\Message\ManagerInterface $messageManager
-     * @param \Theiconnz\Campaigns\Model\Campaign $campaign
+     * @param \Theiconnz\Campaigns\Model\Campaign $page
      * @param \Magento\Framework\View\DesignInterface $design
      * @param \Magento\Cms\Model\PageFactory $pageFactory
      * @param \Magento\Store\Model\StoreManagerInterface $storeManager
@@ -113,7 +115,7 @@ class Campaign extends AbstractHelper
      * @param \Magento\Framework\Escaper $escaper
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param IdentityMap|null $identityMap
-     * @param CaptchaFactory $factory
+     * @param CaptchaFactory $factory
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
@@ -148,7 +150,6 @@ class Campaign extends AbstractHelper
      * @param ActionInterface $action
      * @param int $pageId
      * @return ResultPage|bool
-     * @throws NoSuchEntityException
      */
     public function prepareResultPage(ActionInterface $action, $pageId = null)
     {
@@ -196,7 +197,6 @@ class Campaign extends AbstractHelper
      *
      * @param string $pageId
      * @return string
-     * @throws NoSuchEntityException
      */
     public function getPageUrl($pageId = null)
     {

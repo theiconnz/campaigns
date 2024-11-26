@@ -20,7 +20,7 @@ use Theiconnz\Campaigns\Api\Data\CampaignInterface;
 use Theiconnz\Campaigns\Api\Data\ResultsInterface;
 
 /**
- * Campaign model class
+ * CMS block model
  *
  * @method Campaign setStoreId(int $storeId)
  * @method int getStoreId()
@@ -30,20 +30,22 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     /**
      * CMS block cache tag
      */
-    public const CACHE_TAG = 'campaign_b';
+    const CACHE_TAG = 'campaign_b';
 
-    /**
+    /**#@+
      * Block's statuses
      */
-    public const STATUS_ENABLED = 1;
-    public const STATUS_DISABLED = 0;
+    const STATUS_ENABLED = 1;
+    const STATUS_DISABLED = 0;
 
-    /**
-     * @var string
-     */
+    /**#@-*/
+
+    /**#@-*/
     protected $_cacheTag = self::CACHE_TAG;
 
     /**
+     * Prefix of model events names
+     *
      * @var string
      */
     protected $_eventPrefix = 'campaign_';
@@ -215,6 +217,108 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Retrieve show name
+     *
+     * @return int
+     */
+    public function getShowname()
+    {
+        return $this->getData(self::SHOWNAME);
+    }
+
+    /**
+     * Retrieve show email
+     *
+     * @return int
+     */
+    public function getShowemail()
+    {
+        return $this->getData(self::SHOWEMAIL);
+    }
+
+    /**
+     * Retrieve show upload
+     *
+     * @return int
+     */
+    public function getShowupload()
+    {
+        return $this->getData(self::SHOWUPLOAD);
+    }
+
+    /**
+     * Retrieve show content
+     *
+     * @return int
+     */
+    public function getShowcontent()
+    {
+        return $this->getData(self::SHOWCONTENT);
+    }
+
+    /**
+     * Retrieve show marketing
+     *
+     * @return int
+     */
+    public function getShowmarketing()
+    {
+        return $this->getData(self::SHOWMARKETING);
+    }
+
+    /**
+     * Retrieve get one entry
+     *
+     * @return int
+     */
+    public function getOneEntry()
+    {
+        return $this->getData(self::ONEENTRY);
+    }
+
+
+    /**
+     * Retrieve get newsletter text
+     *
+     * @return string
+     */
+    public function getNewsletterText()
+    {
+        return $this->getData(self::TEXTNEWSLETTER);
+    }
+
+    /**
+     * Retrieve get content text
+     *
+     * @return string
+     */
+    public function getContentText()
+    {
+        return $this->getData(self::TEXTCONTENT);
+    }
+
+    /**
+     * Retrieve get terms text
+     *
+     * @return string
+     */
+    public function getTermsText()
+    {
+        return $this->getData(self::TEXTTERMS);
+    }
+
+
+    /**
+     * Retrieve get merketing text
+     *
+     * @return string
+     */
+    public function getMarketingText()
+    {
+        return $this->getData(self::TEXTMARKETING);
+    }
+
+    /**
      * Retrieve block creation time
      *
      * @return string
@@ -243,6 +347,15 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return (bool)$this->getData(self::IS_ACTIVE);
     }
+    /**
+     * Is form enable
+     *
+     * @return bool
+     */
+    public function getFormEnable()
+    {
+        return (bool)$this->getData(self::FORMENABLE);
+    }
 
     /**
      * Block Id
@@ -253,6 +366,7 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return (bool)$this->getData(self::BLOCK_ID);
     }
+
 
     /**
      * Set ID
@@ -298,6 +412,7 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return $this->setData(self::CONTENT, $content);
     }
 
+
     /**
      * Set content bottom
      *
@@ -332,6 +447,117 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Set show name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowname($value)
+    {
+        return $this->setData(self::SHOWNAME, $value);
+    }
+
+    /**
+     * Set show email
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowemail($value)
+    {
+        return $this->setData(self::SHOWEMAIL, $value);
+    }
+
+
+    /**
+     * Set show upload
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload($value)
+    {
+        return $this->setData(self::SHOWUPLOAD, $value);
+    }
+    /**
+     * Set show content
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowcontent($value)
+    {
+        return $this->setData(self::SHOWCONTENT, $value);
+    }
+    /**
+     * Set show marketing
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowmarketing($value)
+    {
+        return $this->setData(self::SHOWCONTENT, $value);
+    }
+
+    /**
+     * Set show one entry
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setOneEntry($value)
+    {
+        return $this->setData(self::ONEENTRY, $value);
+    }
+
+
+    /**
+     * Set newsletter text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setNewsletterText($value)
+    {
+        return $this->setData(self::TEXTNEWSLETTER, $value);
+    }
+
+
+    /**
+     * Set content text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setContentText($value)
+    {
+        return $this->setData(self::TEXTCONTENT, $value);
+    }
+    /**
+     *
+     * Set terms text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setTermsText($value)
+    {
+        return $this->setData(self::TEXTTERMS, $value);
+    }
+    /**
+     * Set marketing text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setMarketingText($value)
+    {
+        return $this->setData(self::TEXTMARKETING, $value);
+    }
+
+
+    /**
      * Set creation time
      *
      * @param string $creationTime
@@ -363,6 +589,19 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return $this->setData(self::IS_ACTIVE, $isActive);
     }
+
+
+    /**
+     * Set is form enable
+     *
+     * @param bool|int $value
+     * @return CamaignInterface
+     */
+    public function setFormEnable($value)
+    {
+        return $this->setData(self::FORMENABLE, $value);
+    }
+
 
     /**
      * Set block id

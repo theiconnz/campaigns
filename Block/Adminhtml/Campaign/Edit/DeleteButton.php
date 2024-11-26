@@ -8,14 +8,12 @@ namespace Theiconnz\Campaigns\Block\Adminhtml\Campaign\Edit;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
- * Class contains Delete Button code
+ * Class DeleteButton
  */
 class DeleteButton extends GenericButton implements ButtonProviderInterface
 {
     /**
-     * Get button data method
-     *
-     * @return array
+     * @inheritDoc
      */
     public function getButtonData()
     {

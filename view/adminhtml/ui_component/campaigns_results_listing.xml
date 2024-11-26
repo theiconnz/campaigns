@@ -118,6 +118,12 @@
                 <label translate="true">Name</label>
             </settings>
         </column>
+        <column name="email" sortOrder="12">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+            </settings>
+        </column>
         <column name="camp_id" class="Theiconnz\Campaigns\Ui\Component\Listing\Column\Campaigns">
             <settings>
                 <options class="Theiconnz\Campaigns\Model\Campaign\Source\Campaigns"/>

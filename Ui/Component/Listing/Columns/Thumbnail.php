@@ -9,16 +9,16 @@ use Magento\Framework\View\Element\UiComponentFactory;
 use Magento\Framework\View\Element\UiComponent\ContextInterface;
 
 /**
- * Thumbnail Display class
+ * Class Thumbnail
  *
  * @api
  * @since 100.0.2
  */
 class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
 {
-    public const NAME = 'thumbnail';
+    const NAME = 'thumbnail';
 
-    public const ALT_FIELD = 'name';
+    const ALT_FIELD = 'name';
 
     /**
      * @var \Theiconnz\Campaigns\Helper\Image
@@ -74,6 +74,7 @@ class Thumbnail extends \Magento\Ui\Component\Listing\Columns\Column
                 $item[$fieldName . '_orig_src'] = $origImageHelper->getUrl();
             }
         }
+
         return $dataSource;
     }
 

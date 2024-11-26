@@ -23,9 +23,9 @@ class Campaigns extends Column
     /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
-     * @param CampaignRepositoryInterface $campaignRepository
      * @param array $components
      * @param array $data
+     * @param CampaignRepositoryInterface $campaignRepository
      */
     public function __construct(
         ContextInterface $context,
@@ -51,12 +51,11 @@ class Campaigns extends Column
         return $dataSource;
     }
 
-    /**
-     * @inheritDoc
-     */
+
     protected function prepareItem(int $item)
     {
         $model = $this->campaignRepository->getById($item);
         return ($model) ? $model->getTitle() : $item;
     }
+
 }

@@ -14,9 +14,11 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 class NewAction extends \Magento\Backend\App\Action implements HttpGetActionInterface
 {
     /**
+     * Authorization level of a basic admin session
+     *
      * @see _isAllowed()
      */
-    public const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
+    const ADMIN_RESOURCE = 'Theiconnz_Campaigns::save';
 
     /**
      * @var \Magento\Backend\Model\View\Result\Forward
