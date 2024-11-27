@@ -24,6 +24,9 @@ interface CampaignInterface
     const SHOWPHONE     = 'showphone';
 
     const SHOWNAME     = 'disablename';
+
+    const SHOWLASTNAME  = 'showlastname';
+
     const SHOWEMAIL     = 'disableemail';
     const SHOWUPLOAD     = 'disableupload';
 
@@ -101,6 +104,13 @@ interface CampaignInterface
      * @return int
      */
     public function getShowname();
+
+    /**
+     * Get show last name
+     *
+     * @return int
+     */
+    public function getShowLastname();
 
 
     /**
@@ -268,6 +278,15 @@ interface CampaignInterface
      * @return ResultsInterface
      */
     public function setShowname($value);
+
+    /**
+     * Set Show last name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowLastname($value);
+
     /**
      * Set Show email
      *

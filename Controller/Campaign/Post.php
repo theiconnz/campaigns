@@ -303,6 +303,9 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             if($model->getShowname()) {
                 $resultfactory->setFirstname($this->validateInputFields($this->request->getParam('firstname')));
             }
+            if($model->getShowLastname()) {
+                $resultfactory->setLastname($this->validateInputFields($this->request->getParam('lastname')));
+            }
             if($model->getShowcontent()) {
                 $resultfactory->setContent($this->validateInputFields($this->request->getParam('content')));
             }
