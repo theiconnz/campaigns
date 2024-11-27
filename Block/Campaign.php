@@ -92,6 +92,7 @@ class Campaign extends Template
             }
             $this->setData('page', $page);
         }
+
         return $this->getData('page');
     }
 

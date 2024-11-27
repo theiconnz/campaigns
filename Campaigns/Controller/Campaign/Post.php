@@ -286,6 +286,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             $resultfactory = $this->resultsFactory->create();
             $resultfactory->setCampId($model->getId());
             $resultfactory->setFirstname( $this->validateInputFields($this->request->getParam('firstname')) );
+            $resultfactory->setLastname( $this->validateInputFields($this->request->getParam('lastname')) );
             $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
             $resultfactory->setEmail( $this->request->getParam('email') );
             if($result) {

@@ -65,15 +65,15 @@ class DataProvider extends ModifierPoolDataProvider
      * @param string $requestFieldName
      * @param CollectionFactory $campaignCollectionRepository
      * @param DataPersistorInterface $dataPersistor
-     * @param array $meta
-     * @param array $data
      * @param PoolInterface|null $pool
      * @param AuthorizationInterface|null $auth
      * @param RequestInterface|null $request
      * @param CampaignRepositoryInterface $campaignRepository
      * @param CampaignFactory|null $campaignFactory
      * @param LoggerInterface|null $logger
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     * @param array $meta
+     * @param array $data
+ * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
         $name,
@@ -81,13 +81,13 @@ class DataProvider extends ModifierPoolDataProvider
         $requestFieldName,
         CollectionFactory $campaignCollectionRepository,
         DataPersistorInterface $dataPersistor,
-        array $meta = [],
-        array $data = [],
         PoolInterface $pool,
         RequestInterface $request,
         CampaignRepositoryInterface $campaignRepository,
         CampaignFactory $campaignFactory,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        array $meta = [],
+        array $data = []
     ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data, $pool);
         $this->collection = $campaignCollectionRepository->create();

@@ -43,6 +43,21 @@
                 </div>
             </div>
             <?php } ?>
+            <?php
+            if( $this->getPage()->getShowLastname() ){?>
+                <div class="field name required">
+                    <div class="control">
+                        <input name="lastname"
+                               id="lastname"
+                               title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
+                               value=""
+                               class="input-text"
+                               type="text"
+                               placeholder="<?= $block->escapeHtml(__('Last Name*')) ?>"
+                               data-validate="{required:false, minlength:1}"/>
+                    </div>
+                </div>
+            <?php } ?>
             <?php if( $this->getPage()->getShowemail() ){?>
             <div class="field email required">
                 <div class="control">
@@ -130,7 +145,7 @@
             <?php if( $this->getPage()->getShowupload() ){?>
             <div class="field use_marketing field-checkbox">
                 <label class="label" for="useinmarketing-error">
-                    <span><?= $block->escapeHtml(__('I agree to my ecostory and image used for marketing purposes')) ?></span>
+                    <span><?= $block->escapeHtml(__('I agree to my  and image used for marketing purposes')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"

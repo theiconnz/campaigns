@@ -9,6 +9,8 @@
 ?>
 <?php
 $content = $this->getPage()->getContent();
-$html = $block->getCmsFilterContent($content);
-echo $html
+if($content) {
+    $html = $block->getCmsFilterContent($content);
+    echo $html;
+}
 ?>

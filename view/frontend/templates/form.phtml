@@ -8,7 +8,7 @@
 
 if($this->getPage()->getFormEnable()){
 ?>
-
+<div class="ti-campaign-form-container">
 <form class="form contact"
       id="campaign_form"
       method="post"
@@ -44,6 +44,20 @@ if($this->getPage()->getFormEnable()){
                            data-validate="{required:true, minlength:2}"/>
                 </div>
             </div>
+            <?php } ?>
+            <?php if( $this->getPage()->getShowLastname() ){?>
+                <div class="field lastname required">
+                    <div class="control">
+                        <input name="lastname"
+                               id="lastname"
+                               title="<?= $block->escapeHtmlAttr(__('Last Name')) ?>"
+                               value=""
+                               class="input-text"
+                               type="text"
+                               placeholder="<?= $block->escapeHtml(__('Last Name*')) ?>"
+                               data-validate="{required:false, minlength:1}"/>
+                    </div>
+                </div>
             <?php } ?>
             <?php if( $this->getPage()->getShowemail() ){?>
             <div class="field email required">
@@ -141,7 +155,7 @@ if($this->getPage()->getFormEnable()){
                 <label class="label" for="useinmarketing-error">
                     <?php
                     $mtext = $this->getPage()->getMarketingText();
-                    $tartext=(!empty(($mtext)))?$block->escapeHtmlAttr(__($mtext)):$block->escapeHtmlAttr(__('I agree to my ecostory and image used for marketing purposes'));
+                    $tartext=(!empty(($mtext)))?$block->escapeHtmlAttr(__($mtext)):$block->escapeHtmlAttr(__('I agree to my  and image used for marketing purposes'));
                     ?>
                     <span><?=$tartext?></span>
                 </label>
@@ -207,10 +221,12 @@ if($this->getPage()->getFormEnable()){
 
     <?php
     $content = $this->getPage()->getContentbottom();
-    $html = $block->getCmsFilterContent($content);
-    echo $html
+    if($content) {
+        $html = $block->getCmsFilterContent($content);
+        echo $html;
+    }
     ?>
-
+</div>
 
 <script type="text/javascript">
     require(['jquery', 'jquery/ui', 'accordion'], function($){

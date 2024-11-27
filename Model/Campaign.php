@@ -226,6 +226,17 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return $this->getData(self::SHOWNAME);
     }
 
+
+    /**
+     * Retrieve show last name
+     *
+     * @return int
+     */
+    public function getShowLastname()
+    {
+        return $this->getData(self::SHOWLASTNAME);
+    }
+
     /**
      * Retrieve show email
      *
@@ -456,6 +467,19 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return $this->setData(self::SHOWNAME, $value);
     }
+
+
+    /**
+     * Set show last name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowLastname($value)
+    {
+        return $this->setData(self::SHOWLASTNAME, $value);
+    }
+
 
     /**
      * Set show email

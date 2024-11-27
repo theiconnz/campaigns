@@ -26,6 +26,8 @@
                 default="1" comment="Campaign Active but hide form"/>
         <column xsi:type="smallint" name="newsletter" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Newsletter Active"/>
+        <column xsi:type="smallint" name="showlastname" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Show last name"/>
         <column xsi:type="smallint" name="disablename" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Disable name"/>
         <column xsi:type="smallint" name="disableemail" unsigned="false" nullable="false" identity="false"
