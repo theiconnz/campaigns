@@ -156,7 +156,7 @@ class Campaign extends AbstractHelper
         if ($pageId !== null && $pageId !== $this->_campaign->getId()) {
             $delimiterPosition = strrpos((string)$pageId, '|');
             if ($delimiterPosition) {
-                $pageId = substr($pageId, 0, $delimiterPosition);
+                $pageId = ($pageId)?substr($pageId, 0, $delimiterPosition):$pageId;
             }
 
             $this->_campaign->setStoreId($this->_storeManager->getStore()->getId());

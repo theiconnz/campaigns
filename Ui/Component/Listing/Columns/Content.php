@@ -43,7 +43,7 @@ class Content extends \Magento\Ui\Component\Listing\Columns\Column
     {
         if (isset($dataSource['data']['items'])) {
             foreach ($dataSource['data']['items'] as & $item) {
-                $item['content'] = substr($item['content'], 0, 50) . "...";
+                $item['content'] = (!empty($item['content']))?substr($item['content'], 0, 50) . "...":'';
             }
         }
 

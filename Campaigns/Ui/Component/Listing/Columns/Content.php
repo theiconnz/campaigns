@@ -44,7 +44,7 @@ class Content extends \Magento\Ui\Component\Listing\Columns\Column
         if (isset($dataSource['data']['items'])) {
             $fieldName = $this->getData('content');
             foreach ($dataSource['data']['items'] as & $item) {
-                $item[$fieldName] = substr($item[self::NAME], 0, 50) . "...";
+                $item[$fieldName] = (!empty($item[self::NAME]))?substr($item[self::NAME], 0, 50) . "...":'';
             }
         }
 
