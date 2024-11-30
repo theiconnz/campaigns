@@ -118,6 +118,24 @@
                 <label translate="true">Name</label>
             </settings>
         </column>
+        <column name="lastname" sortOrder="12">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Last Name</label>
+            </settings>
+        </column>
+        <column name="phone" sortOrder="12">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Phone</label>
+            </settings>
+        </column>
+        <column name="validationfield" sortOrder="12">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Validation Field</label>
+            </settings>
+        </column>
         <column name="email" sortOrder="12">
             <settings>
                 <filter>text</filter>

@@ -35,6 +35,8 @@ define([
             formcontainer: ".campaign-data-form",
             formid: "campaign_form",
             hideonsuccess: ".success_hide",
+            fileuploadmandatory: "0",
+            fileuploaderrormessage: "File upload is mandatory"
         },
 
         /** @inheritdoc */
@@ -67,14 +69,22 @@ define([
             var form = $(this.options.formelement);
             var formdata = new FormData(form[0]);
             var fileuploadid = $(this.options.fileuploadid);
+
             if(fileuploadid[0]!=undefined) {
                 var files = fileuploadid[0].files;
                 var file = files[0];
 
+
                 if (file != undefined) {
                     formdata.append('filename', file, file.name);
+                } else {
+                    if (this.options.fileuploadmandatory!="0") {
+                        $('').append('<div id="filename-error" class="mage-error">'+this.options.fileuploaderrormessage+'</div>')
+                        return false;
+                    }
                 }
             }
+
 
             $.ajax({
                 url: url,

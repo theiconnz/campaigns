@@ -23,6 +23,7 @@ interface ResultsInterface
     const CONTENT       = 'content';
     const IMAGENAME     = 'imagename';
     const NEWSLETTER    = 'newsletter';
+    const VALIDATIONFIELD    = 'validationfield';
     const TERMSAGREED   = 'terms_agreed';
     const USEDATAAGREED = 'usedata_agreed';
     const CREATION_TIME = 'creation_time';
@@ -123,6 +124,13 @@ interface ResultsInterface
      * @return bool|null
      */
     public function getIsActive();
+
+    /**
+     * Validation field
+     *
+     * @return string|null
+     */
+    public function getValidationfield();
 
     /**
      * Set ID
@@ -230,4 +238,12 @@ interface ResultsInterface
      * @return ResultsInterface
      */
     public function setIsActive($isActive);
+
+    /**
+     * Set validation field
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setValidationfield($value);
 }

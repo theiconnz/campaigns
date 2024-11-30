@@ -36,6 +36,11 @@ interface CampaignInterface
 
     const ONEENTRY   = 'oneentry';
 
+    const VALIDATIONFIELD   = 'validationfield';
+
+    const VALIDATIONFIELDSIZE   = 'validationfieldsize';
+    const FILEUPLOADMANDATORY   = 'fileupload_mandatory';
+
     const TEXTNEWSLETTER   = 'newslettersubtext';
     const TEXTMARKETING   = 'marketingtext';
     const TEXTTERMS   = 'termstext';
@@ -198,6 +203,27 @@ interface CampaignInterface
      * @return bool|null
      */
     public function getIsActive();
+
+    /**
+     * Get validation field
+     *
+     * @return int|null
+     */
+    public function getValidationfield();
+
+    /**
+     * Get validation field size
+     *
+     * @return int|null
+     */
+    public function getValidationfieldsize();
+
+    /**
+     * Get is upload field mandatory
+     *
+     * @return int|null
+     */
+    public function getUloadFieldMandatory();
 
     /**
      * Is form enable
@@ -400,4 +426,29 @@ interface CampaignInterface
      * @return CampaignInterface
      */
     public function setBlockId($value);
+
+    /**
+     * Set validation field
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setValidationfield($value);
+
+    /**
+     * Set validation field size
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setValidationfieldsize($value);
+
+    /**
+     * Set file uplaod field mandatory
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setFileuploadMandatory($value);
+
 }

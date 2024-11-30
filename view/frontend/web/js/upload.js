@@ -25,7 +25,7 @@ define([
     $.widget(
         'theiconnz.upload', {
         options: {
-            fileuploadcontent: "file-upload",
+            fileuploadcontent: "file-upload"
         },
 
         /** @inheritdoc */
@@ -52,7 +52,6 @@ define([
 
                 $("#" + this.options.fileuploadcontent).html('');
                 $("#" + this.options.fileuploadcontent).append(img);
-                console.log(this.element);
             }
         },
 

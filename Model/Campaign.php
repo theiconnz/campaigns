@@ -378,6 +378,36 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
         return (bool)$this->getData(self::BLOCK_ID);
     }
 
+    /**
+     * Validation field
+     *
+     * @return int
+     */
+    public function getValidationfield()
+    {
+        return (bool)$this->getData(self::VALIDATIONFIELD);
+    }
+
+    /**
+     * Validation field size
+     *
+     * @return int
+     */
+    public function getValidationfieldsize()
+    {
+        return $this->getData(self::VALIDATIONFIELDSIZE);
+    }
+
+    /**
+     * get fiel upload manatory
+     *
+     * @return int
+     */
+    public function getUloadFieldMandatory()
+    {
+        return (bool)$this->getData(self::FILEUPLOADMANDATORY);
+    }
+
 
     /**
      * Set ID
@@ -638,6 +668,36 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Set validation field
+     *
+     * @param int $value
+     */
+    public function setValidationfield($value)
+    {
+        return $this->setData(self::VALIDATIONFIELD, $value);
+    }
+
+    /**
+     * Set validation field  size
+     *
+     * @param int $value
+     */
+    public function setValidationfieldsize($value)
+    {
+        return $this->setData(self::VALIDATIONFIELDSIZE, $value);
+    }
+
+    /**
+     * Set upload field mandatory
+     *
+     * @param int $value
+     */
+    public function setFileuploadMandatory($value)
+    {
+        return $this->setData(self::FILEUPLOADMANDATORY, $value);
+    }
+
+    /**
      * Receive page store ids
      *
      * @return int[]
@@ -656,4 +716,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }
+
+
 }

@@ -7,6 +7,7 @@
 /** @var \Theiconnz\Campaigns\Block\Campaign $block */
 
 if($this->getPage()->getFormEnable()){
+    $mandatory=$this->getPage()->getUloadFieldMandatory()?$this->getPage()->getUloadFieldMandatory():0;
 ?>
 <div class="ti-campaign-form-container">
 <form class="form contact"
@@ -20,7 +21,8 @@ if($this->getPage()->getFormEnable()){
                 "formelement": "#campaign_form",
                 "successblock": "#campaign-data-form-update",
                 "formcontainer": ".campaign-data-form",
-                "formid": "campaign_form"
+                "formid": "campaign_form",
+                "fileuploadmandatory": "<?=$mandatory?>"
               }
           }'
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
@@ -104,7 +106,24 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getShowupload() ){?>
+            <?php if( $this->getPage()->getValidationfield() ){
+                $size=$this->getPage()->getValidationfieldsize()?$this->getPage()->getValidationfieldsize():10;
+                ?>
+                <div class="field validationfield required">
+                    <div class="control">
+                        <input name="validationfield"
+                               id="validationfield"
+                               title="<?= $block->escapeHtmlAttr(__('Validate')) ?>"
+                               value=""
+                               placeholder="<?= $block->escapeHtml(__('Validate')) ?>"
+                               class="input-text"
+                               type="text"
+                               data-validate="{maxlength:<?=$size?>}"
+                        />
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if( $this->getPage()->getShowupload() ){ ?>
             <div class="field fileupload">
                 <div class="control">
                     <div class="upload-ins">
@@ -119,6 +138,9 @@ if($this->getPage()->getFormEnable()){
                                     "fileuploadcontent": "upload-content-data"
                                   }
                               }'
+                               <?php if($mandatory==1){?>
+                                data-validate="{required:true}"
+                               <?php } ?>
                         />
                         <div class="inst" id="upload-content-data">Upload Supporting Image</div>
                         <div class="icons"><i class="export-icon"></i></div>
@@ -135,9 +157,9 @@ if($this->getPage()->getFormEnable()){
                 <label class="label" for="terms-error">
                     <?php
                     $termstext = $this->getPage()->getTermsText();
-                    $ttext=(!empty(($termstext)))?$block->escapeHtmlAttr(__($termstext)):$block->escapeHtmlAttr(__('I have read and agreed to the Terms & Conditions*'));
+                    $ttext=(!empty(($termstext)))?$termstext:$block->escapeHtmlAttr(__('I have read and agreed to the Terms & Conditions*'));
                     ?>
-                    <span><?= $ttext ?></span>
+                    <?php echo $ttext;?>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -155,7 +177,7 @@ if($this->getPage()->getFormEnable()){
                 <label class="label" for="useinmarketing-error">
                     <?php
                     $mtext = $this->getPage()->getMarketingText();
-                    $tartext=(!empty(($mtext)))?$block->escapeHtmlAttr(__($mtext)):$block->escapeHtmlAttr(__('I agree to my  and image used for marketing purposes'));
+                    $tartext=(!empty(($mtext)))?$block->escapeHtml(__($mtext)):$block->escapeHtmlAttr(__('I agree to my  and image used for marketing purposes'));
                     ?>
                     <span><?=$tartext?></span>
                 </label>
