@@ -143,7 +143,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="showphone" sortOrder="21" formElement="checkbox">
+        <field name="showphone" sortOrder="23" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -167,7 +167,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disablename" sortOrder="21" formElement="checkbox">
+        <field name="disablename" sortOrder="24" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -191,7 +191,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="showlastname" sortOrder="21" formElement="checkbox">
+        <field name="showlastname" sortOrder="25" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -215,7 +215,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disableemail" sortOrder="21" formElement="checkbox">
+        <field name="disableemail" sortOrder="26" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -239,7 +239,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disableupload" sortOrder="21" formElement="checkbox">
+        <field name="disableupload" sortOrder="27" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -263,7 +263,31 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disablecontent" sortOrder="21" formElement="checkbox">
+        <field name="fileupload_mandatory" sortOrder="28" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">campaign</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">File upload mandatory</label>
+                <dataScope>fileupload_mandatory</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="disablecontent" sortOrder="30" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -287,7 +311,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disablemarketing" sortOrder="21" formElement="checkbox">
+        <field name="disablemarketing" sortOrder="31" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -311,7 +335,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="oneentry" sortOrder="21" formElement="checkbox">
+        <field name="oneentry" sortOrder="32" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -334,6 +358,37 @@
                     </settings>
                 </checkbox>
             </formElements>
+        </field>
+        <field name="validationfield" sortOrder="33" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">campaign</item>
+                    <item name="default" xsi:type="number">0</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Allow validation field</label>
+                <dataScope>validationfield</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="validationfieldsize" sortOrder="34" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Validation field size</label>
+                <dataScope>validationfieldsize</dataScope>
+            </settings>
         </field>
         <field name="block_identifier" sortOrder="23" formElement="input">
             <settings>

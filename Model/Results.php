@@ -283,6 +283,16 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     }
 
     /**
+     * get validation field
+     *
+     * @return string
+     */
+    public function getValidationfield()
+    {
+        return (bool)$this->getData(self::VALIDATIONFIELD);
+    }
+
+    /**
      * Set ID
      *
      * @param int $id
@@ -427,6 +437,17 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     public function setIsActive($isActive)
     {
         return $this->setData(self::IS_ACTIVE, $isActive);
+    }
+
+    /**
+     * Set validation field
+     *
+     * @param bool|string $value
+     * @return ResultsInterface
+     */
+    public function setValidationfield($value)
+    {
+        return $this->setData(self::VALIDATIONFIELD, $value);
     }
 
 }

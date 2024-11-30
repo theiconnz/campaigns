@@ -38,10 +38,16 @@
                 default="1" comment="Disable Content"/>
         <column xsi:type="smallint" name="disablemarketing" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Disable Marketing use"/>
+        <column xsi:type="smallint" name="validationfield" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Enable validation field"/>
+        <column xsi:type="smallint" name="validationfieldsize" unsigned="false" nullable="false" identity="false"
+                default="20" comment="Enable validation field"/>
         <column xsi:type="smallint" name="showphone" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Show Phone Active"/>
         <column xsi:type="smallint" name="oneentry" unsigned="false" nullable="false" identity="false"
                 default="1" comment="One Entry per campaign"/>
+        <column xsi:type="smallint" name="fileupload_mandatory" unsigned="false" nullable="false" identity="false"
+                default="0" comment="File upload is mandatory"/>
         <column xsi:type="varchar" name="block_identifier" nullable="false" length="255" comment="Block String Identifier"/>
         <column xsi:type="varchar" name="newslettersubtext" nullable="false" length="255" comment="newsletter text"/>
         <column xsi:type="varchar" name="marketingtext" nullable="false" length="255" comment="marketing text"/>
@@ -84,6 +90,7 @@
         <column xsi:type="varchar" name="imagename" nullable="true" length="255" comment="Image Name"/>
         <column xsi:type="mediumtext" name="content" nullable="true" comment="Result Content"/>
         <column xsi:type="tinyint" name="newsletter" padding="7" nullable="true" unsigned="false" default="0" />
+        <column xsi:type="varchar" name="validationfield" nullable="true" length="255" comment="Validation field"/>
         <column xsi:type="smallint" name="terms_agreed" unsigned="false" nullable="false" identity="false"
                 default="0" comment="Terms agreed"/>
         <column xsi:type="smallint" name="usedata_agreed" unsigned="true" nullable="false" identity="false"
