@@ -112,10 +112,10 @@
                 <label translate="true">Profile Image</label>
             </settings>
         </column>
-        <column name="name" sortOrder="12">
+        <column name="firstname" sortOrder="12">
             <settings>
                 <filter>text</filter>
-                <label translate="true">Name</label>
+                <label translate="true">First Name</label>
             </settings>
         </column>
         <column name="lastname" sortOrder="12">

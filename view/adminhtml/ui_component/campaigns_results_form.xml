@@ -76,13 +76,13 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="name" formElement="input" sortOrder="10">
+        <field name="firstname" formElement="input" sortOrder="10">
             <settings>
                 <elementTmpl>ui/form/element/text</elementTmpl>
-                <label translate="true">Name</label>
+                <label translate="true">First Name</label>
             </settings>
         </field>
-        <field name="name" sortOrder="20" formElement="input">
+        <field name="firstname" sortOrder="20" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">results</item>
@@ -91,10 +91,34 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Name</label>
-                <dataScope>name</dataScope>
+                <dataScope>firstname</dataScope>
             </settings>
         </field>
-        <field name="newsletter" sortOrder="21" formElement="checkbox">
+        <field name="lastname" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">results</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Last Name</label>
+                <dataScope>lastname</dataScope>
+            </settings>
+        </field>
+        <field name="email" sortOrder="40" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">results</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Email</label>
+                <dataScope>email</dataScope>
+            </settings>
+        </field>
+        <field name="newsletter" sortOrder="50" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
