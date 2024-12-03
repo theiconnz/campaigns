@@ -13,10 +13,12 @@ use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Stdlib\DateTime;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;
 use Magento\Newsletter\Model\SubscriptionManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use tests\verification\Tests\DataActionsTest;
 use Theiconnz\Campaigns\Api\CampaignRepositoryInterface;
 use Theiconnz\Campaigns\Helper\Campaign as CampaignHelper;
 use Magento\Framework\App\Action\Action;
@@ -287,7 +289,12 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
 
                 $ext = $uploaderFactory->getFileExtension();
-                $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
+                if($model->getShowemail()) {
+                    $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
+                } else {
+                    $timeValue = date(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+                    $newfile = md5($timeValue);
+                }
                 $newfilename = sprintf("%s.%s", $newfile, $ext);
                 $result = $uploaderFactory->save($destinationPath, $newfilename);
 
@@ -317,6 +324,12 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             }
             if($result && $model->getShowupload()) {
                 $resultfactory->setImagename($result['file'] );
+            }
+            if($model->getValidationfield()) {
+                $validationField=$this->validateInputFields($this->request->getParam('validationfield'));
+                $this->ValidateValidationField($validationField);
+
+                $resultfactory->setValidationfield($validationField);
             }
 
             if($model->getNewsletter()) {
@@ -496,6 +509,21 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             if (!$captcha->isCorrect($this->captchaStringResolver->resolve($this->getRequest(), $formId))) {
                 throw new LocalizedException(__('Incorrect captcha'));
             }
+        }
+    }
+
+
+    private function ValidateValidationField($fieldvalue)
+    {
+        $collection = $this->_resultsCollectionFactory->create()
+            ->addFieldToSelect('validationfield')
+            ->addFieldToFilter('validationfield',
+                ['eq' => $fieldvalue]
+            );
+        if($collection->count()>0){
+            throw new LocalizedException(
+                __('This invoice is already submitted to our system.')
+            );
         }
     }
 
