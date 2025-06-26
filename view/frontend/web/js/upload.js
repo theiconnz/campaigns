@@ -43,7 +43,7 @@ define([
          */
         onChange: function (event) {
             if (this.element.length>0 && this.element[0].files[0]) {
-                var filename = this.element[0].files[0].name;
+                var filename = this.element[0].files[0].name;console.log(this.options.fileuploadcontent);
                 $("#" + this.options.fileuploadcontent).addClass('c_color_light');
                 var img = document.createElement('img');
                 var src = URL.createObjectURL(event.target.files[0]);

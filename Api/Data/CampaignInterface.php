@@ -29,18 +29,21 @@ interface CampaignInterface
 
     const SHOWEMAIL     = 'disableemail';
     const SHOWUPLOAD     = 'disableupload';
-
+    const SHOWUPLOAD2     = 'disableupload2';
     const SHOWCONTENT   = 'disablecontent';
 
     const SHOWMARKETING   = 'disablemarketing';
 
-    const ONEENTRY   = 'oneentry';
+    const ONEENTRY      = 'oneentry';
 
     const VALIDATIONFIELD   = 'validationfield';
 
     const VALIDATIONFIELDSIZE   = 'validationfieldsize';
     const FILEUPLOADMANDATORY   = 'fileupload_mandatory';
 
+    const FILEUPLOAD2MANDATORY   = 'fileupload_2_mandatory';
+    const FILE1LABEL            = 'file_1_label';
+    const FILE2LABEL            = 'file_2_label';
     const TEXTNEWSLETTER   = 'newslettersubtext';
     const TEXTMARKETING   = 'marketingtext';
     const TEXTTERMS   = 'termstext';
@@ -133,6 +136,15 @@ interface CampaignInterface
      */
     public function getShowupload();
 
+
+    /**
+     * Get show upload 2
+     *
+     * @return int
+     */
+    public function getShowUpload2();
+
+
     /**
      * Get show CONTENT
      *
@@ -160,6 +172,20 @@ interface CampaignInterface
      * @return string|null
      */
     public function getNewsletterText();
+
+    /**
+     * Get upload 1 label
+     *
+     * @return string|null
+     */
+    public function getUpload1Label();
+
+    /**
+     * Get upload 2 label
+     *
+     * @return string|null
+     */
+    public function getUpload2Label();
 
 
     /**
@@ -224,6 +250,13 @@ interface CampaignInterface
      * @return int|null
      */
     public function getUloadFieldMandatory();
+
+    /**
+     * Get is upload 2 field mandatory
+     *
+     * @return int|null
+     */
+    public function getUloadField2Mandatory();
 
     /**
      * Is form enable
@@ -330,6 +363,14 @@ interface CampaignInterface
     public function setShowupload($value);
 
     /**
+     * Set Show upload 2
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowUpload2($value);
+
+    /**
      * Set Show content
      *
      * @param int $value
@@ -362,6 +403,21 @@ interface CampaignInterface
      */
     public function setNewsletterText($value);
 
+    /**
+     * Set upload 1 label
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setUpload1Label($value);
+
+    /**
+     * Set upload 2 label
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setUpload2Label($value);
 
     /**
      * Set content text
@@ -450,5 +506,13 @@ interface CampaignInterface
      * @return CampaignInterface
      */
     public function setFileuploadMandatory($value);
+
+    /**
+     * Set file uplaod 2 field mandatory
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setFileupload2Mandatory($value);
 
 }

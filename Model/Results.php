@@ -253,6 +253,16 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     }
 
     /**
+     * Retrieve image 2 name
+     *
+     * @return string
+     */
+    public function getImage2name()
+    {
+        return $this->getData(self::IMAGE2NAME);
+    }
+
+    /**
      * Retrieve block creation time
      *
      * @return string
@@ -289,7 +299,7 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
      */
     public function getValidationfield()
     {
-        return (bool)$this->getData(self::VALIDATIONFIELD);
+        return $this->getData(self::VALIDATIONFIELD);
     }
 
     /**
@@ -405,6 +415,16 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
         return $this->setData(self::IMAGENAME, $imgname);
     }
 
+    /**
+     * Set Image 2 name
+     *
+     * @param string $imgname
+     * @return ResultsInterface
+     */
+    public function setImage2name($imgname)
+    {
+        return $this->setData(self::IMAGE2NAME, $imgname);
+    }
 
     /**
      * Set creation time

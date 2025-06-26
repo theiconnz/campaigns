@@ -22,6 +22,7 @@ interface ResultsInterface
     const EMAIL         = 'email';
     const CONTENT       = 'content';
     const IMAGENAME     = 'imagename';
+    const IMAGE2NAME     = 'image2name';
     const NEWSLETTER    = 'newsletter';
     const VALIDATIONFIELD    = 'validationfield';
     const TERMSAGREED   = 'terms_agreed';
@@ -103,6 +104,13 @@ interface ResultsInterface
      * @return string
      */
     public function getImagename();
+
+    /**
+     * Get image 2 name
+     *
+     * @return string
+     */
+    public function getImage2name();
 
     /**
      * Get creation time
@@ -213,6 +221,14 @@ interface ResultsInterface
      * @return ResultsInterface
      */
     public function setImagename($imagename);
+
+    /**
+     * Set Image 2 name
+     *
+     * @param string $imagename
+     * @return ResultsInterface
+     */
+    public function setImage2name($imagename);
 
 
     /**
