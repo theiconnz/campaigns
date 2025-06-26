@@ -107,7 +107,13 @@ class Save extends Action implements HttpPostActionInterface
             $model->setData($data);
 
             try {
-                $this->campaignRepository->save($model);
+                $model = $this->campaignRepository->save($model);
+
+                $this->_eventManager->dispatch(
+                    'campaign_adminhtml_post_after',
+                    ['account_controller' => $this, 'model' => $model, 'request' => $this->getRequest()]
+                );
+
                 $this->messageManager->addSuccessMessage(__('You saved the campaign.'));
                 return $this->processResultRedirect($model, $resultRedirect, $data);
             } catch (LocalizedException $e) {

@@ -258,6 +258,16 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Retrieve show upload 2
+     *
+     * @return int
+     */
+    public function getShowUpload2()
+    {
+        return $this->getData(self::SHOWUPLOAD2);
+    }
+
+    /**
      * Retrieve show content
      *
      * @return int
@@ -296,6 +306,27 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function getNewsletterText()
     {
         return $this->getData(self::TEXTNEWSLETTER);
+    }
+
+    /**
+     * Retrieve get upload 1 label
+     *
+     * @return string
+     */
+    public function getUpload1Label()
+    {
+        return $this->getData(self::FILE1LABEL);
+    }
+
+
+    /**
+     * Retrieve get upload 2 label
+     *
+     * @return string
+     */
+    public function getUpload2Label()
+    {
+        return $this->getData(self::FILE2LABEL);
     }
 
     /**
@@ -399,13 +430,23 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
-     * get fiel upload manatory
+     * get file upload manatory
      *
      * @return int
      */
     public function getUloadFieldMandatory()
     {
         return (bool)$this->getData(self::FILEUPLOADMANDATORY);
+    }
+
+    /**
+     * get file 2 upload manatory
+     *
+     * @return int
+     */
+    public function getUloadField2Mandatory()
+    {
+        return (bool)$this->getData(self::FILEUPLOAD2MANDATORY);
     }
 
 
@@ -533,6 +574,18 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return $this->setData(self::SHOWUPLOAD, $value);
     }
+
+    /**
+     * Set show upload 2
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload2($value)
+    {
+        return $this->setData(self::SHOWUPLOAD2, $value);
+    }
+
     /**
      * Set show content
      *
@@ -575,6 +628,28 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function setNewsletterText($value)
     {
         return $this->setData(self::TEXTNEWSLETTER, $value);
+    }
+
+    /**
+     * Set file 1 upload label
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setUpload1Label($value)
+    {
+        return $this->setData(self::FILE1LABEL, $value);
+    }
+
+    /**
+     * Set file 2 upload label
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setUpload2Label($value)
+    {
+        return $this->setData(self::FILE2LABEL, $value);
     }
 
 
@@ -695,6 +770,16 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function setFileuploadMandatory($value)
     {
         return $this->setData(self::FILEUPLOADMANDATORY, $value);
+    }
+
+    /**
+     * Set upload 2 field mandatory
+     *
+     * @param int $value
+     */
+    public function setFileupload2Mandatory($value)
+    {
+        return $this->setData(self::FILEUPLOAD2MANDATORY, $value);
     }
 
     /**

@@ -287,7 +287,55 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disablecontent" sortOrder="30" formElement="checkbox">
+        <field name="disableupload2" sortOrder="29" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">campaign</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable File Upload 2</label>
+                <dataScope>disableupload2</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="fileupload_2_mandatory" sortOrder="30" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">campaign</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">File upload 2 mandatory</label>
+                <dataScope>fileupload_2_mandatory</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="disablecontent" sortOrder="31" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -311,7 +359,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="disablemarketing" sortOrder="31" formElement="checkbox">
+        <field name="disablemarketing" sortOrder="34" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -335,7 +383,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="oneentry" sortOrder="32" formElement="checkbox">
+        <field name="oneentry" sortOrder="36" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -359,7 +407,7 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="validationfield" sortOrder="33" formElement="checkbox">
+        <field name="validationfield" sortOrder="38" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">campaign</item>
@@ -383,14 +431,28 @@
                 </checkbox>
             </formElements>
         </field>
-        <field name="validationfieldsize" sortOrder="34" formElement="input">
+        <field name="validationfieldsize" sortOrder="40" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Validation field size</label>
                 <dataScope>validationfieldsize</dataScope>
             </settings>
         </field>
-        <field name="block_identifier" sortOrder="23" formElement="input">
+        <field name="file_1_label" sortOrder="45" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">First file upload label</label>
+                <dataScope>file_1_label</dataScope>
+            </settings>
+        </field>
+        <field name="file_2_label" sortOrder="50" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Second file upload label</label>
+                <dataScope>file_2_label</dataScope>
+            </settings>
+        </field>
+        <field name="block_identifier" sortOrder="55" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Campaign submit success message block identifier</label>

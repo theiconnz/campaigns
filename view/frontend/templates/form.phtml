@@ -7,7 +7,8 @@
 /** @var \Theiconnz\Campaigns\Block\Campaign $block */
 
 if($this->getPage()->getFormEnable()){
-    $mandatory=$this->getPage()->getUloadFieldMandatory()?$this->getPage()->getUloadFieldMandatory():0;
+    $f1mandatory=$this->getPage()->getUloadFieldMandatory()?$this->getPage()->getUloadFieldMandatory():0;
+    $f2mandatory=$this->getPage()->getUloadField2Mandatory()?$this->getPage()->getUloadField2Mandatory():0;
 ?>
 <div class="ti-campaign-form-container">
 <form class="form contact"
@@ -22,7 +23,8 @@ if($this->getPage()->getFormEnable()){
                 "successblock": "#campaign-data-form-update",
                 "formcontainer": ".campaign-data-form",
                 "formid": "campaign_form",
-                "fileuploadmandatory": "<?=$mandatory?>"
+                "fileuploadmandatory": "<?=$f1mandatory?>",
+                "file2uploadmandatory": "<?=$f2mandatory?>"
               }
           }'
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
@@ -123,30 +125,59 @@ if($this->getPage()->getFormEnable()){
                     </div>
                 </div>
             <?php } ?>
-            <?php if( $this->getPage()->getShowupload() ){ ?>
-            <div class="field fileupload">
+            <?php if( $this->getPage()->getShowupload() ){
+                $placeholder= $this->getPage()->getUpload1Label()?$this->getPage()->getUpload1Label():'Upload supporting image';
+                ?>
+            <div class="field fileupload" id="filename_1">
                 <div class="control">
                     <div class="upload-ins">
                         <input type="file"
                                name="filename"
                                class="inputfile"
                                id="file-upload"
-                               placeholder="<?= $block->escapeHtml(__('Upload supporting image')) ?>"
+                               placeholder="<?= $block->escapeHtml(__($placeholder)) ?>"
                                accept="image/jpeg,image/png"
                                data-mage-init='{"Theiconnz_Campaigns/js/upload":
                                   {
                                     "fileuploadcontent": "upload-content-data"
                                   }
                               }'
-                               <?php if($mandatory==1){?>
+                               <?php if($f1mandatory==1){?>
                                 data-validate="{required:true}"
                                <?php } ?>
                         />
-                        <div class="inst" id="upload-content-data">Upload Supporting Image</div>
+                        <div class="inst" id="upload-content-data"><?=$placeholder?></div>
                         <div class="icons"><i class="export-icon"></i></div>
                     </div>
                 </div>
             </div>
+            <?php } ?>
+            <?php if( $this->getPage()->getShowupload2() ){
+                $placeholder= $this->getPage()->getUpload2Label()?$this->getPage()->getUpload2Label():'Upload supporting image';
+                ?>
+                <div class="field fileupload" id="filename_2">
+                    <div class="control">
+                        <div class="upload-ins">
+                            <input type="file"
+                                   name="filename_2"
+                                   class="inputfile"
+                                   id="file-upload-2"
+                                   placeholder="<?= $block->escapeHtml(__($placeholder)) ?>"
+                                   accept="image/jpeg,image/png"
+                                   data-mage-init='{"Theiconnz_Campaigns/js/upload":
+                                  {
+                                    "fileuploadcontent": "upload-content-data-2"
+                                  }
+                              }'
+                                <?php if($f2mandatory==1){?>
+                                    data-validate="{required:true}"
+                                <?php } ?>
+                            />
+                            <div class="inst" id="upload-content-data-2"><?=$placeholder?></div>
+                            <div class="icons"><i class="export-icon"></i></div>
+                        </div>
+                    </div>
+                </div>
             <?php } ?>
         </fieldset>
     </div>

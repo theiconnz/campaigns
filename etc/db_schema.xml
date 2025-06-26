@@ -34,6 +34,8 @@
                 default="1" comment="Disable email"/>
         <column xsi:type="smallint" name="disableupload" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Disable Upload"/>
+        <column xsi:type="smallint" name="disableupload2" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Disable Upload"/>
         <column xsi:type="smallint" name="disablecontent" unsigned="false" nullable="false" identity="false"
                 default="1" comment="Disable Content"/>
         <column xsi:type="smallint" name="disablemarketing" unsigned="false" nullable="false" identity="false"
@@ -48,6 +50,10 @@
                 default="1" comment="One Entry per campaign"/>
         <column xsi:type="smallint" name="fileupload_mandatory" unsigned="false" nullable="false" identity="false"
                 default="0" comment="File upload is mandatory"/>
+        <column xsi:type="smallint" name="fileupload_2_mandatory" unsigned="false" nullable="false" identity="false"
+                default="0" comment="File upload is mandatory"/>
+        <column xsi:type="varchar" name="file_1_label" nullable="false" length="255" comment="File upload 1 label"/>
+        <column xsi:type="varchar" name="file_2_label" nullable="false" length="255" comment="File upload 1 label"/>
         <column xsi:type="varchar" name="block_identifier" nullable="false" length="255" comment="Block String Identifier"/>
         <column xsi:type="varchar" name="newslettersubtext" nullable="false" length="255" comment="newsletter text"/>
         <column xsi:type="varchar" name="marketingtext" nullable="false" length="255" comment="marketing text"/>
@@ -88,6 +94,7 @@
         <column xsi:type="varchar" name="email" nullable="true" length="100" comment="Email"/>
         <column xsi:type="varchar" name="phone" nullable="true" length="30" comment="Phone"/>
         <column xsi:type="varchar" name="imagename" nullable="true" length="255" comment="Image Name"/>
+        <column xsi:type="varchar" name="image2name" nullable="true" length="255" comment="Image 2 Name"/>
         <column xsi:type="mediumtext" name="content" nullable="true" comment="Result Content"/>
         <column xsi:type="tinyint" name="newsletter" padding="7" nullable="true" unsigned="false" default="0" />
         <column xsi:type="varchar" name="validationfield" nullable="true" length="255" comment="Validation field"/>
