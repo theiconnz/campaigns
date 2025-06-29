@@ -4,13 +4,9 @@
  * See COPYING.txt for license details.
  */
 
-/** @var \Theiconnz\Campaigns\Block\Campaign $block */
-
-if($this->getPage()->getFormEnable()){
-    $f1mandatory=$this->getPage()->getUloadFieldMandatory()?$this->getPage()->getUloadFieldMandatory():0;
-    $f2mandatory=$this->getPage()->getUloadField2Mandatory()?$this->getPage()->getUloadField2Mandatory():0;
+/* @var $block \Theiconnz\Campaigns\Block\Page\Campaign */
 ?>
-<div class="ti-campaign-form-container">
+
 <form class="form contact"
       id="campaign_form"
       method="post"
@@ -22,9 +18,7 @@ if($this->getPage()->getFormEnable()){
                 "formelement": "#campaign_form",
                 "successblock": "#campaign-data-form-update",
                 "formcontainer": ".campaign-data-form",
-                "formid": "campaign_form",
-                "fileuploadmandatory": "<?=$f1mandatory?>",
-                "file2uploadmandatory": "<?=$f2mandatory?>"
+                "formid": "campaign_form"
               }
           }'
       data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
@@ -49,8 +43,9 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getShowLastname() ){?>
-                <div class="field lastname required">
+            <?php
+            if( $this->getPage()->getShowLastname() ){?>
+                <div class="field name required">
                     <div class="control">
                         <input name="lastname"
                                id="lastname"
@@ -80,8 +75,8 @@ if($this->getPage()->getFormEnable()){
             <?php if( $this->getPage()->getShowphone() ){?>
             <div class="field telephone">
                 <div class="control">
-                    <input name="phone"
-                           id="phone"
+                    <input name="telephone"
+                           id="telephone"
                            title="<?= $block->escapeHtmlAttr(__('Phone Number')) ?>"
                            value=""
                            placeholder="<?= $block->escapeHtml(__('Phone Number*')) ?>"
@@ -90,94 +85,42 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getShowcontent() ){
-                $contenttext = $this->getPage()->getContentText();
-                $text=(!empty(($contenttext)))?$block->escapeHtmlAttr(__($contenttext)):$block->escapeHtmlAttr(__('Tell us your story here, in 25 words or less...'));
-                ?>
+            <?php if( $this->getPage()->getShowcontent() ){?>
             <div class="field content required">
                 <div class="control">
                     <textarea name="content"
                               id="comment"
-                              title="<?= $text?>"
+                              title="<?= $block->escapeHtmlAttr(__('What’s on your mind?')) ?>"
                               class="input-text"
                               cols="5"
                               rows="3"
-                              placeholder="<?= $text?>"
+                              placeholder="<?= $block->escapeHtml(__('Tell us your story here, in 25 words or less...')) ?>"
                               data-validate="{maxlength:1000}"
                     ></textarea>
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getValidationfield() ){
-                $size=$this->getPage()->getValidationfieldsize()?$this->getPage()->getValidationfieldsize():10;
-                ?>
-                <div class="field validationfield required">
-                    <div class="control">
-                        <input name="validationfield"
-                               id="validationfield"
-                               title="<?= $block->escapeHtmlAttr(__('Validate')) ?>"
-                               value=""
-                               placeholder="<?= $block->escapeHtml(__('Validate')) ?>"
-                               class="input-text"
-                               type="text"
-                               data-validate="{maxlength:<?=$size?>}"
-                        />
-                    </div>
-                </div>
-            <?php } ?>
-            <?php if( $this->getPage()->getShowupload() ){
-                $placeholder= $this->getPage()->getUpload1Label()?$this->getPage()->getUpload1Label():'Upload supporting image';
-                ?>
-            <div class="field fileupload" id="filename_1">
+            <?php if( $this->getPage()->getShowupload() ){?>
+            <div class="field fileupload">
                 <div class="control">
                     <div class="upload-ins">
                         <input type="file"
                                name="filename"
                                class="inputfile"
                                id="file-upload"
-                               placeholder="<?= $block->escapeHtml(__($placeholder)) ?>"
+                               placeholder="<?= $block->escapeHtml(__('Upload supporting image')) ?>"
                                accept="image/jpeg,image/png"
                                data-mage-init='{"Theiconnz_Campaigns/js/upload":
                                   {
                                     "fileuploadcontent": "upload-content-data"
                                   }
                               }'
-                               <?php if($f1mandatory==1){?>
-                                data-validate="{required:true}"
-                               <?php } ?>
                         />
-                        <div class="inst" id="upload-content-data"><?=$placeholder?></div>
+                        <div class="inst" id="upload-content-data">Upload Supporting Image</div>
                         <div class="icons"><i class="export-icon"></i></div>
                     </div>
                 </div>
             </div>
-            <?php } ?>
-            <?php if( $this->getPage()->getShowupload2() ){
-                $placeholder= $this->getPage()->getUpload2Label()?$this->getPage()->getUpload2Label():'Upload supporting image';
-                ?>
-                <div class="field fileupload" id="filename_2">
-                    <div class="control">
-                        <div class="upload-ins">
-                            <input type="file"
-                                   name="filename_2"
-                                   class="inputfile"
-                                   id="file-upload-2"
-                                   placeholder="<?= $block->escapeHtml(__($placeholder)) ?>"
-                                   accept="image/jpeg,image/png"
-                                   data-mage-init='{"Theiconnz_Campaigns/js/upload":
-                                  {
-                                    "fileuploadcontent": "upload-content-data-2"
-                                  }
-                              }'
-                                <?php if($f2mandatory==1){?>
-                                    data-validate="{required:true}"
-                                <?php } ?>
-                            />
-                            <div class="inst" id="upload-content-data-2"><?=$placeholder?></div>
-                            <div class="icons"><i class="export-icon"></i></div>
-                        </div>
-                    </div>
-                </div>
             <?php } ?>
         </fieldset>
     </div>
@@ -186,11 +129,7 @@ if($this->getPage()->getFormEnable()){
         <fieldset class="fieldset">
             <div class="field terms field-checkbox">
                 <label class="label" for="terms-error">
-                    <?php
-                    $termstext = $this->getPage()->getTermsText();
-                    $ttext=(!empty(($termstext)))?$termstext:$block->escapeHtmlAttr(__('I have read and agreed to the Terms & Conditions*'));
-                    ?>
-                    <?php echo $ttext;?>
+                    <span><?= $block->escapeHtml(__('I have read and agreed to the Terms & Conditions*')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -203,14 +142,10 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
 
-            <?php if( $this->getPage()->getShowmarketing() ){?>
+            <?php if( $this->getPage()->getShowupload() ){?>
             <div class="field use_marketing field-checkbox">
                 <label class="label" for="useinmarketing-error">
-                    <?php
-                    $mtext = $this->getPage()->getMarketingText();
-                    $tartext=(!empty(($mtext)))?$block->escapeHtml(__($mtext)):$block->escapeHtmlAttr(__('I agree to my  and image used for marketing purposes'));
-                    ?>
-                    <span><?=$tartext?></span>
+                    <span><?= $block->escapeHtml(__('I agree to my  and image used for marketing purposes')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -222,13 +157,10 @@ if($this->getPage()->getFormEnable()){
                 </div>
             </div>
             <?php } ?>
-            <?php if( $this->getPage()->getNewsletter() ){
-                $ntext= $this->getPage()->getNewsletterText();
-                $newtext=(!empty(($ntext)))?$block->escapeHtmlAttr(__($ntext)):$block->escapeHtmlAttr(__('Sign me up for emails about promotions & discounts'));
-                ?>
+            <?php if( $this->getPage()->getNewsletter() ){?>
             <div class="field newsletter field-checkbox">
                 <label class="label" for="newsletter-error">
-                    <span><?=$newtext?></span>
+                    <span><?= $block->escapeHtml(__('Sign me up for emails about promotions & discounts')) ?></span>
                 </label>
                 <div class="control">
                     <input type="checkbox"
@@ -272,15 +204,6 @@ if($this->getPage()->getFormEnable()){
 </form>
 
 
-    <?php
-    $content = $this->getPage()->getContentbottom();
-    if($content) {
-        $html = $block->getCmsFilterContent($content);
-        echo $html;
-    }
-    ?>
-</div>
-
 <script type="text/javascript">
     require(['jquery', 'jquery/ui', 'accordion'], function($){
         $(document).ready( function() {
@@ -290,4 +213,4 @@ if($this->getPage()->getFormEnable()){
         });
     });
 </script>
-<?php } ?>
+

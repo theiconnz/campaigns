@@ -69,13 +69,35 @@ if($result) {
 
             <div class="admin__field field field-entity-type-selector">
                 <label for="entity-type-selector" class="admin__field-label label">
-                    <span>Profile Image</span>
+                    <span>Validation Field</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php echo $result->getValidationfield()?>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Image 1</span>
                 </label>
                 <div class="admin__field-control">
                     <?php
                     $profileimage = $result->getImagename();
                     if( $profileimage ){?>
                             <img src="<?=$block->getImageUrl($profileimage)?>" />
+                    <?php }?>
+                </div>
+            </div>
+
+            <div class="admin__field field field-entity-type-selector">
+                <label for="entity-type-selector" class="admin__field-label label">
+                    <span>Image 2</span>
+                </label>
+                <div class="admin__field-control">
+                    <?php
+                    $profileimage = $result->getImage2name();
+                    if( $profileimage ){?>
+                        <img src="<?=$block->getImageUrl($profileimage)?>" />
                     <?php }?>
                 </div>
             </div>

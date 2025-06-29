@@ -22,9 +22,37 @@ interface CampaignInterface
     const CONTENTBOTTOM = 'contentbottom';
     const NEWSLETTER    = 'newsletter';
     const SHOWPHONE     = 'showphone';
+
+    const SHOWNAME     = 'disablename';
+
+    const SHOWLASTNAME  = 'showlastname';
+
+    const SHOWEMAIL     = 'disableemail';
+    const SHOWUPLOAD     = 'disableupload';
+    const SHOWUPLOAD2     = 'disableupload2';
+    const SHOWCONTENT   = 'disablecontent';
+
+    const SHOWMARKETING   = 'disablemarketing';
+
+    const ONEENTRY      = 'oneentry';
+
+    const VALIDATIONFIELD   = 'validationfield';
+
+    const VALIDATIONFIELDSIZE   = 'validationfieldsize';
+    const FILEUPLOADMANDATORY   = 'fileupload_mandatory';
+
+    const FILEUPLOAD2MANDATORY   = 'fileupload_2_mandatory';
+    const FILE1LABEL            = 'file_1_label';
+    const FILE2LABEL            = 'file_2_label';
+    const TEXTNEWSLETTER   = 'newslettersubtext';
+    const TEXTMARKETING   = 'marketingtext';
+    const TEXTTERMS   = 'termstext';
+    const TEXTCONTENT   = 'contenttext';
+
     const CREATION_TIME = 'creation_time';
     const UPDATE_TIME   = 'update_time';
     const IS_ACTIVE     = 'is_active';
+    const FORMENABLE     = 'form_enable';
 
     const BLOCK_ID     = 'block_identifier';
     /**#@-*/
@@ -78,6 +106,108 @@ interface CampaignInterface
      */
     public function getShowphone();
 
+    /**
+     * Get show name
+     *
+     * @return int
+     */
+    public function getShowname();
+
+    /**
+     * Get show last name
+     *
+     * @return int
+     */
+    public function getShowLastname();
+
+
+    /**
+     * Get show email
+     *
+     * @return int
+     */
+    public function getShowemail();
+
+
+    /**
+     * Get show upload
+     *
+     * @return int
+     */
+    public function getShowupload();
+
+
+    /**
+     * Get show upload 2
+     *
+     * @return int
+     */
+    public function getShowUpload2();
+
+
+    /**
+     * Get show CONTENT
+     *
+     * @return int
+     */
+    public function getShowcontent();
+
+    /**
+     * Get show MARKETING
+     *
+     * @return int
+     */
+    public function getShowmarketing();
+
+    /**
+     * Get show oen entry
+     *
+     * @return int
+     */
+    public function getOneEntry();
+
+    /**
+     * Get newsletter text
+     *
+     * @return string|null
+     */
+    public function getNewsletterText();
+
+    /**
+     * Get upload 1 label
+     *
+     * @return string|null
+     */
+    public function getUpload1Label();
+
+    /**
+     * Get upload 2 label
+     *
+     * @return string|null
+     */
+    public function getUpload2Label();
+
+
+    /**
+     * Get content text
+     *
+     * @return string|null
+     */
+    public function getContentText();
+
+    /**
+     * Get terms text
+     *
+     * @return string|null
+     */
+    public function getTermsText();
+
+    /**
+     * Get marketing text
+     *
+     * @return string|null
+     */
+    public function getMarketingText();
 
     /**
      * Get creation time
@@ -99,6 +229,41 @@ interface CampaignInterface
      * @return bool|null
      */
     public function getIsActive();
+
+    /**
+     * Get validation field
+     *
+     * @return int|null
+     */
+    public function getValidationfield();
+
+    /**
+     * Get validation field size
+     *
+     * @return int|null
+     */
+    public function getValidationfieldsize();
+
+    /**
+     * Get is upload field mandatory
+     *
+     * @return int|null
+     */
+    public function getUloadFieldMandatory();
+
+    /**
+     * Get is upload 2 field mandatory
+     *
+     * @return int|null
+     */
+    public function getUloadField2Mandatory();
+
+    /**
+     * Is form enable
+     *
+     * @return bool|null
+     */
+    public function getFormEnable();
 
 
     /**
@@ -166,6 +331,119 @@ interface CampaignInterface
     public function setShowphone($phone);
 
     /**
+     * Set Show name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowname($value);
+
+    /**
+     * Set Show last name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowLastname($value);
+
+    /**
+     * Set Show email
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowemail($value);
+
+    /**
+     * Set Show upload
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload($value);
+
+    /**
+     * Set Show upload 2
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowUpload2($value);
+
+    /**
+     * Set Show content
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowcontent($value);
+
+
+    /**
+     * Set Show marketing
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowmarketing($value);
+
+    /**
+     * Set Show one entry
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setOneEntry($value);
+
+    /**
+     * Set newsletter text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setNewsletterText($value);
+
+    /**
+     * Set upload 1 label
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setUpload1Label($value);
+
+    /**
+     * Set upload 2 label
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setUpload2Label($value);
+
+    /**
+     * Set content text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setContentText($value);
+
+    /**
+     * Set terms text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setTermsText($value);
+
+    /**
+     * Set marketing text
+     *
+     * @param string $value
+     * @return CampaignInterface
+     */
+    public function setMarketingText($value);
+
+    /**
      * Set creation time
      *
      * @param string $creationTime
@@ -190,10 +468,51 @@ interface CampaignInterface
     public function setIsActive($isActive);
 
     /**
+     * Set is form enable
+     *
+     * @param bool|int $isActive
+     * @return CampaignInterface
+     */
+    public function setFormEnable($isActive);
+
+    /**
      * Set block id
      *
      * @param bool|int $value
      * @return CampaignInterface
      */
     public function setBlockId($value);
+
+    /**
+     * Set validation field
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setValidationfield($value);
+
+    /**
+     * Set validation field size
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setValidationfieldsize($value);
+
+    /**
+     * Set file uplaod field mandatory
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setFileuploadMandatory($value);
+
+    /**
+     * Set file uplaod 2 field mandatory
+     *
+     * @param bool|int $value
+     * @return CampaignInterface
+     */
+    public function setFileupload2Mandatory($value);
+
 }

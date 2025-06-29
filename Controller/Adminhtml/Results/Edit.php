@@ -118,9 +118,7 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
             $id ? __('Edit Result') : __('New Result'),
             $id ? __('Edit Result') : __('New Result')
         );
-        $resultPage->getConfig()->getTitle()->prepend(__('Result'));
-        $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getTitle() : __('New Result'));
+
 
         return $resultPage;
     }

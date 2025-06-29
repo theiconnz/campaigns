@@ -10,13 +10,19 @@ namespace Theiconnz\Campaigns\Controller\Campaign;
 use Magento\Captcha\Observer\CaptchaStringResolver;
 use Magento\Contact\Model\MailInterface;
 use Magento\Customer\Model\Session;
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Phrase;
+use Magento\Framework\Stdlib\DateTime;
 use Magento\Newsletter\Model\Subscriber;
 use Magento\Newsletter\Model\SubscriberFactory;
 use Magento\Newsletter\Model\SubscriptionManagerInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use tests\verification\Tests\DataActionsTest;
 use Theiconnz\Campaigns\Api\CampaignRepositoryInterface;
 use Theiconnz\Campaigns\Helper\Campaign as CampaignHelper;
 use Magento\Framework\App\Action\Action;
@@ -35,7 +41,7 @@ use Theiconnz\Campaigns\Helper\Campaign as Helper;
 /**
  * Custom page for storefront. Needs to be accessible by POST because of the store switching.
  */
-class Post extends Action implements HttpGetActionInterface, HttpPostActionInterface
+class Post extends Action implements CsrfAwareActionInterface, HttpGetActionInterface, HttpPostActionInterface
 {
     /**
      * @var ForwardFactory
@@ -237,6 +243,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             $this->checkCaptcha();
 
             $result = false;
+            $file2result = false;
             if (
                 ( null == $id ) || empty($id) || !is_numeric($id) || !$terms
              ) {
@@ -245,18 +252,15 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 );
             }
 
-            $this->validatedParams();
-            $submitder = $this->getResultsCollection($this->getRequest()->getParam('email'), $id);
-
-
-            if($submitder->count()>0){
+            $model = $this->campaignRepository->getById( (integer)$id );
+            if(!$model->getFormEnable()){
                 throw new LocalizedException(
-                    __('We already have a story under this email. Contact us with your email.')
+                    __('Campaign submission disabled')
                 );
             }
 
+            $this->validatedParams($model);
 
-            $model = $this->campaignRepository->getById( (integer)$id );
 
             if(!$model || ($model->getId()!=$id) && !$model->isActive()) {
                 throw new LocalizedException(
@@ -264,7 +268,16 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 );
             }
 
-            if(count($_FILES['filename'])>0 && !$_FILES['filename']['error'] ) {
+            if( $model->getShowemail() && $model->getOneEntry()){
+                $collection=$this->getResultsCollection($this->getRequest()->getParam('email'), $id);
+                if($collection->count()>0){
+                    throw new LocalizedException(
+                        __('This email is already registered')
+                    );
+                }
+            }
+
+            if( isset($_FILES['filename']) && count($_FILES['filename'])>0 && !$_FILES['filename']['error'] && $model->getShowupload() ) {
                 $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'filename']);
 
                 $uploaddir = $this->dir->getPath('media') . Results::UPLOADPATH;
@@ -272,7 +285,7 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                     $this->io->mkdir($uploaddir);
                 }
 
-                $uploaderFactory->setAllowedExtensions(['jpg', 'gif', 'png']); // you can add more extension which need
+                $uploaderFactory->setAllowedExtensions(['jpg','jpeg', 'gif', 'png']); // you can add more extension which need
                 $uploaderFactory->setAllowRenameFiles(true);
                 $uploaderFactory->setFilesDispersion(true);
 
@@ -281,7 +294,12 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
 
                 $ext = $uploaderFactory->getFileExtension();
-                $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
+                if($model->getShowemail()) {
+                    $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email')));
+                } else {
+                    $timeValue = date(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+                    $newfile = md5($timeValue);
+                }
                 $newfilename = sprintf("%s.%s", $newfile, $ext);
                 $result = $uploaderFactory->save($destinationPath, $newfilename);
 
@@ -292,21 +310,86 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
                 }
             }
 
-            $resultfactory = $this->resultsFactory->create();
-            $resultfactory->setCampId($model->getId());
-            $resultfactory->setFirstname( $this->validateInputFields($this->request->getParam('firstname')) );
-            $resultfactory->setContent( $this->validateInputFields($this->request->getParam('content')) );
-            $resultfactory->setEmail( $this->request->getParam('email') );
-            if($result) {
-                $resultfactory->setImagename($result['file'] );
+            if( isset($_FILES['filename_2']) && count($_FILES['filename_2'])>0 && !$_FILES['filename_2']['error'] && $model->getShowupload2() ) {
+                $uploaderFactory = $this->uploaderFactory->create(['fileId' => 'filename_2']);
+
+                $uploaddir = $this->dir->getPath('media') . Results::UPLOADPATH;
+                if (!file_exists($uploaddir)) {
+                    $this->io->mkdir($uploaddir);
+                }
+
+                $uploaderFactory->setAllowedExtensions(['jpg','jpeg', 'gif', 'png']); // you can add more extension which need
+                $uploaderFactory->setAllowRenameFiles(true);
+                $uploaderFactory->setFilesDispersion(true);
+
+
+                $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
+                $destinationPath = $mediaDirectory->getAbsolutePath(Results::UPLOADPATH);
+
+                $ext = $uploaderFactory->getFileExtension();
+                if($model->getShowemail()) {
+                    $newfile = $this->renameFile($this->validateInputFields($this->request->getParam('email'))."-2");
+                } else {
+                    $timeValue = date(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
+                    $newfile = md5($timeValue);
+                }
+                $newfilename = sprintf("%s.%s", $newfile, $ext);echo $newfilename;
+                $file2result = $uploaderFactory->save($destinationPath, $newfilename);
+
+                if (!$file2result) {
+                    throw new LocalizedException(
+                        __('File 2 cannot be saved to path: $1', $destinationPath)
+                    );
+                }
             }
 
-            $nl = $this->request->getParam('newsletter');
-            if($nl && $nl==1) $resultfactory->setNewsletter(1);
+            $resultfactory = $this->resultsFactory->create();
+            $resultfactory->setCampId($model->getId());
+            if($model->getShowname()) {
+                $resultfactory->setFirstname($this->validateInputFields($this->request->getParam('firstname')));
+            }
+            if($model->getShowLastname()) {
+                $resultfactory->setLastname($this->validateInputFields($this->request->getParam('lastname')));
+            }
+            if($model->getShowcontent()) {
+                $resultfactory->setContent($this->validateInputFields($this->request->getParam('content')));
+            }
+            if($model->getShowphone()) {
+                $resultfactory->setPhone($this->validateInputFields($this->request->getParam('phone')));
+            }
+            if($model->getShowemail()) {
+                $resultfactory->setEmail($this->request->getParam('email'));
+            }
+            if($result && $model->getShowupload()) {
+                $resultfactory->setImagename($result['file'] );
+            }
+            if($file2result && $model->getShowUpload2()) {
+                $resultfactory->setImage2name($file2result['file'] );
+            }
+            if($model->getValidationfield()) {
+                $validationField=$this->validateInputFields($this->request->getParam('validationfield'));
+                $this->ValidateValidationField($validationField);
+
+                $resultfactory->setValidationfield($validationField);
+            }
+
+            if($model->getNewsletter()) {
+                $nl = $this->request->getParam('newsletter');
+                if ($nl && $nl == 1) $resultfactory->setNewsletter(1);
+            }
+
             $terms = $this->request->getParam('terms');
             if($terms && $terms==1) $resultfactory->setTermsAgreed(1);
-            $um = $this->request->getParam('useinmarketing');
-            if($um && $um==1) $resultfactory->setUsedataAgreed(1);
+
+            if($model->getShowmarketing()) {
+                $um = $this->request->getParam('useinmarketing');
+                if ($um && $um == 1) $resultfactory->setUsedataAgreed(1);
+            }
+
+            $this->_eventManager->dispatch(
+                'campaign_result_post',
+                ['account_controller' => $this, 'model' => $model, 'params' => $this->getRequest()->getParams()]
+            );
 
             $resultfactory->setStoreId( $this->storeManager->getStore()->getId() );
             $this->resultsRepository->save($resultfactory);
@@ -315,11 +398,10 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
             $response = ['success' => 200, 'message' => "Result submit success"];
             $resultPage->setData($response);
 
-            if($nl && $nl==1) {
+            if( $model->getNewsletter() && $nl && $nl==1 ) {
                 $this->addtoSubscription($this->request->getParam('email'));
             }
 
-            //$this->sendEmail($this->validatedParams());
             $this->messageManager->addSuccessMessage("Thank you");
 
 
@@ -363,28 +445,29 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
      *
      * @return string
      */
-    private function validatedParams()
+    private function validatedParams($model)
     {
         $request = $this->getRequest();
-        if (trim($request->getParam('firstname')) === '') {
-            throw new LocalizedException(__('First Name is missing'));
+
+        if($model->getShowname()) {
+            if (trim($request->getParam('firstname')) === '') {
+                throw new LocalizedException(__('First Name is missing'));
+            }
         }
 
-        if (trim($request->getParam('content')) === '') {
-            throw new LocalizedException(__('Content is missing'));
-        }
+        if($model->getShowemail()) {
+            if (trim($request->getParam('email')) === '') {
+                throw new LocalizedException(__('Email is missing'));
+            }
 
-        if (trim($request->getParam('email')) === '') {
-            throw new LocalizedException(__('Email is missing'));
+            if (false === \strpos($request->getParam('email'), '@')) {
+                throw new LocalizedException(__('Invalid email address'));
+            }
         }
 
         if ($request->getParam('terms') == '' ||
             $request->getParam('terms') == 0 ) {
             throw new LocalizedException(__('Incorrect terms and conditions agreement'));
-        }
-
-        if (false === \strpos($request->getParam('email'), '@')) {
-            throw new LocalizedException(__('Invalid email address'));
         }
 
         return $request->getParams();
@@ -476,4 +559,45 @@ class Post extends Action implements HttpGetActionInterface, HttpPostActionInter
         }
     }
 
+
+    private function ValidateValidationField($fieldvalue)
+    {
+        $collection = $this->_resultsCollectionFactory->create()
+            ->addFieldToSelect('validationfield')
+            ->addFieldToFilter('validationfield',
+                ['eq' => $fieldvalue]
+            );
+        if($collection->count()>0){
+            throw new LocalizedException(
+                __('This invoice is already submitted to our system.')
+            );
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createCsrfValidationException(
+        RequestInterface $request
+    ): ?InvalidRequestException {
+        $resultPage = $this->resultJsonFactory->create();
+        $message=new Phrase('Invalid Form Key. Please refresh the page.');
+        $this->messageManager->addErrorMessage( $message );
+        $resultPage->setHttpResponseCode(500);
+        $resultPage->setJsonData(
+            json_encode([
+                'error'   => 500,
+                'message' => $message,
+            ])
+        );
+        return $resultPage;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
+    {
+        return null;
+    }
 }

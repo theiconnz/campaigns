@@ -30,10 +30,15 @@ define([
         options: {
             validationURL: '',
             fileuploadid: "#file-upload",
+            file2uploadid: "#file-upload-2",
             formelement: "#campaign_form",
             successblock: "#campaign_form",
             formcontainer: ".campaign-data-form",
             formid: "campaign_form",
+            hideonsuccess: ".success_hide",
+            fileuploadmandatory: "0",
+            file2uploadmandatory: "0",
+            fileuploaderrormessage: "File upload is mandatory"
         },
 
         /** @inheritdoc */
@@ -63,15 +68,42 @@ define([
                 'form_key': $.mage.cookies.get('form_key'),
             });
 
-            var fileuploadid = $(this.options.fileuploadid);
-            var files = fileuploadid[0].files;
-            var file = files[0];
-
             var form = $(this.options.formelement);
             var formdata = new FormData(form[0]);
-            if( file!=undefined ) {
-                formdata.append('filename', file, file.name);
+            var fileuploadid = $(this.options.fileuploadid);
+            var file2uploadid = $(this.options.file2uploadid);
+
+            if(fileuploadid[0]!=undefined) {
+                var files = fileuploadid[0].files;
+                var file = files[0];
+
+
+                if (file != undefined) {
+                    formdata.append('filename', file, file.name);
+                } else {
+                    if (this.options.fileuploadmandatory!="0") {
+                        $('').append('<div id="filename-error" class="mage-error">'+this.options.fileuploaderrormessage+'</div>')
+                        return false;
+                    }
+
+                }
             }
+
+
+            if(file2uploadid[0]!=undefined) {
+                var files = file2uploadid[0].files;
+                var file = files[0];
+
+                if (file != undefined) {
+                    formdata.append('filename_2', file, file.name);
+                } else {
+                    if (this.options.file2uploadmandatory!="0") {
+                        $('').append('<div id="filename-error" class="mage-error">'+this.options.fileuploaderrormessage+'</div>')
+                        return false;
+                    }
+                }
+            }
+
 
             $.ajax({
                 url: url,
@@ -94,7 +126,6 @@ define([
                 }
             })
             .done(function (response) {
-                console.log(response);
                 if (response.success) {
                     this.onSuccess();
                 } else {
@@ -111,6 +142,7 @@ define([
          */
         onSuccess: function () {
             $(this.options.formcontainer).hide();
+            $(this.options.hideonsuccess).hide();
             $(this.options.successblock).show();
             document.getElementById(this.options.formid).reset();
         },

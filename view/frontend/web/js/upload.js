@@ -25,7 +25,7 @@ define([
     $.widget(
         'theiconnz.upload', {
         options: {
-            fileuploadcontent: "file-upload",
+            fileuploadcontent: "file-upload"
         },
 
         /** @inheritdoc */
@@ -43,7 +43,7 @@ define([
          */
         onChange: function (event) {
             if (this.element.length>0 && this.element[0].files[0]) {
-                var filename = this.element[0].files[0].name;
+                var filename = this.element[0].files[0].name;console.log(this.options.fileuploadcontent);
                 $("#" + this.options.fileuploadcontent).addClass('c_color_light');
                 var img = document.createElement('img');
                 var src = URL.createObjectURL(event.target.files[0]);
@@ -52,7 +52,6 @@ define([
 
                 $("#" + this.options.fileuploadcontent).html('');
                 $("#" + this.options.fileuploadcontent).append(img);
-                console.log(this.element);
             }
         },
 

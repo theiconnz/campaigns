@@ -51,7 +51,7 @@ class SaveHandler implements ExtensionInterface
         $connection = $entityMetadata->getEntityConnection();
 
         $oldStores = $this->resourceCampaign->lookupStoreIds((int)$entity->getId());
-        $newStores = (array)$entity->getStores();
+        $newStores = (array)$entity->getStoreId();
 
         $table = $this->resourceCampaign->getTable('campaign_store');
 

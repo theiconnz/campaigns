@@ -10,7 +10,7 @@ use Magento\Ui\Component\Control\Container;
 
 /**
  * Class SaveButton
- * @package Magento\Customer\Block\Adminhtml\Edit
+ * @package Theiconnz\Campaigns\Block\Adminhtml\Edit
  */
 class SaveButton extends GenericButton implements ButtonProviderInterface
 {
@@ -23,77 +23,10 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
             'label' => __('Save'),
             'class' => 'save primary',
             'data_attribute' => [
-                'mage-init' => [
-                    'buttonAdapter' => [
-                        'actions' => [
-                            [
-                                'targetName' => 'campaigns_campaign_form.campaign_form_data_source',
-                                'actionName' => 'save',
-                                'params' => [
-                                    false
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                'mage-init' => ['button' => ['event' => 'save']],
+                'form-role' => 'save',
             ],
-            'class_name' => Container::SPLIT_BUTTON,
-            'options' => $this->getOptions(),
             'sort_order' => 90,
         ];
-    }
-
-    /**
-     * Retrieve options
-     *
-     * @return array
-     */
-    private function getOptions()
-    {
-        $options = [
-            [
-                'label' => __('Save & Duplicate'),
-                'id_hard' => 'save_and_duplicate',
-                'data_attribute' => [
-                    'mage-init' => [
-                        'buttonAdapter' => [
-                            'actions' => [
-                                [
-                                    'targetName' => 'campaigns_campaign_form.campaign_form_data_source',
-                                    'actionName' => 'save',
-                                    'params' => [
-                                        true,
-                                        [
-                                            'back' => 'duplicate'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-            ],
-            [
-                'id_hard' => 'save_and_close',
-                'label' => __('Save & Close'),
-                'data_attribute' => [
-                    'mage-init' => [
-                        'buttonAdapter' => [
-                            'actions' => [
-                                [
-                                    'targetName' => 'campaigns_campaign_form.campaign_form_data_source',
-                                    'actionName' => 'save',
-                                    'params' => [
-                                        true
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-            ]
-        ];
-
-        return $options;
     }
 }

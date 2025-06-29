@@ -217,6 +217,150 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Retrieve show name
+     *
+     * @return int
+     */
+    public function getShowname()
+    {
+        return $this->getData(self::SHOWNAME);
+    }
+
+
+    /**
+     * Retrieve show last name
+     *
+     * @return int
+     */
+    public function getShowLastname()
+    {
+        return $this->getData(self::SHOWLASTNAME);
+    }
+
+    /**
+     * Retrieve show email
+     *
+     * @return int
+     */
+    public function getShowemail()
+    {
+        return $this->getData(self::SHOWEMAIL);
+    }
+
+    /**
+     * Retrieve show upload
+     *
+     * @return int
+     */
+    public function getShowupload()
+    {
+        return $this->getData(self::SHOWUPLOAD);
+    }
+
+    /**
+     * Retrieve show upload 2
+     *
+     * @return int
+     */
+    public function getShowUpload2()
+    {
+        return $this->getData(self::SHOWUPLOAD2);
+    }
+
+    /**
+     * Retrieve show content
+     *
+     * @return int
+     */
+    public function getShowcontent()
+    {
+        return $this->getData(self::SHOWCONTENT);
+    }
+
+    /**
+     * Retrieve show marketing
+     *
+     * @return int
+     */
+    public function getShowmarketing()
+    {
+        return $this->getData(self::SHOWMARKETING);
+    }
+
+    /**
+     * Retrieve get one entry
+     *
+     * @return int
+     */
+    public function getOneEntry()
+    {
+        return $this->getData(self::ONEENTRY);
+    }
+
+
+    /**
+     * Retrieve get newsletter text
+     *
+     * @return string
+     */
+    public function getNewsletterText()
+    {
+        return $this->getData(self::TEXTNEWSLETTER);
+    }
+
+    /**
+     * Retrieve get upload 1 label
+     *
+     * @return string
+     */
+    public function getUpload1Label()
+    {
+        return $this->getData(self::FILE1LABEL);
+    }
+
+
+    /**
+     * Retrieve get upload 2 label
+     *
+     * @return string
+     */
+    public function getUpload2Label()
+    {
+        return $this->getData(self::FILE2LABEL);
+    }
+
+    /**
+     * Retrieve get content text
+     *
+     * @return string
+     */
+    public function getContentText()
+    {
+        return $this->getData(self::TEXTCONTENT);
+    }
+
+    /**
+     * Retrieve get terms text
+     *
+     * @return string
+     */
+    public function getTermsText()
+    {
+        return $this->getData(self::TEXTTERMS);
+    }
+
+
+    /**
+     * Retrieve get merketing text
+     *
+     * @return string
+     */
+    public function getMarketingText()
+    {
+        return $this->getData(self::TEXTMARKETING);
+    }
+
+    /**
      * Retrieve block creation time
      *
      * @return string
@@ -245,6 +389,15 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return (bool)$this->getData(self::IS_ACTIVE);
     }
+    /**
+     * Is form enable
+     *
+     * @return bool
+     */
+    public function getFormEnable()
+    {
+        return (bool)$this->getData(self::FORMENABLE);
+    }
 
     /**
      * Block Id
@@ -254,6 +407,46 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function getBlockId()
     {
         return (bool)$this->getData(self::BLOCK_ID);
+    }
+
+    /**
+     * Validation field
+     *
+     * @return int
+     */
+    public function getValidationfield()
+    {
+        return (bool)$this->getData(self::VALIDATIONFIELD);
+    }
+
+    /**
+     * Validation field size
+     *
+     * @return int
+     */
+    public function getValidationfieldsize()
+    {
+        return $this->getData(self::VALIDATIONFIELDSIZE);
+    }
+
+    /**
+     * get file upload manatory
+     *
+     * @return int
+     */
+    public function getUloadFieldMandatory()
+    {
+        return (bool)$this->getData(self::FILEUPLOADMANDATORY);
+    }
+
+    /**
+     * get file 2 upload manatory
+     *
+     * @return int
+     */
+    public function getUloadField2Mandatory()
+    {
+        return (bool)$this->getData(self::FILEUPLOAD2MANDATORY);
     }
 
 
@@ -336,6 +529,164 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     }
 
     /**
+     * Set show name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowname($value)
+    {
+        return $this->setData(self::SHOWNAME, $value);
+    }
+
+
+    /**
+     * Set show last name
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowLastname($value)
+    {
+        return $this->setData(self::SHOWLASTNAME, $value);
+    }
+
+
+    /**
+     * Set show email
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowemail($value)
+    {
+        return $this->setData(self::SHOWEMAIL, $value);
+    }
+
+
+    /**
+     * Set show upload
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload($value)
+    {
+        return $this->setData(self::SHOWUPLOAD, $value);
+    }
+
+    /**
+     * Set show upload 2
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowupload2($value)
+    {
+        return $this->setData(self::SHOWUPLOAD2, $value);
+    }
+
+    /**
+     * Set show content
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowcontent($value)
+    {
+        return $this->setData(self::SHOWCONTENT, $value);
+    }
+    /**
+     * Set show marketing
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setShowmarketing($value)
+    {
+        return $this->setData(self::SHOWCONTENT, $value);
+    }
+
+    /**
+     * Set show one entry
+     *
+     * @param int $value
+     * @return ResultsInterface
+     */
+    public function setOneEntry($value)
+    {
+        return $this->setData(self::ONEENTRY, $value);
+    }
+
+
+    /**
+     * Set newsletter text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setNewsletterText($value)
+    {
+        return $this->setData(self::TEXTNEWSLETTER, $value);
+    }
+
+    /**
+     * Set file 1 upload label
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setUpload1Label($value)
+    {
+        return $this->setData(self::FILE1LABEL, $value);
+    }
+
+    /**
+     * Set file 2 upload label
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setUpload2Label($value)
+    {
+        return $this->setData(self::FILE2LABEL, $value);
+    }
+
+
+    /**
+     * Set content text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setContentText($value)
+    {
+        return $this->setData(self::TEXTCONTENT, $value);
+    }
+    /**
+     *
+     * Set terms text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setTermsText($value)
+    {
+        return $this->setData(self::TEXTTERMS, $value);
+    }
+    /**
+     * Set marketing text
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setMarketingText($value)
+    {
+        return $this->setData(self::TEXTMARKETING, $value);
+    }
+
+
+    /**
      * Set creation time
      *
      * @param string $creationTime
@@ -370,6 +721,18 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
 
 
     /**
+     * Set is form enable
+     *
+     * @param bool|int $value
+     * @return CamaignInterface
+     */
+    public function setFormEnable($value)
+    {
+        return $this->setData(self::FORMENABLE, $value);
+    }
+
+
+    /**
      * Set block id
      *
      * @param int $value
@@ -377,6 +740,46 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     public function setBlockId($value)
     {
         return $this->setData(self::BLOCK_ID, $value);
+    }
+
+    /**
+     * Set validation field
+     *
+     * @param int $value
+     */
+    public function setValidationfield($value)
+    {
+        return $this->setData(self::VALIDATIONFIELD, $value);
+    }
+
+    /**
+     * Set validation field  size
+     *
+     * @param int $value
+     */
+    public function setValidationfieldsize($value)
+    {
+        return $this->setData(self::VALIDATIONFIELDSIZE, $value);
+    }
+
+    /**
+     * Set upload field mandatory
+     *
+     * @param int $value
+     */
+    public function setFileuploadMandatory($value)
+    {
+        return $this->setData(self::FILEUPLOADMANDATORY, $value);
+    }
+
+    /**
+     * Set upload 2 field mandatory
+     *
+     * @param int $value
+     */
+    public function setFileupload2Mandatory($value)
+    {
+        return $this->setData(self::FILEUPLOAD2MANDATORY, $value);
     }
 
     /**
@@ -398,4 +801,6 @@ class Campaign extends AbstractModel implements CampaignInterface, IdentityInter
     {
         return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }
+
+
 }

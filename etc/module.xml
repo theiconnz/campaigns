@@ -6,9 +6,11 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="Theiconnz_Campaigns"  setup_version="1.0.7" schema_version="0.0.5">
+    <module name="Theiconnz_Campaigns"  setup_version="1.2.2" schema_version="0.0.10">
         <sequence>
-            <module name="Theiconnz_Base"/>
+            <module name="Magento_Customer"/>
+            <module name="Magento_Cms"/>
+            <module name="Theiconnz_Base" />
         </sequence>
     </module>
 </config>

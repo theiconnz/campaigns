@@ -3,7 +3,7 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Theiconnz\Campaigns\Block;
+namespace Theiconnz\Campaigns\Block\Widget;
 
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\View\Element\Template;
@@ -15,8 +15,11 @@ use Magento\Cms\Model\Template\FilterProvider;
  * @api
  * @since 100.0.2
  */
-class Campaign extends Template
+class Campaign extends \Magento\Framework\View\Element\Template implements \Magento\Widget\Block\BlockInterface
 {
+    protected $_template = 'Theiconnz_Campaigns::forms.phtml';
+
+
     /**
      * @var \Theiconnz\Campaigns\Model\Campaign
      */
@@ -92,7 +95,6 @@ class Campaign extends Template
             }
             $this->setData('page', $page);
         }
-
         return $this->getData('page');
     }
 

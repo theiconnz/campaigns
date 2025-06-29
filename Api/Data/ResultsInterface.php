@@ -22,7 +22,9 @@ interface ResultsInterface
     const EMAIL         = 'email';
     const CONTENT       = 'content';
     const IMAGENAME     = 'imagename';
+    const IMAGE2NAME     = 'image2name';
     const NEWSLETTER    = 'newsletter';
+    const VALIDATIONFIELD    = 'validationfield';
     const TERMSAGREED   = 'terms_agreed';
     const USEDATAAGREED = 'usedata_agreed';
     const CREATION_TIME = 'creation_time';
@@ -104,6 +106,13 @@ interface ResultsInterface
     public function getImagename();
 
     /**
+     * Get image 2 name
+     *
+     * @return string
+     */
+    public function getImage2name();
+
+    /**
      * Get creation time
      *
      * @return string|null
@@ -123,6 +132,13 @@ interface ResultsInterface
      * @return bool|null
      */
     public function getIsActive();
+
+    /**
+     * Validation field
+     *
+     * @return string|null
+     */
+    public function getValidationfield();
 
     /**
      * Set ID
@@ -206,6 +222,14 @@ interface ResultsInterface
      */
     public function setImagename($imagename);
 
+    /**
+     * Set Image 2 name
+     *
+     * @param string $imagename
+     * @return ResultsInterface
+     */
+    public function setImage2name($imagename);
+
 
     /**
      * Set creation time
@@ -230,4 +254,12 @@ interface ResultsInterface
      * @return ResultsInterface
      */
     public function setIsActive($isActive);
+
+    /**
+     * Set validation field
+     *
+     * @param string $value
+     * @return ResultsInterface
+     */
+    public function setValidationfield($value);
 }

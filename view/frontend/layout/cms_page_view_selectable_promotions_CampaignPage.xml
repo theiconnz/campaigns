@@ -1,19 +1,19 @@
-<?xml version="1.0"?>
-<!--
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
--->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="Theiconnz_Campaigns::css/global.css"/>
-        <css src="Theiconnz_Campaigns::css/view.css"/>
+        <css src="Theiconnz_Campaigns::css/global.css" />
+        <css src="Theiconnz_Campaigns::css/results.css" />
     </head>
     <body>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+
         <referenceContainer name="content">
-            <block class="Theiconnz\Campaigns\Block\Campaign" name="campaign_page" template="Theiconnz_Campaigns::form.phtml">
+            <block class="Theiconnz\Campaigns\Block\Campaign" name="campaign_page"
+                   template="Theiconnz_Campaigns::form.phtml">
+                <arguments>
+                    <argument name="page_id" xsi:type="string">1</argument>
+                </arguments>
                 <container name="form.additional.info">
                     <block class="Magento\Captcha\Block\Captcha" name="captcha" after="-" cacheable="false">
                         <action method="setFormId">
