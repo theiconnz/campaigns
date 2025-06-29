@@ -119,7 +119,7 @@ class Save extends Action implements HttpPostActionInterface
             } catch (LocalizedException $e) {
                 $this->messageManager->addExceptionMessage($e->getPrevious() ?: $e);
             } catch (\Throwable $e) {
-                $this->messageManager->addErrorMessage(__('Something went wrong while saving the campaign.'));
+                $this->messageManager->addErrorMessage(__('Something went wrong while saving the campaign.' . $e->getMessage()) );
             }
 
             $this->dataPersistor->set('campaign', $data);

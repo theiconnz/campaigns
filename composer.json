@@ -1,13 +1,11 @@
 {
     "name": "theiconnz/campaigns",
-    "description": "Campaign modules",
+    "description": "Campaign modules for Magento 2",
     "require": {
-        "php": ">=7.0.0",
-        "magento/framework": "102.0.*|103.0.*",
-        "magento/module-store": "101.0.*|101.1.*"
+        "php": ">=7.0.0"
     },
+    "homepage": "https://github.com/theiconnz/campaigns",
     "type": "magento2-module",
-    "version": "1.2.2",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
