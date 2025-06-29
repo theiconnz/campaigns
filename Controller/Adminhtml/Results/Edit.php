@@ -110,6 +110,10 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
         }
 
         $this->_coreRegistry->register('result', $model);
+        $this->_eventManager->dispatch(
+            'campaign_adminhtml_result_edit_after',
+            ['account_controller' => $this, 'model' => $model, 'request' => $this->getRequest()]
+        );
 
         // 5. Build edit form
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
