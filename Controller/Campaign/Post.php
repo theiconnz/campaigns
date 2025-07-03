@@ -333,7 +333,7 @@ class Post extends Action implements CsrfAwareActionInterface, HttpGetActionInte
                     $timeValue = date(\Magento\Framework\Stdlib\DateTime::DATETIME_PHP_FORMAT);
                     $newfile = md5($timeValue);
                 }
-                $newfilename = sprintf("%s.%s", $newfile, $ext);echo $newfilename;
+                $newfilename = sprintf("%s.%s", $newfile, $ext);
                 $file2result = $uploaderFactory->save($destinationPath, $newfilename);
 
                 if (!$file2result) {
