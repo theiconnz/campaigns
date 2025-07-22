@@ -1,7 +1,6 @@
 {
     "name": "theiconnz/campaigns",
     "description": "Campaign modules for Magento 2",
-    ""
     "require": {
         "php": ">=7.0.0",
         "magento/framework": "102.0.*|103.0.*",
