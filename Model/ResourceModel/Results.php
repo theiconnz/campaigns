@@ -188,7 +188,6 @@ class Results extends AbstractDb
             $mediaDirectory = $this->filesystem->getDirectoryRead(DirectoryList::MEDIA);
             $destinationPath = $mediaDirectory->getAbsolutePath(\Theiconnz\Campaigns\Model\Results::UPLOADPATH);
             $file = $destinationPath . $filename;
-            die($file);
             if( file_exists($file) ) {
                 unlink($file);
             }
