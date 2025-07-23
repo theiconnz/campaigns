@@ -193,6 +193,13 @@
                 <label translate="true">Use Data for Marketing</label>
             </settings>
         </column>
+        <column name="creation_time" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created</label>
+            </settings>
+        </column>
         <column name="content"
                 class="Theiconnz\Campaigns\Ui\Component\Listing\Columns\Content" sortOrder="75">
             <settings>
