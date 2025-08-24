@@ -20,7 +20,7 @@ class Thumbnail extends Column
     /**
      * @var CampaignRepositoryInterface
      */
-    private $campaignRepository;
+    protected $campaignRepository;
 
     /**
      * Store manager

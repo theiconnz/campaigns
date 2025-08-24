@@ -22,12 +22,13 @@ class DataProvider extends \Magento\Framework\View\Element\UiComponent\DataProvi
     /**
      * @var AuthorizationInterface
      */
-    private $authorization;
+    protected $authorization;
 
     /**
      * @var AddFilterInterface[]
      */
-    private $additionalFilterPool;
+    protected $additionalFilterPool;
+    protected $meta;
 
     /**
      * @param string $name

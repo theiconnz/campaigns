@@ -57,7 +57,10 @@ class DataProvider extends ModifierPoolDataProvider
     /**
      * @var LoggerInterface
      */
-    private $logger;
+    protected $logger;
+
+    protected $collection;
+    protected $meta;
 
     /**
      * @param string $name
