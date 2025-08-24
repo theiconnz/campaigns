@@ -63,12 +63,12 @@ class ResultsRepository implements ResultsRepositoryInterface
     /**
      * @var CollectionProcessorInterface
      */
-    private $collectionProcessor;
+    protected $collectionProcessor;
 
     /**
      * @var HydratorInterface
      */
-    private $hydrator;
+    protected $hydrator;
 
     /**
      * @param ResourceBlock $resource

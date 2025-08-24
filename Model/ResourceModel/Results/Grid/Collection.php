@@ -18,6 +18,8 @@ class Collection extends ResultsCollection implements SearchResultInterface
      * @var AggregationInterface
      */
     protected $aggregations;
+    protected $_eventPrefix;
+    protected $_eventObject;
 
     /**
      * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
