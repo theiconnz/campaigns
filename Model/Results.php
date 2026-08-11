@@ -73,11 +73,11 @@ class Results extends AbstractModel implements ResultsInterface, IdentityInterfa
     public function __construct(
         Context $context,
         Registry $registry,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
+        ?AbstractResource $resource = null,
+        ?AbstractDb $resourceCollection = null,
         array $data = [],
         ?WYSIWYGValidatorInterface $wysiwygValidator = null,
-        CompositeUrlKey $compositeUrlValidator = null
+        ?CompositeUrlKey $compositeUrlValidator = null
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
         $this->wysiwygValidator = $wysiwygValidator

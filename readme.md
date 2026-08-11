@@ -55,3 +55,10 @@ Inside main containers we can use sub clases to arange sub tiles
 
 
 > .image-tile-x and .image-sub-tile-x must insert in to image media type of the Magento editor
+
+
+
+# Updates
+versions
+
+    1.4 New updates for PHP8.4

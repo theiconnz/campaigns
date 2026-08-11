@@ -91,7 +91,7 @@ class ResultsRepository implements ResultsRepositoryInterface
         DataObjectHelper $dataObjectHelper,
         DataObjectProcessor $dataObjectProcessor,
         StoreManagerInterface $storeManager,
-        CollectionProcessorInterface $collectionProcessor = null,
+        ?CollectionProcessorInterface $collectionProcessor = null,
         ?HydratorInterface $hydrator = null
     ) {
         $this->resource = $resource;
